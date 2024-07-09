@@ -1,3 +1,5 @@
-export default function Home() {
-    return <div></div>;
+import { Home } from '@/screens/home/home';
+
+export default function Screen() {
+    return <Home />;
 }

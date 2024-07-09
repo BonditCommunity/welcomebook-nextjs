@@ -1,3 +1,5 @@
+import '@/i18n';
+import '@/theme/global.css';
 import type { Metadata } from 'next';
 
 import { Layout } from '@/components/layout/layout';
