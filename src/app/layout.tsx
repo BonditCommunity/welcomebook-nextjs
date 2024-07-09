@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 
+import { Layout } from '@/components/layout/layout';
+
 export const metadata: Metadata = {
     title: 'Welcome Book',
 };
@@ -11,7 +13,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang={'en'}>
-            <main>{children}</main>
+            <Layout>
+                <main>{children}</main>
+            </Layout>
         </html>
     );
 }
