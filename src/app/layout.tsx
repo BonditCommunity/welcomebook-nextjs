@@ -2,6 +2,7 @@ import '@/i18n';
 import type { Metadata } from 'next';
 
 import { Layout } from '@/components/layout/layout';
+import { ThemeProvider } from '@/theme/provider';
 
 export const metadata: Metadata = {
     title: 'Welcome Book',
@@ -15,7 +16,9 @@ export default function RootLayout({
     return (
         <html lang={'en'}>
             <body>
-                <Layout>{children}</Layout>
+                <ThemeProvider>
+                    <Layout>{children}</Layout>
+                </ThemeProvider>
             </body>
         </html>
     );

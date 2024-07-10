@@ -1,15 +1,9 @@
-import {
-    CSSProperties,
-    DetailedHTMLProps,
-    HTMLAttributes,
-    ReactNode,
-} from 'react';
+import { CSSProperties, ReactNode } from 'react';
 
-export interface ComponentProps<T>
-    extends DetailedHTMLProps<HTMLAttributes<T>, T> {
+export interface ComponentProps {
     style?: CSSProperties;
 }
 
-export interface FCProps<T> extends ComponentProps<T> {
+export interface FCProps extends ComponentProps {
     children?: ReactNode;
 }
