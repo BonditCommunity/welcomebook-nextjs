@@ -1,5 +1,4 @@
 import '@/i18n';
-import '@/theme/global.css';
 import type { Metadata } from 'next';
 
 import { Layout } from '@/components/layout/layout';
@@ -16,9 +15,7 @@ export default function RootLayout({
     return (
         <html lang={'en'}>
             <body>
-                <Layout>
-                    <main>{children}</main>
-                </Layout>
+                <Layout>{children}</Layout>
             </body>
         </html>
     );

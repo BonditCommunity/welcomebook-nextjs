@@ -9,5 +9,9 @@ import { i18n } from '@/i18n';
 export const Layout: React.FC<Pick<FCProps<HTMLDivElement>, 'children'>> = ({
     children,
 }) => {
-    return <I18nextProvider i18n={i18n}>{children}</I18nextProvider>;
+    return (
+        <I18nextProvider i18n={i18n}>
+            <main>{children}</main>
+        </I18nextProvider>
+    );
 };
