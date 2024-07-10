@@ -1,37 +1,56 @@
 'use client';
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import Button from '@mui/material/Button';
 
 import { FTitle } from '@/components/typography/FTitle';
-import { FH1 } from '@/components/typography/FH1';
+import { useTheme } from '@/hooks/common/use-theme';
 import { FH2 } from '@/components/typography/FH2';
-import { FH3 } from '@/components/typography/FH3';
-import { FH4 } from '@/components/typography/FH4';
-import { FBody1 } from '@/components/typography/FBody1';
-import { FBody2 } from '@/components/typography/FBody2';
-import { IH1 } from '@/components/typography/IH1';
-import { IH2 } from '@/components/typography/IH2';
-import { IH3 } from '@/components/typography/IH3';
-import { ISubtitle } from '@/components/typography/ISubtitle';
-import { IBody1 } from '@/components/typography/IBody1';
-import { IBody2 } from '@/components/typography/IBody2';
+import { Screen } from '@/components/layout/screen';
+import { spacing } from '@/theme/spacing';
 
 export function Home() {
+    const { t } = useTranslation();
+    const { theme } = useTheme();
+
     return (
-        <div>
-            <FTitle>FTitle</FTitle>
-            <FH1>FH1</FH1>
-            <FH2>FH2</FH2>
-            <FH3>FH3</FH3>
-            <FH4>FH4</FH4>
-            <FBody1>FBody1</FBody1>
-            <FBody2>FBody2</FBody2>
-            <IH1>IH1</IH1>
-            <IH2>IH2</IH2>
-            <IH3>IH3</IH3>
-            <ISubtitle>ISubtitle</ISubtitle>
-            <IBody1>IBody1</IBody1>
-            <IBody2>IBody2</IBody2>
-        </div>
+        <Screen
+            flexDirection={'column'}
+            justifyContent={'space-between'}
+            sx={{
+                display: 'flex',
+            }}>
+            <div>
+                <FTitle
+                    color={theme.text.primary}
+                    style={{
+                        marginTop: 135,
+                    }}>
+                    {t('homeTitle')}
+                </FTitle>
+                <FH2
+                    textAlign={'center'}
+                    color={theme.text.secondary}
+                    style={{
+                        marginTop: 80,
+                        marginLeft: 15,
+                        marginRight: 15,
+                    }}>
+                    {t('homeSubtitle')}
+                </FH2>
+            </div>
+            <div>
+                <Button variant={'default'}>{t('homeSignUpWithGoogle')}</Button>
+                <Button
+                    variant={'default'}
+                    style={{
+                        marginTop: 15,
+                        marginBottom: spacing.form.submit.margin.bottom,
+                    }}>
+                    {t('homeSignUpWithApple')}
+                </Button>
+            </div>
+        </Screen>
     );
 }

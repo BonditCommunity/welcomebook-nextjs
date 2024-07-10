@@ -3,8 +3,7 @@
 import React, { forwardRef } from 'react';
 import Typography, { TypographyProps } from '@mui/material/Typography';
 
-import { INTER } from '../@constants';
-import { Font } from '@/theme/@enums';
+import { typography } from '@/theme/typography';
 
 export const ISubtitle = forwardRef<HTMLParagraphElement, TypographyProps>(
     ({ children, sx, ...props }, ref) => {
@@ -12,9 +11,7 @@ export const ISubtitle = forwardRef<HTMLParagraphElement, TypographyProps>(
             <Typography
                 ref={ref}
                 sx={{
-                    fontFamily: INTER,
-                    fontWeight: Font.SemiBold,
-                    fontSize: 17,
+                    ...typography.ISubtitle,
                     ...sx,
                 }}
                 {...props}>

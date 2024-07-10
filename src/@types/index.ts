@@ -1,6 +1,8 @@
 import { CSSProperties, ReactNode } from 'react';
+import { SxProps, Theme } from '@mui/material/styles';
 
 export interface ComponentProps {
+    sx?: SxProps<Theme>;
     style?: CSSProperties;
 }
 

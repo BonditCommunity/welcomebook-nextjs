@@ -13,6 +13,7 @@ import { ChildrenProps } from '@/@types';
 import { localeState } from '@/recoil/atoms/common/locale';
 import { dark, light } from './theme';
 import { MuiTypography } from './@components/typography';
+import { MuiButton } from './@components/button';
 
 export const ThemeProvider: React.FC<ChildrenProps> = ({ children }) => {
     const locale = useRecoilValue(localeState);
@@ -20,6 +21,7 @@ export const ThemeProvider: React.FC<ChildrenProps> = ({ children }) => {
     const theme = extendTheme({
         components: {
             MuiTypography,
+            MuiButton,
             ...locale.system.components,
         },
         colorSchemes: {
