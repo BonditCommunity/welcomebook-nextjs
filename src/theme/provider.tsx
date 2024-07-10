@@ -12,12 +12,16 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { ChildrenProps } from '@/@types';
 import { localeState } from '@/recoil/atoms/common/locale';
 import { dark, light } from './theme';
+import { MuiTypography } from './@components/typography';
 
 export const ThemeProvider: React.FC<ChildrenProps> = ({ children }) => {
     const locale = useRecoilValue(localeState);
 
     const theme = extendTheme({
-        ...locale.system,
+        components: {
+            MuiTypography,
+            ...locale.system.components,
+        },
         colorSchemes: {
             light: {
                 palette: light,
