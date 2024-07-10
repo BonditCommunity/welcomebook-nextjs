@@ -2,19 +2,21 @@ import '@/i18n';
 import '@/theme/global.css';
 import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
+import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
 
 import { RecoilProvider } from '@/recoil/provider';
 import { I18nProvider } from '@/i18n/provider';
 import { Layout } from '@/components/layout/layout';
 import { ThemeProvider } from '@/theme/provider';
 import { DEFAULT_LOCALE } from '@/constants/common/locale';
+import { Color } from '@/theme/@enums';
 
 export const metadata: Metadata = {
     title: 'Welcome Book',
 };
 
 export const viewport = {
-    // themeColor
+    themeColor: Color.main,
     width: 'device-width',
     initialScale: 1,
     maximumScale: 1,
@@ -30,12 +32,12 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    // const lang = detectLanguage();
-    const lang = 'ko';
+    const lang = detectLanguage();
 
     return (
-        <html lang={lang}>
+        <html lang={lang} suppressHydrationWarning={true}>
             <body>
+                <InitColorSchemeScript defaultMode={'system'} />
                 <RecoilProvider>
                     <I18nProvider lang={lang}>
                         <ThemeProvider>

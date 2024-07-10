@@ -1,4 +1,3 @@
-import merge from 'lodash/merge';
 import { enUS as enUSCore } from '@mui/material/locale';
 import { enUS as enUSDate } from '@mui/x-date-pickers/locales';
 
@@ -8,7 +7,12 @@ export const SUPPORTED_LOCALE: Locale[] = [
     {
         value: 'en',
         adapter: 'en',
-        system: merge(enUSDate, enUSCore),
+        system: {
+            components: {
+                ...enUSCore.components,
+                ...enUSDate.components,
+            },
+        },
     },
 ];
 
