@@ -2,5 +2,7 @@
     "homeTitle": "Hello,\nWelcome\nBook",
     "homeSubtitle": "Let's get letters and gifts from our friends",
     "homeSignUpWithGoogle": "Sign up with Google",
-    "homeSignUpWithApple": "Sign up with Apple"
+    "homeSignUpWithApple": "Sign up with Apple",
+    "privacyTitle": "Privacy Policy",
+    "serviceTitle": "Terms of Service"
 }

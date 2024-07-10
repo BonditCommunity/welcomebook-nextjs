@@ -11,7 +11,7 @@ export const IBody2 = forwardRef<HTMLParagraphElement, TypographyProps>(
             <Typography
                 ref={ref}
                 sx={{
-                    ...typography.FBody2,
+                    ...typography.IBody2,
                     ...sx,
                 }}
                 {...props}>
