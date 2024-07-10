@@ -1,15 +1,20 @@
 'use client';
 
 import React from 'react';
-import { I18nextProvider } from 'react-i18next';
+import { RecoilRoot } from 'recoil';
 
 import { FCProps } from '@/@types';
-import { i18n } from '@/i18n';
+import { ThemeProvider } from '@/theme/provider';
+import { LocalizationProvider } from '@/i18n/provider';
 
 export const Layout: React.FC<Pick<FCProps, 'children'>> = ({ children }) => {
     return (
-        <I18nextProvider i18n={i18n}>
-            <main>{children}</main>
-        </I18nextProvider>
+        <RecoilRoot>
+            <ThemeProvider>
+                <LocalizationProvider>
+                    <main>{children}</main>
+                </LocalizationProvider>
+            </ThemeProvider>
+        </RecoilRoot>
     );
 };

@@ -5,6 +5,7 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 import translationsEn from './locales/en.json';
+import { DEFAULT_LOCALE } from '@/constants/common/default-locale';
 
 i18n.use(LanguageDetector)
     .use(initReactI18next)
@@ -12,8 +13,8 @@ i18n.use(LanguageDetector)
         resources: {
             en: { translations: translationsEn },
         },
-        lng: 'en',
-        fallbackLng: 'en',
+        lng: DEFAULT_LOCALE.value,
+        fallbackLng: DEFAULT_LOCALE.value,
         ns: ['translations'],
         defaultNS: 'translations',
         interpolation: {

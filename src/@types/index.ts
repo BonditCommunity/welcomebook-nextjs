@@ -7,3 +7,9 @@ export interface ComponentProps {
 export interface FCProps extends ComponentProps {
     children?: ReactNode;
 }
+
+export interface Locale {
+    value: string;
+    system: any;
+    adapter: any;
+}
