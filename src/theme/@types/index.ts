@@ -8,3 +8,8 @@ export interface TypeButton {
         text: string;
     };
 }
+
+export interface TypeSheet {
+    background: string;
+    handle: string;
+}

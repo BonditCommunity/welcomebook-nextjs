@@ -3,7 +3,6 @@
 import React from 'react';
 import Box, { BoxProps } from '@mui/material/Box';
 
-import { toPx } from '@/helpers/common/to-px';
 import { spacing } from '@/theme/spacing';
 
 export const Screen: React.FC<BoxProps> = ({ sx, children, ...props }) => {
@@ -11,8 +10,8 @@ export const Screen: React.FC<BoxProps> = ({ sx, children, ...props }) => {
         <Box
             sx={{
                 minHeight: '100vh',
-                paddingLeft: toPx(spacing.screen.padding.horizontal),
-                paddingRight: toPx(spacing.screen.padding.horizontal),
+                paddingLeft: spacing.screen.padding.horizontal,
+                paddingRight: spacing.screen.padding.horizontal,
                 ...sx,
             }}
             {...props}>

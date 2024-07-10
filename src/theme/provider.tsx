@@ -24,6 +24,7 @@ export const ThemeProvider: React.FC<ChildrenProps> = ({ children }) => {
             MuiButton,
             ...locale.system.components,
         },
+        spacing: (value: number) => `${value}px`,
         colorSchemes: {
             light: {
                 palette: light,

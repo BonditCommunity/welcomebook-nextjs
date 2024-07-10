@@ -8,6 +8,7 @@ export const Layout: React.FC<ChildrenProps> = ({ children }) => {
     return (
         <main
             style={{
+                width: '100%',
                 minWidth: 320,
                 maxWidth: 450,
                 margin: '0 auto',

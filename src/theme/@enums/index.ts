@@ -3,7 +3,10 @@ export enum Color {
     black = '#000000',
     white = '#FFFFFF',
     green = '#CBEE4C',
+
+    grayA1 = '#A1A1A1',
 }
+
 export enum Font {
     Regular = '400',
     Medium = '500',

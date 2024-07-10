@@ -9,6 +9,7 @@ import { useTheme } from '@/hooks/common/use-theme';
 import { FH2 } from '@/components/typography/FH2';
 import { Screen } from '@/components/layout/screen';
 import { spacing } from '@/theme/spacing';
+import { routes } from '@/routes';
 
 export function Home() {
     const { t } = useTranslation();
@@ -41,9 +42,12 @@ export function Home() {
                 </FH2>
             </div>
             <div>
-                <Button variant={'default'}>{t('homeSignUpWithGoogle')}</Button>
+                <Button variant={'default'} href={routes.signUp}>
+                    {t('homeSignUpWithGoogle')}
+                </Button>
                 <Button
                     variant={'default'}
+                    href={routes.signUp}
                     style={{
                         marginTop: 15,
                         marginBottom: spacing.form.submit.margin.bottom,
