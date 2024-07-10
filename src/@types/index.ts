@@ -4,9 +4,11 @@ export interface ComponentProps {
     style?: CSSProperties;
 }
 
-export interface FCProps extends ComponentProps {
+export interface ChildrenProps {
     children?: ReactNode;
 }
+
+export interface FCProps extends ComponentProps, ChildrenProps {}
 
 export interface Locale {
     value: string;

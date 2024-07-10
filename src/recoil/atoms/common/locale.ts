@@ -1,9 +1,15 @@
-import { atom } from 'recoil';
+import dayjs from 'dayjs';
 
 import { Locale } from '@/@types';
-import { DEFAULT_LOCALE } from '@/constants/common/default-locale';
+import { DEFAULT_LOCALE } from '@/constants/common/locale';
+import { persistentAtom } from '../@helper';
+import { i18n } from '@/i18n';
 
-export const localeState = atom<Locale>({
+export const localeState = persistentAtom<Locale>({
     key: 'localeState',
-    default: DEFAULT_LOCALE,
+    defaultValue: DEFAULT_LOCALE,
+    onChange: locale => {
+        dayjs.locale(locale.adapter);
+        i18n.changeLanguage(locale.value);
+    },
 });

@@ -3,9 +3,11 @@ import { atom } from 'recoil';
 export const persistentAtom = <T>({
     key,
     defaultValue,
+    onChange,
 }: {
     key: string;
     defaultValue: T;
+    onChange?: (value: T) => void;
 }) => {
     return atom<T>({
         key,
@@ -13,7 +15,8 @@ export const persistentAtom = <T>({
         effects_UNSTABLE: [
             ({ setSelf, onSet }) => {
                 setSelf(() => {
-                    let data = localStorage.getItem(key);
+                    if (typeof window === 'undefined') return defaultValue;
+                    let data = window.localStorage.getItem(key);
                     if (data != null) {
                         return JSON.parse(data);
                     } else {
@@ -21,10 +24,15 @@ export const persistentAtom = <T>({
                     }
                 });
                 onSet((newValue, _, isReset) => {
+                    if (typeof window === 'undefined') return;
                     if (isReset) {
-                        localStorage.removeItem(key);
+                        window.localStorage.removeItem(key);
                     } else {
-                        localStorage.setItem(key, JSON.stringify(newValue));
+                        window.localStorage.setItem(
+                            key,
+                            JSON.stringify(newValue),
+                        );
+                        onChange?.(newValue);
                     }
                 });
             },
