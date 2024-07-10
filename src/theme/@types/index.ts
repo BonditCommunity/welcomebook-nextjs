@@ -10,6 +10,9 @@ export interface TypeButton {
 }
 
 export interface TypeSheet {
-    background: string;
+    background: {
+        default: string;
+        black: string;
+    };
     handle: string;
 }

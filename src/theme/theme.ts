@@ -1,4 +1,4 @@
-import { PaletteOptions } from '@mui/material';
+import { PaletteOptions } from '@mui/material/styles';
 
 import { Color } from './@enums';
 import { TypeButton, TypeSheet } from './@types';
@@ -41,7 +41,10 @@ export const light: PaletteOptions = {
         },
     },
     sheet: {
-        background: Color.main,
+        background: {
+            default: Color.main,
+            black: Color.black,
+        },
         handle: Color.grayA1,
     },
 };
@@ -68,7 +71,10 @@ export const dark: PaletteOptions = {
         },
     },
     sheet: {
-        background: Color.main,
+        background: {
+            default: Color.main,
+            black: Color.black,
+        },
         handle: Color.grayA1,
     },
 };

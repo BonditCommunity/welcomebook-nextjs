@@ -1,13 +1,20 @@
 'use client';
 
 import React from 'react';
-import Box, { BoxProps } from '@mui/material/Box';
+import Box from '@mui/material/Box';
 
+import { SheetProps } from './@types';
 import { spacing } from '@/theme/spacing';
 import { useTheme } from '@/hooks/common/use-theme';
 
-export const Sheet: React.FC<BoxProps> = ({ sx, children, ...props }) => {
+export const Sheet: React.FC<SheetProps> = ({
+    sx,
+    children,
+    type = 'default',
+    ...props
+}) => {
     const { theme } = useTheme();
+
     return (
         <Box
             sx={{
@@ -15,7 +22,7 @@ export const Sheet: React.FC<BoxProps> = ({ sx, children, ...props }) => {
             }}>
             <Box
                 sx={{
-                    backgroundColor: theme.sheet.background,
+                    backgroundColor: theme.sheet.background[type],
                     minHeight: 'calc(100vh - 35px)',
                     borderTopLeftRadius: 20,
                     borderTopRightRadius: 20,
