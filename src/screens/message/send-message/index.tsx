@@ -219,6 +219,7 @@ export function SendMessage() {
                     variant={'rounded'}
                     disabled={isSubmitting || !isValid}
                     style={{
+                        marginTop: 10,
                         marginBottom: spacing.form.submit.margin.bottom,
                     }}>
                     {t('sendMessageSubmitText')}

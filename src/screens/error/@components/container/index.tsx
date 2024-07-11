@@ -57,6 +57,7 @@ export const Container: React.FC<ContainerProps> = ({ error }) => {
                 color={'inverted'}
                 href={routes.home}
                 style={{
+                    marginTop: 10,
                     marginBottom: spacing.form.submit.margin.bottom,
                 }}>
                 {t('errorGoHomeText')}

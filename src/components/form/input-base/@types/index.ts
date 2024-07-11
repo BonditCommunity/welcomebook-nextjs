@@ -2,4 +2,5 @@ import type { InputBaseProps as MuiInputBaseProps } from '@mui/material/InputBas
 
 export type InputBaseProps = MuiInputBaseProps & {
     name: string;
+    regex?: RegExp;
 };

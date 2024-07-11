@@ -96,7 +96,11 @@ export function SignUp() {
                     />
                 </div>
                 <div>
-                    <Row alignItems={'center'}>
+                    <Row
+                        alignItems={'center'}
+                        style={{
+                            marginTop: size.input.gap,
+                        }}>
                         <Svg
                             src={iconAlert}
                             color={theme.form.textfield.error}

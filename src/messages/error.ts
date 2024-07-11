@@ -11,6 +11,11 @@ export const errors = {
                 message: 'errorFormRequiredMessageMessage',
                 name: 'errorFormRequiredMessageName',
             },
+            address: {
+                country: 'errorFormRequiredAddressCountry',
+                address: 'errorFormRequiredAddressAddress',
+                city: 'errorFormRequiredAddressCity',
+            },
         },
     },
 };

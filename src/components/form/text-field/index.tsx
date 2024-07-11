@@ -10,6 +10,7 @@ export const TextField: React.FC<TextFieldProps> = ({
     name,
     helperText,
     type = 'text',
+    regex,
     ...props
 }) => {
     const { control } = useFormContext();
@@ -31,11 +32,8 @@ export const TextField: React.FC<TextFieldProps> = ({
                             : field.value
                     }
                     onChange={event => {
-                        if (type === 'number') {
-                            field.onChange(Number(event.target.value));
-                        } else {
-                            field.onChange(event.target.value);
-                        }
+                        if (regex && !regex.test(event.target.value)) return;
+                        field.onChange(event.target.value);
                     }}
                     error={!!error}
                     helperText={error?.message ?? helperText}
