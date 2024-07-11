@@ -1,5 +1,5 @@
 import { BoxProps } from '@mui/material/Box';
 
-export interface SheetProps extends BoxProps {
+export type SheetProps = BoxProps & {
     type?: 'default' | 'black';
-}
+};

@@ -1,7 +1,7 @@
 import { PaletteOptions } from '@mui/material/styles';
 
 import { Color } from './@enums';
-import { TypeButton, TypeSheet } from './@types';
+import { TypeButton, TypeForm, TypeIcon, TypeSheet } from './@types';
 
 declare module '@mui/material/styles/createPalette' {
     interface TypeText {
@@ -10,11 +10,15 @@ declare module '@mui/material/styles/createPalette' {
         test: string;
     }
     interface PaletteOptions {
+        icon: TypeIcon;
         button: TypeButton;
+        form: TypeForm;
         sheet: TypeSheet;
     }
     interface Palette {
+        icon: TypeIcon;
         button: TypeButton;
+        form: TypeForm;
         sheet: TypeSheet;
     }
 }
@@ -30,14 +34,29 @@ export const light: PaletteOptions = {
         secondary: Color.green,
         test: Color.main,
     },
+    icon: {
+        white: Color.white,
+    },
     button: {
         default: {
             background: Color.black,
             text: Color.white,
         },
         disabled: {
-            background: Color.white,
-            text: Color.black,
+            background: Color.black,
+            text: Color.white,
+        },
+    },
+    form: {
+        textfield: {
+            background: Color.dark_purple,
+            text: Color.white,
+            placeholder: Color.purple,
+            error: Color.red,
+            border: Color.white,
+        },
+        checkbox: {
+            icon: Color.white,
         },
     },
     sheet: {
@@ -60,14 +79,29 @@ export const dark: PaletteOptions = {
         secondary: Color.green,
         test: Color.main,
     },
+    icon: {
+        white: Color.white,
+    },
     button: {
         default: {
             background: Color.black,
             text: Color.white,
         },
         disabled: {
-            background: Color.white,
-            text: Color.black,
+            background: Color.black,
+            text: Color.white,
+        },
+    },
+    form: {
+        textfield: {
+            background: Color.dark_purple,
+            text: Color.white,
+            placeholder: Color.purple,
+            error: Color.red,
+            border: Color.white,
+        },
+        checkbox: {
+            icon: Color.white,
         },
     },
     sheet: {

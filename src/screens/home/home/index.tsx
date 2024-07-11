@@ -17,11 +17,9 @@ export function Home() {
 
     return (
         <Screen
+            display={'flex'}
             flexDirection={'column'}
-            justifyContent={'space-between'}
-            sx={{
-                display: 'flex',
-            }}>
+            justifyContent={'space-between'}>
             <div>
                 <FTitle
                     color={theme.text.primary}

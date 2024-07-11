@@ -2,7 +2,10 @@ export enum Color {
     main = '#6648F4',
     black = '#000000',
     white = '#FFFFFF',
+    red = '#E10000',
     green = '#CBEE4C',
+    dark_purple = '#4C35B9',
+    purple = '#B8A9FF',
 
     grayA1 = '#A1A1A1',
 }

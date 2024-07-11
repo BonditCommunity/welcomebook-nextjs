@@ -23,15 +23,10 @@ export const Sheet: React.FC<SheetProps> = ({
             <Box
                 sx={{
                     backgroundColor: theme.sheet.background[type],
-                    minHeight: 'calc(100vh - 35px)',
                     borderTopLeftRadius: 20,
                     borderTopRightRadius: 20,
                     paddingTop: 10,
-                    paddingLeft: spacing.screen.padding.horizontal,
-                    paddingRight: spacing.screen.padding.horizontal,
-                    ...sx,
-                }}
-                {...props}>
+                }}>
                 <Box
                     sx={{
                         width: 65,
@@ -42,7 +37,16 @@ export const Sheet: React.FC<SheetProps> = ({
                         marginRight: 'auto',
                     }}
                 />
-                {children}
+                <Box
+                    sx={{
+                        minHeight: 'calc(100vh - 50px)',
+                        paddingLeft: spacing.screen.padding.horizontal,
+                        paddingRight: spacing.screen.padding.horizontal,
+                        ...sx,
+                    }}
+                    {...props}>
+                    {children}
+                </Box>
             </Box>
         </Box>
     );

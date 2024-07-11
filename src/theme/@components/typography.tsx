@@ -1,4 +1,6 @@
-import type { Theme, Components } from '@mui/material/styles';
+'use client';
+
+import { Theme, Components } from '@mui/material/styles';
 
 export const MuiTypography: Components<Theme>['MuiTypography'] = {
     styleOverrides: {

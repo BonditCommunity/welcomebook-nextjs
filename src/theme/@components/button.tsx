@@ -1,7 +1,10 @@
-import { colorWithAlpha } from '@/helpers/common/color-with-alpha';
-import type { Theme, Components } from '@mui/material/styles';
+'use client';
+
+import { Theme, Components } from '@mui/material/styles';
 import { buttonClasses } from '@mui/material/Button';
+
 import { typography } from '../typography';
+import { colorWithAlpha } from '@/helpers/common/color-with-alpha';
 
 declare module '@mui/material/Button' {
     interface ButtonPropsVariantOverrides {

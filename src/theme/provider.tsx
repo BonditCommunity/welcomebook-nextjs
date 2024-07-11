@@ -14,14 +14,18 @@ import { localeState } from '@/recoil/atoms/common/locale';
 import { dark, light } from './theme';
 import { MuiTypography } from './@components/typography';
 import { MuiButton } from './@components/button';
+import { MuiInputBase, MuiOutlinedInput } from './@components/textfield';
+import { MuiCheckbox } from './@components/check-box';
 
 export const ThemeProvider: React.FC<ChildrenProps> = ({ children }) => {
     const locale = useRecoilValue(localeState);
-
     const theme = extendTheme({
         components: {
             MuiTypography,
             MuiButton,
+            MuiInputBase,
+            MuiOutlinedInput,
+            MuiCheckbox,
             ...locale.system.components,
         },
         spacing: (value: number) => `${value}px`,
