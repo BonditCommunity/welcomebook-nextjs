@@ -46,6 +46,67 @@ export function SendMessage() {
 
     const onSubmit = handleSubmit(async data => {});
 
+    const renderImage = useCallback(() => {
+        if (file) {
+            return (
+                <div style={{ width: 60, height: 60 }}>
+                    <div
+                        style={{
+                            width: size.image,
+                            height: size.image,
+                            backgroundColor: theme.background.primary,
+                            borderRadius: 8,
+                            position: 'absolute',
+                            right: 20,
+                            bottom: -30,
+                            transform: 'rotateZ(9.4deg)',
+                            boxShadow: dropShadow,
+                            zIndex: 1,
+                        }}
+                    />
+                    <img
+                        src={URL.createObjectURL(file)}
+                        width={size.image}
+                        height={size.image}
+                        onClick={() => setFile(undefined)}
+                        style={{
+                            cursor: 'pointer',
+                            objectFit: 'cover',
+                            borderRadius: 8,
+                            borderWidth: 1.5,
+                            borderColor: theme.border.primary,
+                            borderStyle: 'solid',
+                            position: 'absolute',
+                            right: 25,
+                            bottom: -30,
+                            transform: 'rotateZ(-7.51deg)',
+                            boxShadow: dropShadow,
+                            zIndex: 2,
+                        }}
+                    />
+                </div>
+            );
+        }
+        return (
+            <Fab
+                component={'label'}
+                sx={{
+                    width: 60,
+                    height: 60,
+                    borderRadius: 9999,
+                    padding: 0,
+                }}>
+                <Svg src={iconImage} color={theme.form.upload.icon} />
+                <input
+                    type={'file'}
+                    accept={'image/*'}
+                    onChange={handleFile}
+                    style={{ display: 'none' }}
+                />
+            </Fab>
+        );
+    }, [file]);
+
     return (
         <Screen>
             <Form
@@ -107,6 +168,7 @@ export function SendMessage() {
                             borderBottomRightRadius: size.sheet.borderRadius,
                             backgroundColor: theme.background.default,
                             padding: 10,
+                            position: 'relative',
                         }}>
                         <InputBase
                             name={'message'}
@@ -133,25 +195,7 @@ export function SendMessage() {
                                     paddingRight: size.input.padding.horizontal,
                                 }}
                             />
-                            <Fab
-                                component={'label'}
-                                sx={{
-                                    width: 60,
-                                    height: 60,
-                                    borderRadius: 9999,
-                                    padding: 0,
-                                }}>
-                                <Svg
-                                    src={iconImage}
-                                    color={theme.form.upload.icon}
-                                />
-                                <input
-                                    type={'file'}
-                                    accept={'image/*'}
-                                    onChange={handleFile}
-                                    style={{ display: 'none' }}
-                                />
-                            </Fab>
+                            {renderImage()}
                         </Row>
                     </div>
                 </div>

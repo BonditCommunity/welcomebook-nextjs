@@ -15,6 +15,7 @@ export const size = {
             horizontal: 15,
         },
     },
+    image: 120,
 };
 
 export const schema = z.object({

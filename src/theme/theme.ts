@@ -1,7 +1,13 @@
 import { PaletteOptions } from '@mui/material/styles';
 
 import { Color } from './@enums';
-import { TypeButton, TypeForm, TypeIcon, TypeSheet } from './@types';
+import {
+    TypeBorder,
+    TypeButton,
+    TypeForm,
+    TypeIcon,
+    TypeSheet,
+} from './@types';
 
 declare module '@mui/material/styles/createPalette' {
     interface TypeBackground {
@@ -17,12 +23,14 @@ declare module '@mui/material/styles/createPalette' {
         button: TypeButton;
         form: TypeForm;
         sheet: TypeSheet;
+        border: TypeBorder;
     }
     interface Palette {
         icon: TypeIcon;
         button: TypeButton;
         form: TypeForm;
         sheet: TypeSheet;
+        border: TypeBorder;
     }
 }
 
@@ -80,6 +88,9 @@ export const light: PaletteOptions = {
         },
         handle: Color.grayA1,
     },
+    border: {
+        primary: Color.main,
+    },
 };
 
 export const dark: PaletteOptions = {
@@ -135,5 +146,8 @@ export const dark: PaletteOptions = {
             black: Color.black,
         },
         handle: Color.grayA1,
+    },
+    border: {
+        primary: Color.main,
     },
 };

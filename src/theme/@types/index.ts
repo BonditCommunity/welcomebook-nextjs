@@ -43,3 +43,7 @@ export interface TypeSheet {
     };
     handle: string;
 }
+
+export interface TypeBorder {
+    primary: string;
+}
