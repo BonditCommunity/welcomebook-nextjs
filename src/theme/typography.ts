@@ -70,6 +70,11 @@ export const typography: {
         fontWeight: Font.Medium,
         fontSize: 19,
     },
+    FBody3: {
+        fontFamily: FREDOKA,
+        fontWeight: Font.Medium,
+        fontSize: 9,
+    },
     IH1: {
         fontFamily: INTER,
         fontWeight: Font.Bold,

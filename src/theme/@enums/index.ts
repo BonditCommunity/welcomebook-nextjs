@@ -25,6 +25,7 @@ export enum Typography {
     FH4 = 'FH4',
     FBody1 = 'FBody1',
     FBody2 = 'FBody2',
+    FBody3 = 'FBody3',
     IH1 = 'IH1',
     IH2 = 'IH2',
     IH3 = 'IH3',
