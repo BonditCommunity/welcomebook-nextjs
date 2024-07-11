@@ -5,6 +5,12 @@ import { z } from 'zod';
 import { i18n } from '@/i18n';
 import { errors } from '@/messages/error';
 
+export const size = {
+    input: {
+        gap: 15,
+    },
+};
+
 export const schema = z
     .object({
         name: z

@@ -10,7 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Sheet } from '@/components/layout/sheet';
 import { Form } from '@/components/form/form';
 import { Schema } from './@types';
-import { schema } from './@constants';
+import { schema, size } from './@constants';
 import { TextField } from '@/components/form/text-field';
 import { Svg } from '@/components/image/svg';
 import { iconAlert, iconSearch } from '@/assets/icons';
@@ -85,7 +85,7 @@ export function SignUp() {
                                 ),
                             }}
                             style={{
-                                marginTop: 15,
+                                marginTop: size.input.gap,
                             }}
                         />
                         <TextField
@@ -93,7 +93,7 @@ export function SignUp() {
                             placeholder={t('signUpSchoolStartDatePlaceholder')}
                             disabled={true}
                             style={{
-                                marginTop: 15,
+                                marginTop: size.input.gap,
                             }}
                         />
                     </div>

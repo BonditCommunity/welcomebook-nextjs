@@ -5,6 +5,18 @@ import { z } from 'zod';
 import { i18n } from '@/i18n';
 import { errors } from '@/messages/error';
 
+export const size = {
+    avatar: 95,
+    sheet: {
+        borderRadius: 30,
+    },
+    input: {
+        padding: {
+            horizontal: 15,
+        },
+    },
+};
+
 export const schema = z.object({
     message: z
         .string()

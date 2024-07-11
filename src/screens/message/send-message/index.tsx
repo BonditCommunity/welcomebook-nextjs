@@ -14,7 +14,7 @@ import { Col } from '@/components/grid/col';
 import { FH3 } from '@/components/typography/FH3';
 import { Form } from '@/components/form/form';
 import { Schema } from './@types';
-import { schema } from './@constants';
+import { schema, size } from './@constants';
 import { InputBase } from '@/components/form/input-base';
 import { dropShadow } from '@/theme/shadow';
 import { Row } from '@/components/grid/row';
@@ -66,8 +66,8 @@ export function SendMessage() {
                         src={
                             'https://i.namu.wiki/i/R0AhIJhNi8fkU2Al72pglkrT8QenAaCJd1as-d_iY6MC8nub1iI5VzIqzJlLa-1uzZm--TkB-KHFiT-P-t7bEg.webp'
                         }
-                        width={95}
-                        height={95}
+                        width={size.avatar}
+                        height={size.avatar}
                         style={{
                             borderWidth: 10,
                             borderColor: theme.background.default,
@@ -78,16 +78,16 @@ export function SendMessage() {
                 </Col>
                 <div
                     style={{
-                        borderRadius: 30,
+                        borderRadius: size.sheet.borderRadius,
                         boxShadow: dropShadow,
-                        marginTop: -95 / 2,
+                        marginTop: -size.avatar / 2,
                     }}>
                     <div
                         style={{
-                            borderTopLeftRadius: 30,
-                            borderTopRightRadius: 30,
+                            borderTopLeftRadius: size.sheet.borderRadius,
+                            borderTopRightRadius: size.sheet.borderRadius,
                             backgroundColor: theme.background.primary,
-                            paddingTop: 15 + 92 / 2,
+                            paddingTop: 15 + size.avatar / 2,
                             paddingBottom: 15,
                             paddingLeft: 45,
                             paddingRight: 45,
@@ -103,8 +103,8 @@ export function SendMessage() {
                     </div>
                     <div
                         style={{
-                            borderBottomLeftRadius: 30,
-                            borderBottomRightRadius: 30,
+                            borderBottomLeftRadius: size.sheet.borderRadius,
+                            borderBottomRightRadius: size.sheet.borderRadius,
                             backgroundColor: theme.background.default,
                             padding: 10,
                         }}>
@@ -119,8 +119,8 @@ export function SendMessage() {
                             }}
                             sx={{
                                 paddingTop: 25,
-                                paddingLeft: 15,
-                                paddingRight: 15,
+                                paddingLeft: size.input.padding.horizontal,
+                                paddingRight: size.input.padding.horizontal,
                             }}
                         />
                         <Row alignItems={'center'}>
@@ -129,8 +129,8 @@ export function SendMessage() {
                                 placeholder={t('sendMessageNamePlaceholder')}
                                 sx={{
                                     flex: 1,
-                                    paddingLeft: 15,
-                                    paddingRight: 15,
+                                    paddingLeft: size.input.padding.horizontal,
+                                    paddingRight: size.input.padding.horizontal,
                                 }}
                             />
                             <Fab
