@@ -1,15 +1,15 @@
-export const ERRORS = {
-    COMMON: 'errorCommon',
-    FORM: {
-        REQUIRED: {
-            USER: {
-                NAME: 'errorFormRequiredUserName',
-                SHCOOL: 'errorFormRequiredUserSchool',
-                TERMS: 'errorFormRequiredUserTerms',
+export const errors = {
+    common: 'errorCommon',
+    form: {
+        required: {
+            user: {
+                name: 'errorFormRequiredUserName',
+                school: 'errorFormRequiredUserSchool',
+                terms: 'errorFormRequiredUserTerms',
             },
-            MESSAGE: {
-                MESSAGE: 'errorFormRequiredMessageMessage',
-                NAME: 'errorFormRequiredMessageName',
+            message: {
+                message: 'errorFormRequiredMessageMessage',
+                name: 'errorFormRequiredMessageName',
             },
         },
     },

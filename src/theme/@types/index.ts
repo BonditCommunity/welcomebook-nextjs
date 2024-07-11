@@ -30,6 +30,10 @@ export interface TypeForm {
     checkbox: {
         icon: string;
     };
+    upload: {
+        background: string;
+        icon: string;
+    };
 }
 
 export interface TypeSheet {

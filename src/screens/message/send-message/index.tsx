@@ -1,9 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Fab from '@mui/material/Fab';
 
 import { Screen } from '@/components/layout/screen';
 import { FH2 } from '@/components/typography/FH2';
@@ -17,6 +18,8 @@ import { schema } from './@constants';
 import { InputBase } from '@/components/form/input-base';
 import { dropShadow } from '@/theme/shadow';
 import { Row } from '@/components/grid/row';
+import { Svg } from '@/components/image/svg';
+import { iconImage } from '@/assets/icons';
 
 export function SendMessage() {
     const { t } = useTranslation();
@@ -27,7 +30,6 @@ export function SendMessage() {
         defaultValues: {
             message: '',
             name: '',
-            // image: null,
         },
     });
 
@@ -35,6 +37,12 @@ export function SendMessage() {
         handleSubmit,
         formState: { isSubmitting, isValid },
     } = methods;
+
+    const [file, setFile] = useState<File>();
+
+    const handleFile = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+        setFile(event.target.files?.item(0) ?? undefined);
+    }, []);
 
     const onSubmit = handleSubmit(async data => {});
 
@@ -120,10 +128,30 @@ export function SendMessage() {
                                 name={'name'}
                                 placeholder={t('sendMessageNamePlaceholder')}
                                 sx={{
+                                    flex: 1,
                                     paddingLeft: 15,
                                     paddingRight: 15,
                                 }}
                             />
+                            <Fab
+                                component={'label'}
+                                sx={{
+                                    width: 60,
+                                    height: 60,
+                                    borderRadius: 9999,
+                                    padding: 0,
+                                }}>
+                                <Svg
+                                    src={iconImage}
+                                    color={theme.form.upload.icon}
+                                />
+                                <input
+                                    type={'file'}
+                                    accept={'image/*'}
+                                    onChange={handleFile}
+                                    style={{ display: 'none' }}
+                                />
+                            </Fab>
                         </Row>
                     </div>
                 </div>

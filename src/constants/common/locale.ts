@@ -3,7 +3,7 @@ import { enUS as enUSDate } from '@mui/x-date-pickers/locales';
 
 import { Locale } from '@/@types';
 
-export const SUPPORTED_LOCALE: Locale[] = [
+export const supportedLocale: Locale[] = [
     {
         value: 'en',
         adapter: 'en',
@@ -16,4 +16,4 @@ export const SUPPORTED_LOCALE: Locale[] = [
     },
 ];
 
-export const DEFAULT_LOCALE: Locale = SUPPORTED_LOCALE[0];
+export const DEFAULT_LOCALE: Locale = supportedLocale[0];

@@ -13,7 +13,7 @@ import { Schema } from './@types';
 import { schema } from './@constants';
 import { TextField } from '@/components/form/text-field';
 import { Svg } from '@/components/image/svg';
-import { ICON_ALERT, ICON_SEARCH } from '@/assets/icons';
+import { iconAlert, iconSearch } from '@/assets/icons';
 import { useTheme } from '@/hooks/common/use-theme';
 import { IBody2 } from '@/components/typography/IBody2';
 import { Row } from '@/components/grid/row';
@@ -79,7 +79,7 @@ export function SignUp() {
                             InputProps={{
                                 endAdornment: (
                                     <Svg
-                                        src={ICON_SEARCH}
+                                        src={iconSearch}
                                         color={theme.icon.white}
                                     />
                                 ),
@@ -100,7 +100,7 @@ export function SignUp() {
                     <div>
                         <Row alignItems={'center'}>
                             <Svg
-                                src={ICON_ALERT}
+                                src={iconAlert}
                                 color={theme.form.textfield.error}
                             />
                             <IBody2

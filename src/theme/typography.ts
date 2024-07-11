@@ -1,6 +1,6 @@
 import { Font, Typography } from './@enums';
 
-export const FREDOKA = [
+export const fredoka = [
     'Fredoka',
     '-apple-system',
     'BlinkMacSystemFont',
@@ -14,7 +14,7 @@ export const FREDOKA = [
     '"Segoe UI Symbol"',
 ].join(',');
 
-export const INTER = [
+export const inter = [
     'Inter',
     '-apple-system',
     'BlinkMacSystemFont',
@@ -36,72 +36,72 @@ export const typography: {
     };
 } = {
     FTitle: {
-        fontFamily: FREDOKA,
+        fontFamily: fredoka,
         fontWeight: Font.SemiBold,
         fontSize: 70,
     },
     FH1: {
-        fontFamily: FREDOKA,
+        fontFamily: fredoka,
         fontWeight: Font.SemiBold,
         fontSize: 45,
     },
     FH2: {
-        fontFamily: FREDOKA,
+        fontFamily: fredoka,
         fontWeight: Font.SemiBold,
         fontSize: 32,
     },
     FH3: {
-        fontFamily: FREDOKA,
+        fontFamily: fredoka,
         fontWeight: Font.SemiBold,
         fontSize: 25,
     },
     FH4: {
-        fontFamily: FREDOKA,
+        fontFamily: fredoka,
         fontWeight: Font.SemiBold,
         fontSize: 20,
     },
     FBody1: {
-        fontFamily: FREDOKA,
+        fontFamily: fredoka,
         fontWeight: Font.Medium,
         fontSize: 25,
     },
     FBody2: {
-        fontFamily: FREDOKA,
+        fontFamily: fredoka,
         fontWeight: Font.Medium,
         fontSize: 19,
     },
     FBody3: {
-        fontFamily: FREDOKA,
+        fontFamily: fredoka,
         fontWeight: Font.Medium,
         fontSize: 9,
     },
     IH1: {
-        fontFamily: INTER,
+        fontFamily: inter,
         fontWeight: Font.Bold,
         fontSize: 25,
     },
     IH2: {
-        fontFamily: INTER,
+        fontFamily: inter,
         fontWeight: Font.Bold,
         fontSize: 20,
     },
     IH3: {
-        fontFamily: INTER,
+        fontFamily: inter,
         fontWeight: Font.Bold,
         fontSize: 17,
     },
     ISubtitle: {
-        fontFamily: INTER,
+        fontFamily: inter,
         fontWeight: Font.SemiBold,
         fontSize: 17,
     },
     IBody1: {
-        fontFamily: INTER,
+        fontFamily: inter,
         fontWeight: Font.Medium,
         fontSize: 19,
     },
     IBody2: {
-        fontFamily: INTER,
+        fontFamily: inter,
         fontWeight: Font.Regular,
         fontSize: 16,
     },

@@ -10,7 +10,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { I18nProviderProps } from './@types';
 import { localeState } from '@/recoil/atoms/common/locale';
 import { i18n } from './index';
-import { SUPPORTED_LOCALE } from '@/constants/common/locale';
+import { supportedLocale } from '@/constants/common/locale';
 
 export const I18nProvider: React.FC<I18nProviderProps> = ({
     children,
@@ -20,11 +20,11 @@ export const I18nProvider: React.FC<I18nProviderProps> = ({
 
     useEffect(() => {
         if (lang !== locale.value) {
-            const index = SUPPORTED_LOCALE.findIndex(
+            const index = supportedLocale.findIndex(
                 item => item.value === lang,
             );
-            if (SUPPORTED_LOCALE[index]) {
-                setLocale(SUPPORTED_LOCALE[index]);
+            if (supportedLocale[index]) {
+                setLocale(supportedLocale[index]);
             }
         }
     }, []);

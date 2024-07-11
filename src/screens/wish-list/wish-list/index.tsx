@@ -10,7 +10,7 @@ import { FH2 } from '@/components/typography/FH2';
 import { useTheme } from '@/hooks/common/use-theme';
 import { useSearch } from '@/hooks/form/use-search';
 import { Svg } from '@/components/image/svg';
-import { ICON_SEARCH } from '@/assets/icons';
+import { iconSearch } from '@/assets/icons';
 import { IBody2 } from '@/components/typography/IBody2';
 import { Row } from '@/components/grid/row';
 
@@ -37,7 +37,7 @@ export function WishList() {
                 inputMode={'search'}
                 InputProps={{
                     startAdornment: (
-                        <Svg src={ICON_SEARCH} color={theme.icon.white} />
+                        <Svg src={iconSearch} color={theme.icon.white} />
                     ),
                 }}
                 style={{

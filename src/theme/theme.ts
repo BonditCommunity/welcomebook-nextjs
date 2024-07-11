@@ -68,6 +68,10 @@ export const light: PaletteOptions = {
         checkbox: {
             icon: Color.white,
         },
+        upload: {
+            background: Color.grayF6F7F9,
+            icon: Color.gray47,
+        },
     },
     sheet: {
         background: {
@@ -119,6 +123,10 @@ export const dark: PaletteOptions = {
         },
         checkbox: {
             icon: Color.white,
+        },
+        upload: {
+            background: Color.grayF6F7F9,
+            icon: Color.gray47,
         },
     },
     sheet: {

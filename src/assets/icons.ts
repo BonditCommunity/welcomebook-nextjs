@@ -1,11 +1,11 @@
-const BASE_PATH = '/assets/icons';
+const basePath = '/assets/icons';
 
-export const ICON_ALERT = `${BASE_PATH}/icon_alert.svg`;
+export const iconAlert = `${basePath}/icon_alert.svg`;
 
-export const ICON_CHECKBOX_CHECKED = `${BASE_PATH}/icon_checkbox_checked.svg`;
+export const iconCheckboxChecked = `${basePath}/icon_checkbox_checked.svg`;
 
-export const ICON_CHECKBOX = `${BASE_PATH}/icon_checkbox.svg`;
+export const iconCheckbox = `${basePath}/icon_checkbox.svg`;
 
-export const ICON_IMAGE = `${BASE_PATH}/icon_image.svg`;
+export const iconImage = `${basePath}/icon_image.svg`;
 
-export const ICON_SEARCH = `${BASE_PATH}/icon_search.svg`;
+export const iconSearch = `${basePath}/icon_search.svg`;
