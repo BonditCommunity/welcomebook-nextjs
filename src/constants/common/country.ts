@@ -125,6 +125,7 @@ export const countrys = [
         number: '+850',
     },
     { value: 'KR', label: 'Korea, Republic of', number: '+82' },
+    { value: 'XK', label: 'Kosovo', number: '+383' },
     { value: 'KW', label: 'Kuwait', number: '+965' },
     { value: 'KG', label: 'Kyrgyzstan', number: '+996' },
     { value: 'LA', label: 'LAOS', number: '+856' },
@@ -271,5 +272,4 @@ export const countrys = [
     { value: 'YE', label: 'Yemen', number: '+967' },
     { value: 'ZM', label: 'Zambia', number: '+260' },
     { value: 'ZW', label: 'Zimbabwe', number: '+263' },
-    { value: 'XK', label: 'Kosovo', number: '+383' },
 ];

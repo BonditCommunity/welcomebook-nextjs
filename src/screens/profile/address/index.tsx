@@ -63,6 +63,8 @@ export function ProfileAddress() {
                         freeSolo={true}
                         options={options}
                         getOptionLabel={option => option}
+                        disableClearable={true}
+                        groupBy={option => option[0].toUpperCase()}
                         onChange={(_, value) => {
                             setValue('country', value ?? '');
                         }}

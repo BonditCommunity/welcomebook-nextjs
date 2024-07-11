@@ -17,6 +17,7 @@ import { MuiButton } from './@components/button';
 import { MuiInputBase, MuiOutlinedInput } from './@components/textfield';
 import { MuiCheckbox } from './@components/check-box';
 import { MuiFab } from './@components/fab';
+import { MuiAutocomplete } from './@components/autocomplete';
 
 export const ThemeProvider: React.FC<ChildrenProps> = ({ children }) => {
     const locale = useRecoilValue(localeState);
@@ -28,6 +29,7 @@ export const ThemeProvider: React.FC<ChildrenProps> = ({ children }) => {
             MuiOutlinedInput,
             MuiCheckbox,
             MuiFab,
+            MuiAutocomplete,
             ...locale.system.components,
         },
         spacing: (value: number) => `${value}px`,

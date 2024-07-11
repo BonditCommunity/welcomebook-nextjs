@@ -2,6 +2,8 @@ const basePath = '/assets/icons';
 
 export const iconAlert = `${basePath}/icon_alert.svg`;
 
+export const iconArrowDown = `${basePath}/icon_arrow_down.svg`;
+
 export const iconCheckboxChecked = `${basePath}/icon_checkbox_checked.svg`;
 
 export const iconCheckbox = `${basePath}/icon_checkbox.svg`;
