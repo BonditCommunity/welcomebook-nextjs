@@ -4,20 +4,19 @@ import { Theme, Components } from '@mui/material/styles';
 import { outlinedInputClasses } from '@mui/material/OutlinedInput';
 
 import { typography } from '../typography';
+import { Typography } from '../@enums';
 
 export const MuiInputBase: Components<Theme>['MuiInputBase'] = {
     styleOverrides: {
-        root: ({ ownerState, theme }) => ({
-            ...(ownerState.color !== 'secondary' && {
-                backgroundColor: theme.palette.form.textfield.background,
-            }),
-        }),
-        input: ({ theme }) => ({
-            ...typography.FH4,
-            color: theme.palette.form.textfield.text,
+        input: ({ ownerState, theme }) => ({
+            ...typography.IH3,
+            maxHeight: 300,
+            color: theme.palette.form.base.text,
             '&::placeholder': {
-                ...typography.IBody1,
-                color: theme.palette.form.textfield.placeholder,
+                ...typography[
+                    ownerState.multiline ? Typography.IH1 : Typography.IH3
+                ],
+                color: theme.palette.form.base.placeholder,
             },
         }),
     },
@@ -27,6 +26,9 @@ export const MuiOutlinedInput: Components<Theme>['MuiOutlinedInput'] = {
     styleOverrides: {
         root: ({ ownerState, theme }) => ({
             borderRadius: 15,
+            ...(ownerState.color !== 'secondary' && {
+                backgroundColor: theme.palette.form.textfield.background,
+            }),
             [`&.${outlinedInputClasses.focused}`]: {
                 [`& .${outlinedInputClasses.notchedOutline}`]: {
                     borderWidth: 1,
@@ -58,6 +60,12 @@ export const MuiOutlinedInput: Components<Theme>['MuiOutlinedInput'] = {
             paddingBottom: 15,
             paddingLeft: ownerState.startAdornment ? 10 : 30,
             paddingRight: ownerState.endAdornment ? 10 : 30,
+            ...typography.FH4,
+            color: theme.palette.form.textfield.text,
+            '&::placeholder': {
+                ...typography.IBody1,
+                color: theme.palette.form.textfield.placeholder,
+            },
             [`&.${outlinedInputClasses.disabled}`]: {
                 color: theme.palette.form.textfield.text,
                 WebkitTextFillColor: theme.palette.form.textfield.text,

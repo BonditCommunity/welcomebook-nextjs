@@ -16,6 +16,10 @@ export interface TypeButton {
 }
 
 export interface TypeForm {
+    base: {
+        text: string;
+        placeholder: string;
+    };
     textfield: {
         background: string;
         text: string;

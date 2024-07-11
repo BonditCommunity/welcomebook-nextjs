@@ -7,6 +7,10 @@ export const ERRORS = {
                 SHCOOL: 'errorFormRequiredUserSchool',
                 TERMS: 'errorFormRequiredUserTerms',
             },
+            MESSAGE: {
+                MESSAGE: 'errorFormRequiredMessageMessage',
+                NAME: 'errorFormRequiredMessageName',
+            },
         },
     },
 };

@@ -12,7 +12,6 @@ export const MuiCheckbox: Components<Theme>['MuiCheckbox'] = {
         icon: <Svg src={ICON_CHECKBOX} />,
         checkedIcon: <Svg src={ICON_CHECKBOX_CHECKED} />,
     },
-
     styleOverrides: {
         root: ({ theme }) => ({
             width: 20,

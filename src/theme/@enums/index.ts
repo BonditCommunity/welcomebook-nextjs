@@ -7,7 +7,9 @@ export enum Color {
     dark_purple = '#4C35B9',
     purple = '#B8A9FF',
 
+    gray47 = '#474747',
     grayA1 = '#A1A1A1',
+    grayF6F7F9 = '#F6F7F9',
 }
 
 export enum Font {

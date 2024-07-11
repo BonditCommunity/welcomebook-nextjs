@@ -4,6 +4,9 @@ import { Color } from './@enums';
 import { TypeButton, TypeForm, TypeIcon, TypeSheet } from './@types';
 
 declare module '@mui/material/styles/createPalette' {
+    interface TypeBackground {
+        primary: string;
+    }
     interface TypeText {
         default: string;
         white: string;
@@ -26,6 +29,7 @@ declare module '@mui/material/styles/createPalette' {
 export const light: PaletteOptions = {
     background: {
         default: Color.white,
+        primary: Color.main,
     },
     text: {
         default: Color.black,
@@ -50,6 +54,10 @@ export const light: PaletteOptions = {
         },
     },
     form: {
+        base: {
+            text: Color.black,
+            placeholder: Color.grayA1,
+        },
         textfield: {
             background: Color.dark_purple,
             text: Color.white,
@@ -73,6 +81,7 @@ export const light: PaletteOptions = {
 export const dark: PaletteOptions = {
     background: {
         default: Color.white,
+        primary: Color.main,
     },
     text: {
         default: Color.black,
@@ -97,6 +106,10 @@ export const dark: PaletteOptions = {
         },
     },
     form: {
+        base: {
+            text: Color.black,
+            placeholder: Color.grayA1,
+        },
         textfield: {
             background: Color.dark_purple,
             text: Color.white,

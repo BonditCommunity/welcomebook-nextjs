@@ -6,6 +6,8 @@
 @import '@fontsource/fredoka/500.css';
 @import '@fontsource/fredoka/600.css';
 
+@import 'react-lazy-load-image-component/src/effects/blur.css';
+
 html {
     height: 100%;
     -webkit-overflow-scrolling: touch;

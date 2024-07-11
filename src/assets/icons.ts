@@ -6,4 +6,6 @@ export const ICON_CHECKBOX_CHECKED = `${BASE_PATH}/icon_checkbox_checked.svg`;
 
 export const ICON_CHECKBOX = `${BASE_PATH}/icon_checkbox.svg`;
 
+export const ICON_IMAGE = `${BASE_PATH}/icon_image.svg`;
+
 export const ICON_SEARCH = `${BASE_PATH}/icon_search.svg`;
