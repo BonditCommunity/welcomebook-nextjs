@@ -15,6 +15,9 @@ declare module '@mui/material/Button' {
         default: true;
         rounded: true;
     }
+    interface ButtonPropsColorOverrides {
+        inverted: true;
+    }
 }
 
 export const MuiButton: Components<Theme>['MuiButton'] = {
@@ -42,16 +45,22 @@ export const MuiButton: Components<Theme>['MuiButton'] = {
                 color: theme.palette.button.disabled.text,
             },
         }),
-        rounded: ({ theme }) => ({
+        rounded: ({ ownerState, theme }) => ({
             width: '100%',
             textTransform: 'none',
-            backgroundColor: theme.palette.button.rounded.background,
+            backgroundColor:
+                ownerState.color === 'inverted'
+                    ? theme.palette.button.rounded.text
+                    : theme.palette.button.rounded.background,
             borderRadius: 9999,
             paddingTop: 15,
             paddingBottom: 15,
             paddingLeft: 0,
             paddingRight: 0,
-            color: theme.palette.button.rounded.text,
+            color:
+                ownerState.color === 'inverted'
+                    ? theme.palette.button.rounded.background
+                    : theme.palette.button.rounded.text,
             ...typography.FH3,
             '&:hover': {
                 backgroundColor: colorWithAlpha(

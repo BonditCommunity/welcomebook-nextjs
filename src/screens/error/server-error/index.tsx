@@ -2,6 +2,8 @@
 
 import React from 'react';
 
+import { Container } from '../@components/container';
+
 export function ServerError() {
-    return <div>500 Server Error</div>;
+    return <Container error={'500'} />;
 }

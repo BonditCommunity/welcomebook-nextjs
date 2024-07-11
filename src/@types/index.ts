@@ -15,3 +15,12 @@ export interface Locale {
     system: any;
     adapter: any;
 }
+
+export interface Size {
+    width: number;
+    height: number;
+}
+
+export interface Asset extends Size {
+    src: string;
+}

@@ -1,4 +1,10 @@
 {
+    "errorTitle": "Oops!",
+    "error404Title": "404 - Page Not Found",
+    "error500Title": "Error 500",
+    "error404Description": "You are looking for does not exist.",
+    "error500Description": "Something has gone wrong we are trying to fix it. Meanwhile you can go back to the homepage.",
+    "errorGoHomeText": "Back to home",
     "termsPrivacy": "Privacy Policy",
     "termsService": "Terms of Service",
     "privacyTitle": "Privacy Policy",

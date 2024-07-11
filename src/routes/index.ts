@@ -1,4 +1,5 @@
 export const routes = {
+    home: '/',
     signUp: 'sign-up',
     wishList: 'wish-list',
     terms: {

@@ -17,6 +17,7 @@ declare module '@mui/material/styles/createPalette' {
         default: string;
         white: string;
         caption: string;
+        darkPurple: string;
     }
     interface PaletteOptions {
         icon: TypeIcon;
@@ -45,6 +46,7 @@ export const light: PaletteOptions = {
         primary: Color.main,
         secondary: Color.green,
         caption: Color.grayA1,
+        darkPurple: Color.dark_purple,
     },
     icon: {
         white: Color.white,
@@ -108,6 +110,7 @@ export const dark: PaletteOptions = {
         primary: Color.main,
         secondary: Color.green,
         caption: Color.grayA1,
+        darkPurple: Color.dark_purple,
     },
     icon: {
         white: Color.white,

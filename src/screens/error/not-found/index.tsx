@@ -2,6 +2,8 @@
 
 import React from 'react';
 
+import { Container } from '../@components/container';
+
 export function NotFound() {
-    return <div>404 Not Found</div>;
+    return <Container error={'404'} />;
 }
