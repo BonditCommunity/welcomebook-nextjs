@@ -13,6 +13,10 @@ export interface TypeButton {
         background: string;
         text: string;
     };
+    rounded: {
+        background: string;
+        text: string;
+    };
 }
 
 export interface TypeForm {

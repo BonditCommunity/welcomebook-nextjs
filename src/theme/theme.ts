@@ -57,7 +57,11 @@ export const light: PaletteOptions = {
             text: Color.white,
         },
         disabled: {
-            background: Color.black,
+            background: Color.grayA1,
+            text: Color.white,
+        },
+        rounded: {
+            background: Color.main,
             text: Color.white,
         },
     },
@@ -116,7 +120,11 @@ export const dark: PaletteOptions = {
             text: Color.white,
         },
         disabled: {
-            background: Color.black,
+            background: Color.grayA1,
+            text: Color.white,
+        },
+        rounded: {
+            background: Color.main,
             text: Color.white,
         },
     },

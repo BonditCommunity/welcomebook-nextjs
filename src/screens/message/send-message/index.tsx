@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Fab from '@mui/material/Fab';
+import Button from '@mui/material/Button';
 
 import { Screen } from '@/components/layout/screen';
 import { FH2 } from '@/components/typography/FH2';
@@ -20,6 +21,7 @@ import { dropShadow } from '@/theme/shadow';
 import { Row } from '@/components/grid/row';
 import { Svg } from '@/components/image/svg';
 import { iconImage } from '@/assets/icons';
+import { spacing } from '@/theme/spacing';
 
 export function SendMessage() {
     const { t } = useTranslation();
@@ -112,93 +114,115 @@ export function SendMessage() {
             <Form
                 methods={methods}
                 onSubmit={onSubmit}
-                style={{ paddingTop: 90 }}>
-                <FH2 textAlign={'center'} color={theme.text.primary}>
-                    {t('dDay', {
-                        day: '20',
-                    })}
-                </FH2>
-                <Col
-                    alignItems={'center'}
-                    style={{
-                        marginTop: 5,
-                    }}>
-                    <Image
-                        src={
-                            'https://i.namu.wiki/i/R0AhIJhNi8fkU2Al72pglkrT8QenAaCJd1as-d_iY6MC8nub1iI5VzIqzJlLa-1uzZm--TkB-KHFiT-P-t7bEg.webp'
-                        }
-                        width={size.avatar}
-                        height={size.avatar}
+                style={{
+                    minHeight: 'calc(100vh)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    paddingTop: 90,
+                }}>
+                <div>
+                    <FH2 textAlign={'center'} color={theme.text.primary}>
+                        {t('dDay', {
+                            day: '20',
+                        })}
+                    </FH2>
+                    <Col
+                        alignItems={'center'}
                         style={{
-                            borderWidth: 10,
-                            borderColor: theme.background.default,
-                            borderStyle: 'solid',
-                            borderRadius: 9999,
-                        }}
-                    />
-                </Col>
-                <div
-                    style={{
-                        borderRadius: size.sheet.borderRadius,
-                        boxShadow: dropShadow,
-                        marginTop: -size.avatar / 2,
-                    }}>
-                    <div
-                        style={{
-                            borderTopLeftRadius: size.sheet.borderRadius,
-                            borderTopRightRadius: size.sheet.borderRadius,
-                            backgroundColor: theme.background.primary,
-                            paddingTop: 15 + size.avatar / 2,
-                            paddingBottom: 15,
-                            paddingLeft: 45,
-                            paddingRight: 45,
+                            marginTop: 5,
                         }}>
-                        <FH3
-                            textAlign={'center'}
-                            color={theme.text.white}
-                            sx={{
-                                textTransform: 'uppercase',
-                            }}>
-                            {t('sendMessageTitle')}
-                        </FH3>
-                    </div>
-                    <div
-                        style={{
-                            borderBottomLeftRadius: size.sheet.borderRadius,
-                            borderBottomRightRadius: size.sheet.borderRadius,
-                            backgroundColor: theme.background.default,
-                            padding: 10,
-                            position: 'relative',
-                        }}>
-                        <InputBase
-                            name={'message'}
-                            placeholder={t('sendMessageMessagePlaceholder')}
-                            multiline={true}
-                            inputProps={{
-                                style: {
-                                    minHeight: 100,
-                                },
-                            }}
-                            sx={{
-                                paddingTop: 25,
-                                paddingLeft: size.input.padding.horizontal,
-                                paddingRight: size.input.padding.horizontal,
+                        <Image
+                            src={
+                                'https://i.namu.wiki/i/R0AhIJhNi8fkU2Al72pglkrT8QenAaCJd1as-d_iY6MC8nub1iI5VzIqzJlLa-1uzZm--TkB-KHFiT-P-t7bEg.webp'
+                            }
+                            width={size.avatar}
+                            height={size.avatar}
+                            style={{
+                                borderWidth: 10,
+                                borderColor: theme.background.default,
+                                borderStyle: 'solid',
+                                borderRadius: 9999,
                             }}
                         />
-                        <Row alignItems={'center'}>
-                            <InputBase
-                                name={'name'}
-                                placeholder={t('sendMessageNamePlaceholder')}
+                    </Col>
+                    <div
+                        style={{
+                            borderRadius: size.sheet.borderRadius,
+                            boxShadow: dropShadow,
+                            marginTop: -size.avatar / 2,
+                        }}>
+                        <div
+                            style={{
+                                borderTopLeftRadius: size.sheet.borderRadius,
+                                borderTopRightRadius: size.sheet.borderRadius,
+                                backgroundColor: theme.background.primary,
+                                paddingTop: 15 + size.avatar / 2,
+                                paddingBottom: 15,
+                                paddingLeft: 45,
+                                paddingRight: 45,
+                            }}>
+                            <FH3
+                                textAlign={'center'}
+                                color={theme.text.white}
                                 sx={{
-                                    flex: 1,
+                                    textTransform: 'uppercase',
+                                }}>
+                                {t('sendMessageTitle')}
+                            </FH3>
+                        </div>
+                        <div
+                            style={{
+                                borderBottomLeftRadius: size.sheet.borderRadius,
+                                borderBottomRightRadius:
+                                    size.sheet.borderRadius,
+                                backgroundColor: theme.background.default,
+                                padding: 10,
+                                position: 'relative',
+                            }}>
+                            <InputBase
+                                name={'message'}
+                                placeholder={t('sendMessageMessagePlaceholder')}
+                                multiline={true}
+                                inputProps={{
+                                    style: {
+                                        minHeight: 100,
+                                    },
+                                }}
+                                sx={{
+                                    paddingTop: 25,
                                     paddingLeft: size.input.padding.horizontal,
                                     paddingRight: size.input.padding.horizontal,
                                 }}
                             />
-                            {renderImage()}
-                        </Row>
+                            <Row alignItems={'center'}>
+                                <InputBase
+                                    name={'name'}
+                                    placeholder={t(
+                                        'sendMessageNamePlaceholder',
+                                    )}
+                                    sx={{
+                                        flex: 1,
+                                        paddingLeft:
+                                            size.input.padding.horizontal,
+                                        paddingRight:
+                                            size.input.padding.horizontal,
+                                    }}
+                                />
+                                {renderImage()}
+                            </Row>
+                        </div>
                     </div>
                 </div>
+                <Button
+                    type={'submit'}
+                    variant={'rounded'}
+                    disabled={isSubmitting || !isValid}
+                    style={{
+                        marginBottom: spacing.form.submit.margin.bottom,
+                    }}>
+                    {t('sendMessageSubmitText')}
+                </Button>
             </Form>
         </Screen>
     );

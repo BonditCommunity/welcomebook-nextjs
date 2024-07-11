@@ -40,11 +40,10 @@ export function Home() {
                 </FH2>
             </div>
             <div>
-                <Button variant={'default'} href={routes.signUp}>
+                <Button href={routes.signUp}>
                     {t('homeSignUpWithGoogle')}
                 </Button>
                 <Button
-                    variant={'default'}
                     href={routes.signUp}
                     style={{
                         marginTop: 15,

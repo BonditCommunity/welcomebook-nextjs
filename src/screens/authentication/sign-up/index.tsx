@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import Button from '@mui/material/Button';
@@ -19,7 +19,6 @@ import { IBody2 } from '@/components/typography/IBody2';
 import { Row } from '@/components/grid/row';
 import { routes } from '@/routes';
 import { Checkbox } from '@/components/form/check-box';
-import { Col } from '@/components/grid/col';
 import { spacing } from '@/theme/spacing';
 
 export function SignUp() {
@@ -61,100 +60,95 @@ export function SignUp() {
                 methods={methods}
                 onSubmit={onSubmit}
                 style={{
+                    minHeight: 'calc(100vh - 50px)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
                     paddingTop: 55,
                 }}>
-                <Col
-                    justifyContent={'space-between'}
-                    sx={{
-                        minHeight: 'calc(100vh - 105px)',
-                    }}>
-                    <div>
-                        <TextField
-                            name={'name'}
-                            placeholder={t('signUpNamePlaceholder')}
+                <div>
+                    <TextField
+                        name={'name'}
+                        placeholder={t('signUpNamePlaceholder')}
+                    />
+                    <TextField
+                        name={'school'}
+                        placeholder={t('signUpSchoolPlaceholder')}
+                        InputProps={{
+                            endAdornment: (
+                                <Svg
+                                    src={iconSearch}
+                                    color={theme.icon.white}
+                                />
+                            ),
+                        }}
+                        style={{
+                            marginTop: size.input.gap,
+                        }}
+                    />
+                    <TextField
+                        name={'date'}
+                        placeholder={t('signUpSchoolStartDatePlaceholder')}
+                        disabled={true}
+                        style={{
+                            marginTop: size.input.gap,
+                        }}
+                    />
+                </div>
+                <div>
+                    <Row alignItems={'center'}>
+                        <Svg
+                            src={iconAlert}
+                            color={theme.form.textfield.error}
                         />
-                        <TextField
-                            name={'school'}
-                            placeholder={t('signUpSchoolPlaceholder')}
-                            InputProps={{
-                                endAdornment: (
-                                    <Svg
-                                        src={iconSearch}
-                                        color={theme.icon.white}
-                                    />
-                                ),
-                            }}
-                            style={{
-                                marginTop: size.input.gap,
-                            }}
-                        />
-                        <TextField
-                            name={'date'}
-                            placeholder={t('signUpSchoolStartDatePlaceholder')}
-                            disabled={true}
-                            style={{
-                                marginTop: size.input.gap,
-                            }}
-                        />
-                    </div>
-                    <div>
-                        <Row alignItems={'center'}>
-                            <Svg
-                                src={iconAlert}
-                                color={theme.form.textfield.error}
-                            />
-                            <IBody2
-                                color={theme.text.white}
-                                style={{ flex: 1, marginLeft: 10 }}>
-                                {t('signUpStartDateCaution')}
-                            </IBody2>
-                        </Row>
-                        <Row alignItems={'center'} style={{ marginTop: 15 }}>
-                            <Checkbox name={'agree'} />
+                        <IBody2
+                            color={theme.text.white}
+                            style={{ flex: 1, marginLeft: 10 }}>
+                            {t('signUpStartDateCaution')}
+                        </IBody2>
+                    </Row>
+                    <Row alignItems={'center'} style={{ marginTop: 15 }}>
+                        <Checkbox name={'agree'} />
+                        <IBody2
+                            component={'span'}
+                            color={theme.text.white}
+                            style={{ flex: 1, marginLeft: 10 }}>
+                            {`${t('signUpTermsPrefix')} `}
                             <IBody2
                                 component={'span'}
                                 color={theme.text.white}
-                                style={{ flex: 1, marginLeft: 10 }}>
-                                {`${t('signUpTermsPrefix')} `}
-                                <IBody2
-                                    component={'span'}
-                                    color={theme.text.white}
-                                    onClick={goTermsService}
-                                    sx={{
-                                        cursor: 'pointer',
-                                        textDecoration: 'underline',
-                                    }}>
-                                    {t('termsService')}
-                                </IBody2>
-                                <IBody2
-                                    component={'span'}
-                                    color={theme.text.white}>
-                                    {` ${t('signUpTermsAnd')} `}
-                                </IBody2>
-                                <IBody2
-                                    component={'span'}
-                                    color={theme.text.white}
-                                    onClick={goTermsPrivacy}
-                                    sx={{
-                                        cursor: 'pointer',
-                                        textDecoration: 'underline',
-                                    }}>
-                                    {t('termsPrivacy')}
-                                </IBody2>
+                                onClick={goTermsService}
+                                sx={{
+                                    cursor: 'pointer',
+                                    textDecoration: 'underline',
+                                }}>
+                                {t('termsService')}
                             </IBody2>
-                        </Row>
-                        <Button
-                            type={'submit'}
-                            variant={'default'}
-                            disabled={isSubmitting || !isValid}
-                            style={{
-                                marginTop: 55,
-                                marginBottom: spacing.form.submit.margin.bottom,
-                            }}>
-                            {t(isValid ? 'buttonComplete' : 'buttonNext')}
-                        </Button>
-                    </div>
-                </Col>
+                            <IBody2 component={'span'} color={theme.text.white}>
+                                {` ${t('signUpTermsAnd')} `}
+                            </IBody2>
+                            <IBody2
+                                component={'span'}
+                                color={theme.text.white}
+                                onClick={goTermsPrivacy}
+                                sx={{
+                                    cursor: 'pointer',
+                                    textDecoration: 'underline',
+                                }}>
+                                {t('termsPrivacy')}
+                            </IBody2>
+                        </IBody2>
+                    </Row>
+                    <Button
+                        type={'submit'}
+                        disabled={isSubmitting || !isValid}
+                        style={{
+                            marginTop: 55,
+                            marginBottom: spacing.form.submit.margin.bottom,
+                        }}>
+                        {t(isValid ? 'buttonComplete' : 'buttonNext')}
+                    </Button>
+                </div>
             </Form>
         </Sheet>
     );

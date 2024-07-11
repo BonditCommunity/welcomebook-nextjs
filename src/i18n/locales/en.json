@@ -20,6 +20,7 @@
     "sendMessageTitle": "Write a word for your friend heading to college!",
     "sendMessageMessagePlaceholder": "Please write here...",
     "sendMessageNamePlaceholder": "From.",
+    "sendMessageSubmitText": "Posting",
     "dDay": "D-{{day}}",
     "buttonNext": "Next",
     "buttonComplete": "Complete",
