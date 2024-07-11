@@ -39,21 +39,12 @@ export function SignUp() {
     });
 
     const {
-        watch,
         handleSubmit,
-        formState: { isSubmitting },
+        formState: { isSubmitting, isValid },
     } = methods;
-    const values = watch();
-
-    const complete = useMemo<boolean>(() => {
-        if (values.name && values.school && values.date && values.agree) {
-            return true;
-        }
-        return false;
-    }, [values]);
 
     const onSubmit = handleSubmit(async data => {
-        console.log(data);
+        router.push(routes.wishList);
     });
 
     const goTermsService = useCallback(() => {
@@ -114,7 +105,7 @@ export function SignUp() {
                             />
                             <IBody2
                                 color={theme.text.white}
-                                style={{ marginLeft: 10 }}>
+                                style={{ flex: 1, marginLeft: 10 }}>
                                 {t('signUpStartDateCaution')}
                             </IBody2>
                         </Row>
@@ -123,7 +114,7 @@ export function SignUp() {
                             <IBody2
                                 component={'span'}
                                 color={theme.text.white}
-                                style={{ marginLeft: 10 }}>
+                                style={{ flex: 1, marginLeft: 10 }}>
                                 {`${t('signUpTermsPrefix')} `}
                                 <IBody2
                                     component={'span'}
@@ -155,12 +146,12 @@ export function SignUp() {
                         <Button
                             type={'submit'}
                             variant={'default'}
-                            disabled={isSubmitting || !complete}
+                            disabled={isSubmitting || !isValid}
                             style={{
                                 marginTop: 55,
                                 marginBottom: spacing.form.submit.margin.bottom,
                             }}>
-                            {t(complete ? 'buttonComplete' : 'buttonNext')}
+                            {t(isValid ? 'buttonComplete' : 'buttonNext')}
                         </Button>
                     </div>
                 </Col>

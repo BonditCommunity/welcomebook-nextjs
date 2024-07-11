@@ -7,8 +7,10 @@ import { typography } from '../typography';
 
 export const MuiInputBase: Components<Theme>['MuiInputBase'] = {
     styleOverrides: {
-        root: ({ theme }) => ({
-            backgroundColor: theme.palette.form.textfield.background,
+        root: ({ ownerState, theme }) => ({
+            ...(ownerState.color !== 'secondary' && {
+                backgroundColor: theme.palette.form.textfield.background,
+            }),
         }),
         input: ({ theme }) => ({
             ...typography.FH4,
@@ -23,7 +25,7 @@ export const MuiInputBase: Components<Theme>['MuiInputBase'] = {
 
 export const MuiOutlinedInput: Components<Theme>['MuiOutlinedInput'] = {
     styleOverrides: {
-        root: ({ theme }) => ({
+        root: ({ ownerState, theme }) => ({
             borderRadius: 15,
             [`&.${outlinedInputClasses.focused}`]: {
                 [`& .${outlinedInputClasses.notchedOutline}`]: {
@@ -42,16 +44,30 @@ export const MuiOutlinedInput: Components<Theme>['MuiOutlinedInput'] = {
                     borderColor: 'transparent',
                 },
             },
+            '&:hover': {
+                [`& .${outlinedInputClasses.notchedOutline}`]: {
+                    borderColor:
+                        ownerState.color === 'secondary'
+                            ? theme.palette.form.textfield.border
+                            : 'transparent',
+                },
+            },
         }),
-        input: ({ theme }) => ({
-            padding: '15px 30px',
+        input: ({ ownerState, theme }) => ({
+            paddingTop: 15,
+            paddingBottom: 15,
+            paddingLeft: ownerState.startAdornment ? 10 : 30,
+            paddingRight: ownerState.endAdornment ? 10 : 30,
             [`&.${outlinedInputClasses.disabled}`]: {
                 color: theme.palette.form.textfield.text,
                 WebkitTextFillColor: theme.palette.form.textfield.text,
             },
         }),
-        notchedOutline: ({ theme }) => ({
-            borderColor: 'transparent',
+        notchedOutline: ({ ownerState, theme }) => ({
+            borderColor:
+                ownerState.color === 'secondary'
+                    ? theme.palette.form.textfield.border
+                    : 'transparent',
             transition: theme.transitions.create(['border-color'], {
                 duration: theme.transitions.duration.shortest,
             }),

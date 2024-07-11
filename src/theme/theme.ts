@@ -7,7 +7,7 @@ declare module '@mui/material/styles/createPalette' {
     interface TypeText {
         default: string;
         white: string;
-        test: string;
+        caption: string;
     }
     interface PaletteOptions {
         icon: TypeIcon;
@@ -32,10 +32,12 @@ export const light: PaletteOptions = {
         white: Color.white,
         primary: Color.main,
         secondary: Color.green,
-        test: Color.main,
+        caption: Color.grayA1,
     },
     icon: {
         white: Color.white,
+        info: Color.green,
+        error: Color.red,
     },
     button: {
         default: {
@@ -77,10 +79,12 @@ export const dark: PaletteOptions = {
         white: Color.white,
         primary: Color.main,
         secondary: Color.green,
-        test: Color.main,
+        caption: Color.grayA1,
     },
     icon: {
         white: Color.white,
+        info: Color.green,
+        error: Color.red,
     },
     button: {
         default: {

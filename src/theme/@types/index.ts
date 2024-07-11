@@ -1,5 +1,7 @@
 export interface TypeIcon {
     white: string;
+    info: string;
+    error: string;
 }
 
 export interface TypeButton {
