@@ -18,11 +18,14 @@ export const MuiPickersLayout: Components<Theme>['MuiPickersLayout'] = {
             backgroundColor: theme.palette.background.default,
             borderRadius: 10,
             color: theme.palette.text.default,
-            padding: 10,
             [`& .${typographyClasses.root}`]: {
                 textTransform: 'none',
                 ...typography.ISubtitle,
                 color: theme.palette.text.default,
+            },
+            [`& .${datePickerToolbarClasses.root}`]: {
+                paddingLeft: 10,
+                paddingRight: 10,
             },
             [`& .${datePickerToolbarClasses.title}`]: {
                 ...typography.FH2,
