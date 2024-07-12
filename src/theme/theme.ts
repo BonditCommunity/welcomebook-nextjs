@@ -12,6 +12,7 @@ import {
 declare module '@mui/material/styles/createPalette' {
     interface TypeBackground {
         primary: string;
+        gray: string;
     }
     interface TypeText {
         default: string;
@@ -39,6 +40,7 @@ export const light: PaletteOptions = {
     background: {
         default: Color.white,
         primary: Color.main,
+        gray: Color.gray47,
     },
     text: {
         default: Color.black,
@@ -116,6 +118,7 @@ export const dark: PaletteOptions = {
     background: {
         default: Color.white,
         primary: Color.main,
+        gray: Color.gray47,
     },
     text: {
         default: Color.black,

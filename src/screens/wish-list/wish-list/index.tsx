@@ -13,6 +13,8 @@ import { Svg } from '@/components/image/svg';
 import { iconSearch } from '@/assets/icons';
 import { IBody2 } from '@/components/typography/IBody2';
 import { Row } from '@/components/grid/row';
+import { DropBox } from './@components/drop-box';
+import { size } from './@constants';
 
 export function WishList() {
     const { t } = useTranslation();
@@ -75,6 +77,14 @@ export function WishList() {
                     {t('wishListItemInsufficient')}
                 </IBody2>
             </Row>
+            <DropBox
+                style={{
+                    position: 'absolute',
+                    left: '50%',
+                    transform: `translateX(-${size.dropBox.container / 2}px)`,
+                    bottom: 30,
+                }}
+            />
         </Sheet>
     );
 }

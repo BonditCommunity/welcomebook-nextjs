@@ -10,6 +10,8 @@ export const iconCheckboxChecked = `${basePath}/icon_checkbox_checked.svg`;
 
 export const iconCheckbox = `${basePath}/icon_checkbox.svg`;
 
+export const iconHeart = `${basePath}/icon_heart.svg`;
+
 export const iconImage = `${basePath}/icon_image.svg`;
 
 export const iconSearch = `${basePath}/icon_search.svg`;
