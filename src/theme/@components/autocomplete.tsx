@@ -11,9 +11,11 @@ export const MuiAutocomplete: Components<Theme>['MuiAutocomplete'] = {
             [`& .${inputBaseClasses.root}`]: {
                 padding: 0,
             },
-            [`& .${outlinedInputClasses.root}`]: {
-                [`& .${autocompleteClasses.input}`]: {
-                    padding: '15px 30px',
+        },
+        hasPopupIcon: {
+            [`&.${autocompleteClasses.root}`]: {
+                [`& .${outlinedInputClasses.root}`]: {
+                    paddingRight: 15,
                 },
             },
         },
