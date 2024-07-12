@@ -23,3 +23,4 @@ export const Svg = forwardRef<HTMLSpanElement, SvgProps>(
         />
     ),
 );
+Svg.displayName = 'Svg';
