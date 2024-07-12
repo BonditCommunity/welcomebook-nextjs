@@ -16,6 +16,14 @@ export const errors = {
                 address: 'errorFormRequiredAddressAddress',
                 city: 'errorFormRequiredAddressCity',
             },
+            funding: {
+                amount: 'errorFormRequiredFundingAmount',
+            },
+        },
+        invalid: {
+            funding: {
+                amount: 'errorFormInvalidFundingAmount',
+            },
         },
     },
 };

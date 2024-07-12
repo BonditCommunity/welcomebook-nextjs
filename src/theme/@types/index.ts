@@ -57,6 +57,7 @@ export interface TypeSheet {
     background: {
         default: string;
         black: string;
+        white: string;
     };
     handle: string;
 }

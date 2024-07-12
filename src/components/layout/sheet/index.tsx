@@ -19,6 +19,9 @@ export const Sheet: React.FC<SheetProps> = ({
         <Box
             sx={{
                 paddingTop: 35,
+                ...(type === 'white' && {
+                    backgroundColor: theme.background.black,
+                }),
             }}>
             <Box
                 sx={{
