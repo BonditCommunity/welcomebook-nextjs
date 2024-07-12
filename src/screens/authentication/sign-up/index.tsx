@@ -71,7 +71,7 @@ export function SignUp() {
                 methods={methods}
                 onSubmit={onSubmit}
                 style={{
-                    minHeight: 'calc(100vh - 50px)',
+                    minHeight: 'calc(100dvh - 50px)',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',

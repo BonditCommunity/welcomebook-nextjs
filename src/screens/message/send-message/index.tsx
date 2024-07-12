@@ -115,7 +115,7 @@ export function SendMessage() {
                 methods={methods}
                 onSubmit={onSubmit}
                 style={{
-                    minHeight: 'calc(100vh)',
+                    minHeight: 'calc(100dvh)',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',

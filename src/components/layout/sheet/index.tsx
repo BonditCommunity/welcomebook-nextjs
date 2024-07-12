@@ -39,7 +39,7 @@ export const Sheet: React.FC<SheetProps> = ({
                 />
                 <Box
                     sx={{
-                        minHeight: 'calc(100vh - 50px)',
+                        minHeight: 'calc(100dvh - 50px)',
                         paddingLeft: spacing.screen.padding.horizontal,
                         paddingRight: spacing.screen.padding.horizontal,
                         ...sx,

@@ -9,7 +9,7 @@ export const Screen: React.FC<BoxProps> = ({ sx, children, ...props }) => {
     return (
         <Box
             sx={{
-                minHeight: '100vh',
+                minHeight: '100dvh',
                 paddingLeft: spacing.screen.padding.horizontal,
                 paddingRight: spacing.screen.padding.horizontal,
                 ...sx,
