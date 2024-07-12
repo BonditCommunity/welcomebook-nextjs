@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -15,9 +15,12 @@ import { spacing } from '@/theme/spacing';
 import { TextField } from '@/components/form/text-field';
 import { countrys } from '@/constants/common/country';
 import { regexMobile, regexNumber } from '@/constants/form/regex';
+import { AddressSuccess } from '../success';
 
-export function ProfileAddress() {
+export function AddressInput() {
     const { t } = useTranslation();
+
+    const [success, setSuccess] = useState<boolean>(false);
 
     const options = useMemo<string[]>(() => {
         return countrys.map(country => country.label);
@@ -43,12 +46,16 @@ export function ProfileAddress() {
 
     const onSubmit = handleSubmit(async data => {
         console.log(data);
+        setSuccess(true);
     });
 
     const handleCountry = useCallback((_: unknown, country: string) => {
         setValue('country', country);
     }, []);
 
+    if (success) {
+        return <AddressSuccess />;
+    }
     return (
         <Sheet>
             <Form
@@ -75,7 +82,7 @@ export function ProfileAddress() {
                                 {...params}
                                 name={'country'}
                                 placeholder={t(
-                                    'profileAddressCountryPlaceholder',
+                                    'addressInputCountryPlaceholder',
                                 )}
                             />
                         )}
@@ -87,28 +94,28 @@ export function ProfileAddress() {
                     />
                     <TextField
                         name={'address'}
-                        placeholder={t('profileAddressAddressPlaceholder')}
+                        placeholder={t('addressInputAddressPlaceholder')}
                         style={{
                             marginTop: size.input.gap,
                         }}
                     />
                     <TextField
                         name={'city'}
-                        placeholder={t('profileAddressCityPlaceholder')}
+                        placeholder={t('addressInputCityPlaceholder')}
                         style={{
                             marginTop: size.input.gap,
                         }}
                     />
                     <TextField
                         name={'extraAddress'}
-                        placeholder={t('profileAddressExtraAddressPlaceholder')}
+                        placeholder={t('addressInputExtraAddressPlaceholder')}
                         style={{
                             marginTop: size.input.gap,
                         }}
                     />
                     <TextField
                         name={'postcode'}
-                        placeholder={t('profileAddressPostcodePlaceholder')}
+                        placeholder={t('addressInputPostcodePlaceholder')}
                         fullWidth={false}
                         inputMode={'numeric'}
                         regex={regexNumber}
@@ -120,7 +127,7 @@ export function ProfileAddress() {
                     <TextField
                         type={'tel'}
                         name={'mobile'}
-                        placeholder={t('profileAddressMobilePlaceholder')}
+                        placeholder={t('addressInputMobilePlaceholder')}
                         inputMode={'tel'}
                         regex={regexMobile}
                         style={{
