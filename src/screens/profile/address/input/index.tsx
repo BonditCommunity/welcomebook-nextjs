@@ -117,7 +117,7 @@ export function AddressInput() {
                         name={'postcode'}
                         placeholder={t('addressInputPostcodePlaceholder')}
                         fullWidth={false}
-                        inputMode={'numeric'}
+                        inputMode={'decimal'}
                         regex={regexNumber}
                         style={{
                             width: '50%',

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 
@@ -18,8 +18,13 @@ import { IH1 } from '@/components/typography/IH1';
 import { Col } from '@/components/grid/col';
 
 export function Funding() {
+    const adornmentRef = useRef<HTMLParagraphElement>(null);
+    const textRef = useRef<HTMLParagraphElement>(null);
+
     const { t } = useTranslation();
     const { theme } = useTheme();
+
+    const [width, setWidth] = useState<number>(0);
 
     const methods = useForm<Schema>({
         resolver: zodResolver(schema),
@@ -29,14 +34,25 @@ export function Funding() {
     });
 
     const {
+        watch,
         setValue,
         handleSubmit,
         formState: { isSubmitting, isValid },
     } = methods;
 
+    const amount = watch('amount');
+
     const onSubmit = handleSubmit(async data => {
         console.log(data);
     });
+
+    useEffect(() => {
+        if (adornmentRef.current && textRef.current) {
+            setWidth(
+                adornmentRef.current.offsetWidth + textRef.current.offsetWidth,
+            );
+        }
+    }, [amount]);
 
     return (
         <Sheet type={'white'}>
@@ -51,18 +67,36 @@ export function Funding() {
                     paddingTop: 130,
                 }}>
                 <Col alignItems={'center'}>
-                    <FH2 textAlign={'center'}>{t('fundingTitle')}</FH2>
-                    <TextField
-                        type={'number'}
-                        name={'amount'}
-                        variant={'standard'}
-                        fullWidth={false}
-                        regex={regexNumber}
-                        InputProps={{
-                            startAdornment: <IH1>$</IH1>,
-                        }}
-                        style={{ marginTop: 45 }}
-                    />
+                    <FH2
+                        textAlign={'center'}
+                        style={{
+                            marginLeft: 40,
+                            marginRight: 40,
+                        }}>
+                        {t('fundingTitle')}
+                    </FH2>
+                    <div style={{ marginTop: 45 }}>
+                        <IH1
+                            ref={textRef}
+                            style={{
+                                position: 'absolute',
+                                visibility: 'hidden',
+                            }}>{`${amount}`}</IH1>
+                        <TextField
+                            type={'number'}
+                            name={'amount'}
+                            variant={'standard'}
+                            fullWidth={false}
+                            regex={regexNumber}
+                            InputProps={{
+                                startAdornment: <IH1 ref={adornmentRef}>$</IH1>,
+                            }}
+                            style={{
+                                width,
+                                minWidth: 70,
+                            }}
+                        />
+                    </div>
                     <IBody1
                         textAlign={'center'}
                         color={theme.text.caption}
