@@ -64,4 +64,5 @@ export interface TypeSheet {
 
 export interface TypeBorder {
     primary: string;
+    black: string;
 }

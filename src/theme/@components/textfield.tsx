@@ -5,6 +5,7 @@ import { outlinedInputClasses } from '@mui/material/OutlinedInput';
 
 import { typography } from '../typography';
 import { Typography } from '../@enums';
+import { inputClasses } from '@mui/material';
 
 export const MuiInputBase: Components<Theme>['MuiInputBase'] = {
     styleOverrides: {
@@ -17,6 +18,27 @@ export const MuiInputBase: Components<Theme>['MuiInputBase'] = {
                     ownerState.multiline ? Typography.IH1 : Typography.IH3
                 ],
                 color: theme.palette.form.base.placeholder,
+            },
+        }),
+    },
+};
+
+export const MuiInput: Components<Theme>['MuiInput'] = {
+    styleOverrides: {
+        root: ({ theme }) => ({
+            [`&:hover:not(.${inputClasses.focused})`]: {
+                '&:before': {
+                    borderColor: theme.palette.border.black,
+                },
+            },
+        }),
+        input: {
+            padding: 0,
+            ...typography.IH1,
+        },
+        underline: ({ theme }) => ({
+            '&::after': {
+                borderBottomColor: theme.palette.border.black,
             },
         }),
     },

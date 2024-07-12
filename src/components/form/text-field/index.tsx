@@ -8,8 +8,11 @@ import { TextFieldProps } from './@types';
 
 export const TextField: React.FC<TextFieldProps> = ({
     name,
-    helperText,
     type = 'text',
+    variant = 'outlined',
+    fullWidth = true,
+    hiddenLabel = true,
+    helperText,
     regex,
     ...props
 }) => {
@@ -23,9 +26,9 @@ export const TextField: React.FC<TextFieldProps> = ({
                 <MuiTextField
                     {...field}
                     type={type}
-                    variant={'outlined'}
-                    fullWidth={true}
-                    hiddenLabel={true}
+                    variant={variant}
+                    fullWidth={fullWidth}
+                    hiddenLabel={hiddenLabel}
                     value={
                         type === 'number' && field.value === 0
                             ? ''
@@ -33,7 +36,11 @@ export const TextField: React.FC<TextFieldProps> = ({
                     }
                     onChange={event => {
                         if (regex && !regex.test(event.target.value)) return;
-                        field.onChange(event.target.value);
+                        if (type === 'number') {
+                            field.onChange(Number(event.target.value));
+                        } else {
+                            field.onChange(event.target.value);
+                        }
                     }}
                     error={!!error}
                     helperText={error?.message ?? helperText}

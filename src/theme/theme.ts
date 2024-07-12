@@ -114,6 +114,7 @@ export const light: PaletteOptions = {
     },
     border: {
         primary: Color.main,
+        black: Color.black,
     },
 };
 
@@ -194,5 +195,6 @@ export const dark: PaletteOptions = {
     },
     border: {
         primary: Color.main,
+        black: Color.black,
     },
 };

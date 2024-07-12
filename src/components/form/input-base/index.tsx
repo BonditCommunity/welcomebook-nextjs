@@ -31,6 +31,11 @@ export const InputBase: React.FC<InputBaseProps> = ({
                     onChange={event => {
                         if (regex && !regex.test(event.target.value)) return;
                         field.onChange(event.target.value);
+                        if (type === 'number') {
+                            field.onChange(Number(event.target.value));
+                        } else {
+                            field.onChange(event.target.value);
+                        }
                     }}
                     error={!!error}
                     {...props}

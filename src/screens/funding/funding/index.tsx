@@ -11,6 +11,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { schema } from './@constants';
 import { IBody1 } from '@/components/typography/IBody1';
 import { useTheme } from '@/hooks/common/use-theme';
+import { Form } from '@/components/form/form';
+import { TextField } from '@/components/form/text-field';
+import { regexNumber } from '@/constants/form/regex';
+import { IH1 } from '@/components/typography/IH1';
+import { Col } from '@/components/grid/col';
 
 export function Funding() {
     const { t } = useTranslation();
@@ -35,15 +40,37 @@ export function Funding() {
 
     return (
         <Sheet type={'white'}>
-            <FH2 textAlign={'center'} style={{ marginTop: 130 }}>
-                {t('fundingTitle')}
-            </FH2>
-            <IBody1
-                textAlign={'center'}
-                color={theme.text.caption}
-                style={{ marginTop: 35 }}>
-                {t('fundingAmountCaution')}
-            </IBody1>
+            <Form
+                methods={methods}
+                onSubmit={onSubmit}
+                style={{
+                    minHeight: 'calc(100dvh - 50px)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    paddingTop: 130,
+                }}>
+                <Col alignItems={'center'}>
+                    <FH2 textAlign={'center'}>{t('fundingTitle')}</FH2>
+                    <TextField
+                        type={'number'}
+                        name={'amount'}
+                        variant={'standard'}
+                        fullWidth={false}
+                        regex={regexNumber}
+                        InputProps={{
+                            startAdornment: <IH1>$</IH1>,
+                        }}
+                        style={{ marginTop: 45 }}
+                    />
+                    <IBody1
+                        textAlign={'center'}
+                        color={theme.text.caption}
+                        style={{ marginTop: 35 }}>
+                        {t('fundingAmountCaution')}
+                    </IBody1>
+                </Col>
+            </Form>
         </Sheet>
     );
 }
