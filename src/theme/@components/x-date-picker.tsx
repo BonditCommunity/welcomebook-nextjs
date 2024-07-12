@@ -8,6 +8,7 @@ import { pickersYearClasses } from '@mui/x-date-pickers/YearCalendar';
 import { pickersCalendarHeaderClasses } from '@mui/x-date-pickers/PickersCalendarHeader';
 import { dayCalendarClasses } from '@mui/x-date-pickers/DateCalendar';
 import { datePickerToolbarClasses } from '@mui/x-date-pickers/DatePicker';
+import { pickersDayClasses } from '@mui/x-date-pickers/PickersDay';
 
 import { typography } from '../typography';
 
@@ -34,13 +35,13 @@ export const MuiPickersLayout: Components<Theme>['MuiPickersLayout'] = {
             [`& .${pickersYearClasses.yearButton}`]: {
                 ...typography.FBody2,
                 borderRadius: 5,
-            },
-            [`& .${pickersYearClasses.selected}`]: {
-                backgroundColor: theme.palette.button.rounded.background,
-                color: theme.palette.button.rounded.text,
-            },
-            [`& .${pickersYearClasses.disabled}`]: {
-                color: theme.palette.text.caption,
+                [`&.${pickersYearClasses.selected}`]: {
+                    backgroundColor: theme.palette.button.rounded.background,
+                    color: theme.palette.button.rounded.text,
+                },
+                [`&.${pickersYearClasses.disabled}`]: {
+                    color: theme.palette.text.caption,
+                },
             },
             [`& .${dayCalendarClasses.weekDayLabel}`]: {
                 ...typography.FBody2,
@@ -49,7 +50,9 @@ export const MuiPickersLayout: Components<Theme>['MuiPickersLayout'] = {
             [`& .${buttonBaseClasses.root}`]: {
                 ...typography.FBody2,
                 color: theme.palette.text.default,
-                borderColor: theme.palette.border.primary,
+                [`&.${pickersDayClasses.today}`]: {
+                    borderColor: theme.palette.border.primary,
+                },
             },
             [`& .${buttonBaseClasses.root}[aria-selected="true"]`]: {
                 backgroundColor: theme.palette.button.rounded.background,
