@@ -39,16 +39,16 @@ export const Container: React.FC<ContainerProps> = ({ error }) => {
                 </FH3>
                 <img
                     src={imgError.src}
-                    width={260}
-                    height={260}
+                    width={245}
+                    height={245}
                     style={{
-                        marginTop: 5,
+                        marginTop: 20,
                     }}
                 />
                 <ISubtitle
                     textAlign={'center'}
                     color={theme.text.white}
-                    style={{ marginTop: 5 }}>
+                    style={{ marginTop: 10 }}>
                     {t(`error${error}Description`)}
                 </ISubtitle>
             </Col>
