@@ -18,7 +18,7 @@ import { MuiInputBase, MuiOutlinedInput } from './@components/textfield';
 import { MuiCheckbox } from './@components/check-box';
 import { MuiFab } from './@components/fab';
 import { MuiAutocomplete } from './@components/autocomplete';
-import { MuiPickersLayout } from './@components/mui-x-date-picker';
+import { MuiPickersLayout } from './@components/x-date-picker';
 
 export const ThemeProvider: React.FC<ChildrenProps> = ({ children }) => {
     const locale = useRecoilValue(localeState);

@@ -7,8 +7,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '@mui/material/Button';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
-import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
-import { Dayjs } from 'dayjs';
 
 import { Sheet } from '@/components/layout/sheet';
 import { Form } from '@/components/form/form';
@@ -24,6 +22,7 @@ import { routes } from '@/routes';
 import { Checkbox } from '@/components/form/check-box';
 import { spacing } from '@/theme/spacing';
 import { Shcool } from './@components/school';
+import { DatePicker } from '@/components/form/date-picker';
 
 const filter = createFilterOptions<SchoolType>();
 
@@ -57,11 +56,6 @@ export function SignUp() {
     const onSubmit = handleSubmit(async data => {
         router.push(routes.wishList);
     });
-
-    const handleDate = useCallback((date: Dayjs | null) => {
-        if (!date) return;
-        setValue('date', date.toDate());
-    }, []);
 
     const goTermsService = useCallback(() => {
         router.push(routes.terms.service);
@@ -143,11 +137,11 @@ export function SignUp() {
                             marginTop: size.input.gap,
                         }}
                     />
-                    <MobileDatePicker
+                    <DatePicker
+                        name={'date'}
                         orientation={'portrait'}
                         closeOnSelect={true}
                         disablePast={true}
-                        onChange={handleDate}
                         format={'YYYY.MM.DD'}
                         localeText={{
                             toolbarTitle: t('signUpSchoolStartDatePlaceholder'),

@@ -19,7 +19,7 @@ export const schema = z
         school: z
             .string()
             .min(1, { message: i18n.t(errors.form.required.user.school) }),
-        date: z.date().readonly(),
+        date: z.date(),
         agree: z.boolean().refine(val => val === true, {
             message: i18n.t(errors.form.required.user.terms),
         }),
