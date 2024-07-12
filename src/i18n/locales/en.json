@@ -15,6 +15,7 @@
     "homeSignUpWithApple": "Sign up with Apple",
     "signUpNamePlaceholder": "Full Name",
     "signUpSchoolPlaceholder": "Shcool Name",
+    "signUpSchoolNoOptionText": "No schools",
     "signUpSchoolStartDatePlaceholder": "Shcool Start Date",
     "signUpStartDateCaution": "Book will be open at your school start date.",
     "signUpTermsPrefix": "I agree to the",

@@ -2,6 +2,7 @@ export interface TypeIcon {
     white: string;
     info: string;
     error: string;
+    caption: string;
 }
 
 export interface TypeButton {
@@ -37,6 +38,18 @@ export interface TypeForm {
     upload: {
         background: string;
         icon: string;
+    };
+    autocomplete: {
+        background: string;
+        text: string;
+        group: {
+            background: string;
+            text: string;
+        };
+        selected: {
+            background: string;
+            text: string;
+        };
     };
 }
 

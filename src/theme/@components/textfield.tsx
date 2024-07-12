@@ -51,7 +51,7 @@ export const MuiOutlinedInput: Components<Theme>['MuiOutlinedInput'] = {
                     borderColor:
                         ownerState.color === 'secondary'
                             ? theme.palette.form.textfield.border
-                            : 'transparent',
+                            : theme.palette.form.textfield.border,
                 },
             },
         }),

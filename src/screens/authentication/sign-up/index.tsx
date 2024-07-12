@@ -1,15 +1,16 @@
 'use client';
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
-import Button from '@mui/material/Button';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Button from '@mui/material/Button';
+import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 
 import { Sheet } from '@/components/layout/sheet';
 import { Form } from '@/components/form/form';
-import { Schema } from './@types';
+import { Schema, School as SchoolType } from './@types';
 import { schema, size } from './@constants';
 import { TextField } from '@/components/form/text-field';
 import { Svg } from '@/components/image/svg';
@@ -20,12 +21,21 @@ import { Row } from '@/components/grid/row';
 import { routes } from '@/routes';
 import { Checkbox } from '@/components/form/check-box';
 import { spacing } from '@/theme/spacing';
+import { Shcool } from './@components/school';
+
+const filter = createFilterOptions<SchoolType>();
 
 export function SignUp() {
     const router = useRouter();
 
     const { t } = useTranslation();
     const { theme } = useTheme();
+
+    const [school, setSchool] = useState<SchoolType>();
+
+    const schools = useMemo<SchoolType[]>(() => {
+        return [];
+    }, []);
 
     const methods = useForm<Schema>({
         resolver: zodResolver(schema),
@@ -38,6 +48,7 @@ export function SignUp() {
     });
 
     const {
+        setValue,
         handleSubmit,
         formState: { isSubmitting, isValid },
     } = methods;
@@ -71,17 +82,57 @@ export function SignUp() {
                         name={'name'}
                         placeholder={t('signUpNamePlaceholder')}
                     />
-                    <TextField
-                        name={'school'}
-                        placeholder={t('signUpSchoolPlaceholder')}
-                        InputProps={{
-                            endAdornment: (
-                                <Svg
-                                    src={iconSearch}
-                                    color={theme.icon.white}
-                                />
-                            ),
+                    <Autocomplete
+                        fullWidth={true}
+                        options={schools}
+                        getOptionLabel={option => option.name}
+                        noOptionsText={t('signUpSchoolNoOptionText')}
+                        groupBy={option => option.name[0].toUpperCase()}
+                        disableClearable={true}
+                        selectOnFocus={true}
+                        handleHomeEndKeys={true}
+                        filterOptions={(options, params) => {
+                            const filtered = filter(options, params);
+                            const { inputValue } = params;
+                            const isExisting = options.some(
+                                option => inputValue === option.name,
+                            );
+                            if (inputValue !== '' && !isExisting) {
+                                filtered.push({
+                                    id: -1,
+                                    name: inputValue,
+                                });
+                            }
+                            return filtered;
                         }}
+                        onChange={(_, value) => {
+                            setSchool(value);
+                            setValue('school', value.name);
+                        }}
+                        renderInput={params => (
+                            <TextField
+                                {...params}
+                                name={'school'}
+                                placeholder={t('signUpSchoolPlaceholder')}
+                                onChange={undefined}
+                                InputProps={{
+                                    ...params.InputProps,
+                                    endAdornment: (
+                                        <Svg
+                                            src={iconSearch}
+                                            color={theme.icon.white}
+                                        />
+                                    ),
+                                }}
+                            />
+                        )}
+                        renderOption={(props, option) => (
+                            <Shcool
+                                {...props}
+                                key={option.id}
+                                school={option}
+                            />
+                        )}
                         style={{
                             marginTop: size.input.gap,
                         }}

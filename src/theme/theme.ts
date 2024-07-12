@@ -52,6 +52,7 @@ export const light: PaletteOptions = {
         white: Color.white,
         info: Color.green,
         error: Color.red,
+        caption: Color.grayA1,
     },
     button: {
         default: {
@@ -85,6 +86,18 @@ export const light: PaletteOptions = {
         upload: {
             background: Color.grayF6F7F9,
             icon: Color.gray47,
+        },
+        autocomplete: {
+            background: Color.white,
+            text: Color.black,
+            group: {
+                background: Color.white,
+                text: Color.grayA1,
+            },
+            selected: {
+                background: Color.light_purple,
+                text: Color.main,
+            },
         },
     },
     sheet: {
@@ -116,6 +129,7 @@ export const dark: PaletteOptions = {
         white: Color.white,
         info: Color.green,
         error: Color.red,
+        caption: Color.grayA1,
     },
     button: {
         default: {
@@ -149,6 +163,18 @@ export const dark: PaletteOptions = {
         upload: {
             background: Color.grayF6F7F9,
             icon: Color.gray47,
+        },
+        autocomplete: {
+            background: Color.white,
+            text: Color.black,
+            group: {
+                background: Color.white,
+                text: Color.grayA1,
+            },
+            selected: {
+                background: Color.light_purple,
+                text: Color.main,
+            },
         },
     },
     sheet: {

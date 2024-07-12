@@ -18,11 +18,11 @@ export const MuiAutocomplete: Components<Theme>['MuiAutocomplete'] = {
             },
         },
         paper: ({ theme }) => ({
-            backgroundColor: theme.palette.background.default,
+            backgroundColor: theme.palette.form.autocomplete.background,
             borderRadius: 15,
             marginTop: 15,
             ...typography.IBody1,
-            color: theme.palette.text.default,
+            color: theme.palette.form.autocomplete.text,
         }),
         option: ({ theme }) => ({
             margin: '5px 20px',
@@ -31,8 +31,20 @@ export const MuiAutocomplete: Components<Theme>['MuiAutocomplete'] = {
             borderRadius: 5,
             minHeight: 0,
             [`&.${autocompleteClasses.option}[aria-selected="true"]`]: {
-                color: theme.palette.text.primary,
+                backgroundColor:
+                    theme.palette.form.autocomplete.selected.background,
+                color: theme.palette.form.autocomplete.selected.text,
             },
+            '&:hover': {
+                backgroundColor:
+                    theme.palette.form.autocomplete.selected.background,
+                color: theme.palette.form.autocomplete.selected.text,
+            },
+        }),
+        noOptions: ({ theme }) => ({
+            backgroundColor: theme.palette.form.autocomplete.background,
+            ...typography.IBody1,
+            color: theme.palette.form.autocomplete.text,
         }),
         listbox: {
             msOverflowStyle: 'none',
@@ -41,10 +53,10 @@ export const MuiAutocomplete: Components<Theme>['MuiAutocomplete'] = {
             '&::-webkit-scrollbar': { display: 'none' },
         },
         groupLabel: ({ theme }) => ({
-            backgroundColor: theme.palette.background.default,
+            backgroundColor: theme.palette.form.autocomplete.group.background,
             paddingLeft: 20,
             paddingRight: 20,
-            color: theme.palette.text.caption,
+            color: theme.palette.form.autocomplete.group.text,
         }),
     },
 };

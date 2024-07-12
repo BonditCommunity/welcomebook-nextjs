@@ -1,5 +1,7 @@
 const basePath = '/assets/icons';
 
+export const iconAdd = `${basePath}/icon_add.svg`;
+
 export const iconAlert = `${basePath}/icon_alert.svg`;
 
 export const iconArrowDown = `${basePath}/icon_arrow_down.svg`;
