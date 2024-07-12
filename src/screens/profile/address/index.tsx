@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -45,6 +45,10 @@ export function ProfileAddress() {
         console.log(data);
     });
 
+    const handleCountry = useCallback((_: unknown, country: string) => {
+        setValue('country', country);
+    }, []);
+
     return (
         <Sheet>
             <Form
@@ -65,9 +69,7 @@ export function ProfileAddress() {
                         getOptionLabel={option => option}
                         disableClearable={true}
                         groupBy={option => option[0].toUpperCase()}
-                        onChange={(_, value) => {
-                            setValue('country', value ?? '');
-                        }}
+                        onChange={handleCountry}
                         renderInput={params => (
                             <TextField
                                 {...params}

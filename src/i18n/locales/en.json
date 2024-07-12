@@ -38,6 +38,8 @@
     "buttonNext": "Next",
     "buttonComplete": "Complete",
     "buttonSubmit": "Submit",
+    "buttonSelect": "Select",
+    "buttonCancel": "Cancel",
     "errorCommon": "Unknown error.",
     "errorFormRequiredUserName": "Name required.",
     "errorFormRequiredUserSchool": "Shcool required.",

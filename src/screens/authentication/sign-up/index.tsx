@@ -7,6 +7,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '@mui/material/Button';
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
+import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+import { Dayjs } from 'dayjs';
 
 import { Sheet } from '@/components/layout/sheet';
 import { Form } from '@/components/form/form';
@@ -42,7 +44,6 @@ export function SignUp() {
         defaultValues: {
             name: '',
             school: '',
-            date: '',
             agree: false,
         },
     });
@@ -56,6 +57,11 @@ export function SignUp() {
     const onSubmit = handleSubmit(async data => {
         router.push(routes.wishList);
     });
+
+    const handleDate = useCallback((date: Dayjs | null) => {
+        if (!date) return;
+        setValue('date', date.toDate());
+    }, []);
 
     const goTermsService = useCallback(() => {
         router.push(routes.terms.service);
@@ -137,12 +143,30 @@ export function SignUp() {
                             marginTop: size.input.gap,
                         }}
                     />
-                    <TextField
-                        name={'date'}
-                        placeholder={t('signUpSchoolStartDatePlaceholder')}
-                        disabled={true}
-                        style={{
-                            marginTop: size.input.gap,
+                    <MobileDatePicker
+                        orientation={'portrait'}
+                        closeOnSelect={true}
+                        disablePast={true}
+                        onChange={handleDate}
+                        format={'YYYY.MM.DD'}
+                        localeText={{
+                            toolbarTitle: t('signUpSchoolStartDatePlaceholder'),
+                            okButtonLabel: t('buttonSelect'),
+                            cancelButtonLabel: t('buttonCancel'),
+                        }}
+                        disabled={!school || school.id > 0}
+                        slotProps={{
+                            textField: {
+                                fullWidth: true,
+                                variant: 'outlined',
+                                hiddenLabel: true,
+                                placeholder: t(
+                                    'signUpSchoolStartDatePlaceholder',
+                                ),
+                                style: {
+                                    marginTop: size.input.gap,
+                                },
+                            },
                         }}
                     />
                 </div>
