@@ -4,6 +4,7 @@ import { inputBaseClasses } from '@mui/material/InputBase';
 import { outlinedInputClasses } from '@mui/material/OutlinedInput';
 
 import { typography } from '../typography';
+import { hideScrollBarY } from '../scrollbar';
 
 export const MuiAutocomplete: Components<Theme>['MuiAutocomplete'] = {
     styleOverrides: {
@@ -49,10 +50,7 @@ export const MuiAutocomplete: Components<Theme>['MuiAutocomplete'] = {
             color: theme.palette.form.autocomplete.text,
         }),
         listbox: {
-            msOverflowStyle: 'none',
-            scrollbarWidth: 'none',
-            overflowY: 'auto',
-            '&::-webkit-scrollbar': { display: 'none' },
+            ...hideScrollBarY,
         },
         groupLabel: ({ theme }) => ({
             backgroundColor: theme.palette.form.autocomplete.group.background,
