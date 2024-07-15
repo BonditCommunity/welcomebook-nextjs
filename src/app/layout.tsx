@@ -1,5 +1,6 @@
 import '@/i18n';
 import '@/theme/global.css';
+import '@/firebase';
 import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript';
@@ -10,6 +11,8 @@ import { Layout } from '@/components/layout/layout';
 import { ThemeProvider } from '@/theme/provider';
 import { DEFAULT_LOCALE } from '@/constants/common/locale';
 import { Color } from '@/theme/@enums';
+import { AuthProvider } from '@/contexts/authentication/provider';
+import { AuthConsumer } from '@/contexts/authentication/consumer';
 
 export const metadata: Metadata = {
     title: 'Welcome Book',
@@ -42,7 +45,11 @@ export default function RootLayout({
                 <RecoilProvider>
                     <I18nProvider lang={lang}>
                         <ThemeProvider>
-                            <Layout>{children}</Layout>
+                            <AuthProvider>
+                                <Layout>
+                                    <AuthConsumer>{children}</AuthConsumer>
+                                </Layout>
+                            </AuthProvider>
                         </ThemeProvider>
                     </I18nProvider>
                 </RecoilProvider>
