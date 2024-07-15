@@ -1,3 +1,4 @@
+
 import '@/i18n';
 import '@/theme/global.css';
 import type { Metadata } from 'next';
@@ -10,6 +11,8 @@ import { Layout } from '@/components/layout/layout';
 import { ThemeProvider } from '@/theme/provider';
 import { DEFAULT_LOCALE } from '@/constants/common/locale';
 import { Color } from '@/theme/@enums';
+import LoadingSplash from '@/components/loading/LoadingSplash';
+import { AuthProvider, useAuth } from '@/contexts/AuthContext';
 
 export const metadata: Metadata = {
     title: 'Welcome Book',
@@ -28,6 +31,17 @@ function detectLanguage() {
     return cookies().get('i18next')?.value ?? DEFAULT_LOCALE.value;
 }
 
+function AuthStatusChecker({ children }: { children: React.ReactNode }) {
+    // const { authStatus } = useAuth();
+
+    // if (!authStatus) {
+    //     return <LoadingSplash />;
+    // }
+
+    return <>{children}</>;
+}
+
+
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -42,7 +56,12 @@ export default function RootLayout({
                 <RecoilProvider>
                     <I18nProvider lang={lang}>
                         <ThemeProvider>
-                            <Layout>{children}</Layout>
+                            <AuthProvider>
+                                <AuthStatusChecker>
+                                    <Layout>{children}</Layout>
+                                </AuthStatusChecker>
+                            </AuthProvider>
+                            {/* <Layout>{children}</Layout> */}
                         </ThemeProvider>
                     </I18nProvider>
                 </RecoilProvider>
@@ -50,3 +69,4 @@ export default function RootLayout({
         </html>
     );
 }
+

@@ -10,6 +10,7 @@ import { FH2 } from '@/components/typography/FH2';
 import { Screen } from '@/components/layout/screen';
 import { spacing } from '@/theme/spacing';
 import { routes } from '@/routes';
+import { signIn } from 'next-auth/react';
 
 export function Home() {
     const { t } = useTranslation();
@@ -42,12 +43,12 @@ export function Home() {
                 </FH2>
             </div>
             <div>
-                <Button variant={'default'} href={routes.signUp}>
+                <Button variant={'default'} href="/api/auth/signin">
                     {t('homeSignUpWithGoogle')}
                 </Button>
                 <Button
                     variant={'default'}
-                    href={routes.signUp}
+                    // href={routes.signUp}
                     style={{
                         marginTop: 15,
                         marginBottom: spacing.form.submit.margin.bottom,
