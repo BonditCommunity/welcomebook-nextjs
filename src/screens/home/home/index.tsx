@@ -2,12 +2,12 @@
 
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import Button from '@mui/material/Button';
 import {
     CredentialResponse,
     GoogleLogin,
     GoogleOAuthProvider,
 } from '@react-oauth/google';
+import AppleSignIn from 'react-apple-signin-auth';
 import { signInWithCustomToken } from 'firebase/auth';
 import { jwtDecode } from 'jwt-decode';
 
@@ -15,14 +15,12 @@ import { FTitle } from '@/components/typography/FTitle';
 import { useTheme } from '@/hooks/common/use-theme';
 import { FH2 } from '@/components/typography/FH2';
 import { Screen } from '@/components/layout/screen';
-import { spacing } from '@/theme/spacing';
-import { routes } from '@/routes';
 import { useFetch } from '@/hooks/common/use-fetch';
 import { firebase } from '@/firebase';
 
 export function Home() {
     const { t } = useTranslation();
-    const { theme } = useTheme();
+    const { theme, type } = useTheme();
 
     const { fetchAPI } = useFetch();
 
@@ -46,6 +44,10 @@ export function Home() {
         if (data.customToken) {
             await signInWithCustomToken(firebase, data.customToken);
         }
+    };
+
+    const signInApple = async (response: any) => {
+        console.log(response);
     };
 
     return (
@@ -78,14 +80,22 @@ export function Home() {
                     <div style={{ marginTop: 15 }}>
                         <GoogleLogin onSuccess={signInGoogle} />
                     </div>
-                    <Button
-                        href={routes.signUp}
-                        style={{
-                            marginTop: 15,
-                            marginBottom: spacing.form.submit.margin.bottom,
-                        }}>
-                        {t('homeSignUpWithApple')}
-                    </Button>
+                    <div style={{ marginTop: 15 }}>
+                        <AppleSignIn
+                            authOptions={{
+                                clientId: process.env.APPLE_CLIENT_ID!,
+                                scope: 'email name',
+                                redirectURI: 'https://welcomebook.com',
+                                state: 'state',
+                                nonce: 'nonce',
+                                // only works with https
+                                usePopup: true,
+                            }}
+                            uiType={type}
+                            onSuccess={signInApple}
+                            onError={() => {}}
+                        />
+                    </div>
                 </div>
             </Screen>
         </GoogleOAuthProvider>

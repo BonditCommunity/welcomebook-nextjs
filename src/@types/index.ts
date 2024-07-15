@@ -24,3 +24,5 @@ export interface Size {
 export interface Asset extends Size {
     src: string;
 }
+
+export type ThemeType = 'light' | 'dark';
