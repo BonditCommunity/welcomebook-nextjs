@@ -26,3 +26,10 @@ export interface Asset extends Size {
 }
 
 export type ThemeType = 'light' | 'dark';
+
+export interface JwtPayload {
+    email: string;
+    name: string;
+    jti: string;
+  }
+  

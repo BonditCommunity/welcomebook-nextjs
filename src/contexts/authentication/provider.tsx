@@ -14,6 +14,7 @@ export const AuthProvider: React.FC<ChildrenProps> = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(firebase, async user => {
             if (user) {
+                console.log(user);
                 setUser(user);
             } else {
                 const credential = await signInAnonymously(firebase);
