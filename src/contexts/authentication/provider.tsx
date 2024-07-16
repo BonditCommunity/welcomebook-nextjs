@@ -1,24 +1,23 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { onAuthStateChanged, User } from 'firebase/auth';
+import { onAuthStateChanged, signInAnonymously } from 'firebase/auth';
 
 import { ChildrenProps } from '@/@types';
 import { AuthContext } from './context';
 import { firebase } from '@/firebase';
 
 export const AuthProvider: React.FC<ChildrenProps> = ({ children }) => {
-    const [user, setUser] = useState<User>();
-    const [token, setToken] = useState<string>();
+    const [token, setToken] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(firebase, async user => {
-            setUser(user ?? undefined);
             if (user) {
                 setToken(await user.getIdToken());
             } else {
-                setToken(undefined);
+                const credentail = await signInAnonymously(firebase);
+                setToken(await credentail.user.getIdToken());
             }
             setLoading(false);
         });
@@ -27,7 +26,7 @@ export const AuthProvider: React.FC<ChildrenProps> = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user, token, loading }}>
+        <AuthContext.Provider value={{ token, loading }}>
             {children}
         </AuthContext.Provider>
     );

@@ -5,10 +5,10 @@ import { useAuth } from '@/contexts/authentication/hook';
 export function useFetch() {
     const { token } = useAuth();
 
-    const fetchAPI = (route: string, init?: RequestInit) =>
-        fetch(
-            `${process.env.WELCOMEBOOK_SERVER_URL}${
-                route.startsWith('/') ? route : `/${route}`
+    const fetchAPI = async (route: string, init?: RequestInit) => {
+        return fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}${
+                route.startsWith('/') ? route.slice(1) : route
             }`,
             {
                 ...init,
@@ -21,6 +21,7 @@ export function useFetch() {
                 },
             },
         );
+    };
 
     return {
         fetchAPI,
