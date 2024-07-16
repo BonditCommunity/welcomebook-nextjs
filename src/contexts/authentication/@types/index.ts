@@ -1,4 +1,6 @@
+import { User } from 'firebase/auth';
+
 export interface AuthContext {
-    token: string;
+    user?: User;
     loading: boolean;
 }
