@@ -1,7 +1,5 @@
 export interface TypeIcon {
     white: string;
-    info: string;
-    error: string;
     caption: string;
 }
 
@@ -24,13 +22,20 @@ export interface TypeForm {
     base: {
         text: string;
         placeholder: string;
+        error: string;
     };
-    textfield: {
+    standard: {
+        border: string;
+    };
+    outlined: {
         background: string;
         text: string;
         placeholder: string;
-        error: string;
         border: string;
+        secondary: {
+            background: string;
+            placeholder: string;
+        };
     };
     checkbox: {
         icon: string;
@@ -64,5 +69,4 @@ export interface TypeSheet {
 
 export interface TypeBorder {
     primary: string;
-    black: string;
 }

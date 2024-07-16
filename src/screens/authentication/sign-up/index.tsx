@@ -170,10 +170,7 @@ export function SignUp() {
                         style={{
                             marginTop: size.input.gap,
                         }}>
-                        <Svg
-                            src={iconAlert}
-                            color={theme.form.textfield.error}
-                        />
+                        <Svg src={iconAlert} color={theme.form.base.error} />
                         <IBody2
                             color={theme.text.white}
                             style={{ flex: 1, marginLeft: 10 }}>

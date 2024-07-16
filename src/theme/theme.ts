@@ -1,6 +1,5 @@
 import { PaletteOptions } from '@mui/material/styles';
 
-import { Color } from './@enums';
 import {
     TypeBorder,
     TypeButton,
@@ -13,13 +12,12 @@ declare module '@mui/material/styles/createPalette' {
     interface TypeBackground {
         primary: string;
         black: string;
-        gray: string;
     }
     interface TypeText {
         default: string;
         white: string;
         caption: string;
-        darkPurple: string;
+        title: string;
     }
     interface PaletteOptions {
         icon: TypeIcon;
@@ -37,164 +35,206 @@ declare module '@mui/material/styles/createPalette' {
     }
 }
 
+export const color = {
+    black: {
+        default: '#000000',
+    },
+    white: {
+        default: '#FFFFFF',
+    },
+    red: {
+        default: '#FE0000',
+    },
+    green: {
+        default: '#05FF00',
+    },
+    blue: {
+        default: '#1337F0',
+        '0': '#EEF4FF',
+    },
+    yellow: {
+        default: '#05FF00',
+    },
+    gray: {
+        AA: '#AAAAAA',
+        E7: '#E7E7E7',
+    },
+    primary: {
+        default: '#6648F4',
+        '0': '#4C35B9',
+        '1': '#A999F9',
+        '2': '#B8A9FF',
+        '3': '#F8F0FF',
+    },
+    secondary: {
+        default: '#CBEE4C',
+    },
+};
+
 export const light: PaletteOptions = {
     background: {
-        default: Color.white,
-        primary: Color.main,
-        black: Color.black,
-        gray: Color.gray47,
+        default: color.white.default,
+        primary: color.primary.default,
+        black: color.black.default,
     },
     text: {
-        default: Color.black,
-        white: Color.white,
-        primary: Color.main,
-        secondary: Color.green,
-        caption: Color.grayA1,
-        darkPurple: Color.dark_purple,
+        default: color.black.default,
+        white: color.white.default,
+        primary: color.primary.default,
+        secondary: color.secondary.default,
+        caption: color.gray.AA,
+        title: color.primary['0'],
     },
     icon: {
-        white: Color.white,
-        info: Color.green,
-        error: Color.red,
-        caption: Color.grayA1,
+        white: color.white.default,
+        caption: color.gray.AA,
     },
     button: {
         default: {
-            background: Color.black,
-            text: Color.white,
+            background: color.black.default,
+            text: color.white.default,
         },
         disabled: {
-            background: Color.grayA1,
-            text: Color.white,
+            background: color.gray.AA,
+            text: color.white.default,
         },
         rounded: {
-            background: Color.main,
-            text: Color.white,
+            background: color.primary.default,
+            text: color.white.default,
         },
     },
     form: {
         base: {
-            text: Color.black,
-            placeholder: Color.grayA1,
+            text: color.black.default,
+            placeholder: color.gray.AA,
+            error: color.red.default,
         },
-        textfield: {
-            background: Color.dark_purple,
-            text: Color.white,
-            placeholder: Color.purple,
-            error: Color.red,
-            border: Color.white,
+        standard: {
+            border: color.black.default,
+        },
+        outlined: {
+            background: color.primary['0'],
+            text: color.white.default,
+            placeholder: color.primary['2'],
+            border: color.white.default,
+            secondary: {
+                background: 'transparent',
+                placeholder: color.gray.AA,
+            },
         },
         checkbox: {
-            icon: Color.white,
+            icon: color.white.default,
         },
         upload: {
-            background: Color.grayF6F7F9,
-            icon: Color.gray47,
+            background: color.gray.E7,
+            icon: color.gray.AA,
         },
         autocomplete: {
-            background: Color.white,
-            text: Color.black,
+            background: color.white.default,
+            text: color.black.default,
             group: {
-                background: Color.white,
-                text: Color.grayA1,
+                background: color.white.default,
+                text: color.gray.AA,
             },
             selected: {
-                background: Color.light_purple,
-                text: Color.main,
+                background: color.blue['0'],
+                text: color.blue.default,
             },
         },
     },
     sheet: {
         background: {
-            default: Color.main,
-            black: Color.black,
-            white: Color.white,
+            default: color.primary.default,
+            black: color.black.default,
+            white: color.white.default,
         },
-        handle: Color.grayA1,
+        handle: color.gray.AA,
     },
     border: {
-        primary: Color.main,
-        black: Color.black,
+        primary: color.primary.default,
     },
 };
 
 export const dark: PaletteOptions = {
     background: {
-        default: Color.white,
-        primary: Color.main,
-        black: Color.black,
-        gray: Color.gray47,
+        default: color.white.default,
+        primary: color.primary.default,
+        black: color.black.default,
     },
     text: {
-        default: Color.black,
-        white: Color.white,
-        primary: Color.main,
-        secondary: Color.green,
-        caption: Color.grayA1,
-        darkPurple: Color.dark_purple,
+        default: color.black.default,
+        white: color.white.default,
+        primary: color.primary.default,
+        secondary: color.secondary.default,
+        caption: color.gray.AA,
+        title: color.primary['0'],
     },
     icon: {
-        white: Color.white,
-        info: Color.green,
-        error: Color.red,
-        caption: Color.grayA1,
+        white: color.white.default,
+        caption: color.gray.AA,
     },
     button: {
         default: {
-            background: Color.black,
-            text: Color.white,
+            background: color.black.default,
+            text: color.white.default,
         },
         disabled: {
-            background: Color.grayA1,
-            text: Color.white,
+            background: color.gray.AA,
+            text: color.white.default,
         },
         rounded: {
-            background: Color.main,
-            text: Color.white,
+            background: color.primary.default,
+            text: color.white.default,
         },
     },
     form: {
         base: {
-            text: Color.black,
-            placeholder: Color.grayA1,
+            text: color.black.default,
+            placeholder: color.gray.AA,
+            error: color.red.default,
         },
-        textfield: {
-            background: Color.dark_purple,
-            text: Color.white,
-            placeholder: Color.purple,
-            error: Color.red,
-            border: Color.white,
+        standard: {
+            border: color.black.default,
+        },
+        outlined: {
+            background: color.primary['0'],
+            text: color.white.default,
+            placeholder: color.primary['2'],
+            border: color.white.default,
+            secondary: {
+                background: 'transparent',
+                placeholder: color.gray.AA,
+            },
         },
         checkbox: {
-            icon: Color.white,
+            icon: color.white.default,
         },
         upload: {
-            background: Color.grayF6F7F9,
-            icon: Color.gray47,
+            background: color.gray.E7,
+            icon: color.gray.AA,
         },
         autocomplete: {
-            background: Color.white,
-            text: Color.black,
+            background: color.white.default,
+            text: color.black.default,
             group: {
-                background: Color.white,
-                text: Color.grayA1,
+                background: color.white.default,
+                text: color.gray.AA,
             },
             selected: {
-                background: Color.light_purple,
-                text: Color.main,
+                background: color.blue['0'],
+                text: color.blue.default,
             },
         },
     },
     sheet: {
         background: {
-            default: Color.main,
-            black: Color.black,
-            white: Color.white,
+            default: color.primary.default,
+            black: color.black.default,
+            white: color.white.default,
         },
-        handle: Color.grayA1,
+        handle: color.gray.AA,
     },
     border: {
-        primary: Color.main,
-        black: Color.black,
+        primary: color.primary.default,
     },
 };

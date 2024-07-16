@@ -10,7 +10,7 @@ import { I18nProvider } from '@/i18n/provider';
 import { Layout } from '@/components/layout/layout';
 import { ThemeProvider } from '@/theme/provider';
 import { DEFAULT_LOCALE } from '@/constants/common/locale';
-import { Color } from '@/theme/@enums';
+import { color } from '@/theme/theme';
 import { AuthProvider } from '@/contexts/authentication/provider';
 import { AuthConsumer } from '@/contexts/authentication/consumer';
 
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport = {
-    themeColor: Color.main,
+    themeColor: color.primary.default,
     width: 'device-width',
     initialScale: 1,
     maximumScale: 1,

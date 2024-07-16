@@ -28,7 +28,7 @@ export const MuiInput: Components<Theme>['MuiInput'] = {
         root: ({ theme }) => ({
             [`&:hover:not(.${inputClasses.focused})`]: {
                 '&:before': {
-                    borderColor: theme.palette.border.black,
+                    borderColor: theme.palette.form.standard.border,
                 },
             },
         }),
@@ -38,7 +38,7 @@ export const MuiInput: Components<Theme>['MuiInput'] = {
         },
         underline: ({ theme }) => ({
             '&::after': {
-                borderBottomColor: theme.palette.border.black,
+                borderBottomColor: theme.palette.form.standard.border,
             },
         }),
     },
@@ -48,32 +48,30 @@ export const MuiOutlinedInput: Components<Theme>['MuiOutlinedInput'] = {
     styleOverrides: {
         root: ({ ownerState, theme }) => ({
             borderRadius: 15,
-            ...(ownerState.color !== 'secondary' && {
-                backgroundColor: theme.palette.form.textfield.background,
-            }),
+            backgroundColor:
+                ownerState.color === 'secondary'
+                    ? theme.palette.form.outlined.secondary.background
+                    : theme.palette.form.outlined.background,
             [`&.${outlinedInputClasses.focused}`]: {
                 [`& .${outlinedInputClasses.notchedOutline}`]: {
-                    borderWidth: 1,
-                    borderColor: theme.palette.form.textfield.border,
+                    borderColor: theme.palette.form.outlined.border,
                 },
             },
             [`&.${outlinedInputClasses.error}`]: {
                 [`& .${outlinedInputClasses.notchedOutline}`]: {
-                    borderWidth: 1,
-                    borderColor: theme.palette.form.textfield.error,
+                    borderColor: theme.palette.form.base.error,
                 },
             },
             [`&.${outlinedInputClasses.disabled}`]: {
                 [`& .${outlinedInputClasses.notchedOutline}`]: {
-                    borderColor: 'transparent',
+                    ...(ownerState.color !== 'secondary' && {
+                        borderColor: 'transparent',
+                    }),
                 },
             },
             '&:hover': {
                 [`& .${outlinedInputClasses.notchedOutline}`]: {
-                    borderColor:
-                        ownerState.color === 'secondary'
-                            ? theme.palette.form.textfield.border
-                            : theme.palette.form.textfield.border,
+                    borderColor: theme.palette.form.outlined.border,
                 },
             },
         }),
@@ -87,20 +85,24 @@ export const MuiOutlinedInput: Components<Theme>['MuiOutlinedInput'] = {
                 ? '10px !important'
                 : '30px !important',
             ...typography.FH4,
-            color: theme.palette.form.textfield.text,
+            color: theme.palette.form.outlined.text,
             '&::placeholder': {
                 ...typography.IBody1,
-                color: theme.palette.form.textfield.placeholder,
+                color:
+                    ownerState.color === 'secondary'
+                        ? theme.palette.form.outlined.secondary.placeholder
+                        : theme.palette.form.outlined.placeholder,
             },
             [`&.${outlinedInputClasses.disabled}`]: {
-                color: theme.palette.form.textfield.text,
-                WebkitTextFillColor: theme.palette.form.textfield.text,
+                color: theme.palette.form.outlined.text,
+                WebkitTextFillColor: theme.palette.form.outlined.text,
             },
         }),
         notchedOutline: ({ ownerState, theme }) => ({
+            borderWidth: ownerState.color === 'secondary' ? 2 : 1,
             borderColor:
                 ownerState.color === 'secondary'
-                    ? theme.palette.form.textfield.border
+                    ? theme.palette.form.outlined.border
                     : 'transparent',
             transition: theme.transitions.create(['border-color'], {
                 duration: theme.transitions.duration.shortest,

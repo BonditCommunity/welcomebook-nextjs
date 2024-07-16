@@ -21,7 +21,7 @@ export const DropBox: React.FC<ComponentProps> = ({ ...props }) => {
                 width: size.dropBox.container,
                 height: size.dropBox.container,
                 borderRadius: 9999,
-                backgroundColor: colorWithAlpha(theme.background.gray, 0.9),
+                backgroundColor: colorWithAlpha(theme.background.black, 0.25),
                 borderWidth: size.dropBox.border,
                 borderColor: colorWithAlpha(theme.background.default, 0.7),
                 borderStyle: 'solid',
