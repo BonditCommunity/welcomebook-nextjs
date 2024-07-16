@@ -20,7 +20,7 @@ export const MuiPickersLayout: Components<Theme>['MuiPickersLayout'] = {
             color: theme.palette.text.default,
             [`& .${typographyClasses.root}`]: {
                 textTransform: 'none',
-                ...typography.ISubtitle,
+                ...typography.ISubtitle2,
                 color: theme.palette.text.default,
             },
             [`& .${datePickerToolbarClasses.root}`]: {

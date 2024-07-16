@@ -32,7 +32,8 @@ export enum Typography {
     IH1 = 'IH1',
     IH2 = 'IH2',
     IH3 = 'IH3',
-    ISubtitle = 'ISubtitle',
+    ISubtitle1 = 'ISubtitle1',
+    ISubtitle2 = 'ISubtitle2',
     IBody1 = 'IBody1',
     IBody2 = 'IBody2',
 }

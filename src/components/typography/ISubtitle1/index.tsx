@@ -5,13 +5,13 @@ import Typography, { TypographyProps } from '@mui/material/Typography';
 
 import { typography } from '@/theme/typography';
 
-export const ISubtitle = forwardRef<HTMLParagraphElement, TypographyProps>(
+export const ISubtitle1 = forwardRef<HTMLParagraphElement, TypographyProps>(
     ({ children, sx, ...props }, ref) => {
         return (
             <Typography
                 ref={ref}
                 sx={{
-                    ...typography.ISubtitle,
+                    ...typography.ISubtitle1,
                     ...sx,
                 }}
                 {...props}>
@@ -20,4 +20,4 @@ export const ISubtitle = forwardRef<HTMLParagraphElement, TypographyProps>(
         );
     },
 );
-ISubtitle.displayName = 'ISubtitle';
+ISubtitle1.displayName = 'ISubtitle1';

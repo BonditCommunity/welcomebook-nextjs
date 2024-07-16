@@ -11,7 +11,7 @@ import { useTheme } from '@/hooks/common/use-theme';
 import { FH3 } from '@/components/typography/FH3';
 import { imgError } from '@/assets/images';
 import { Col } from '@/components/grid/col';
-import { ISubtitle } from '@/components/typography/ISubtitle';
+import { ISubtitle2 } from '@/components/typography/ISubtitle2';
 import { routes } from '@/routes';
 import { spacing } from '@/theme/spacing';
 
@@ -45,12 +45,12 @@ export const Container: React.FC<ContainerProps> = ({ error }) => {
                         marginTop: 20,
                     }}
                 />
-                <ISubtitle
+                <ISubtitle2
                     textAlign={'center'}
                     color={theme.text.white}
                     style={{ marginTop: 10 }}>
                     {t(`error${error}Description`)}
-                </ISubtitle>
+                </ISubtitle2>
             </Col>
             <Button
                 variant={'rounded'}
