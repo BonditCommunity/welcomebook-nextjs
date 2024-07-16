@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
@@ -23,6 +23,10 @@ import { Checkbox } from '@/components/form/check-box';
 import { spacing } from '@/theme/spacing';
 import { Shcool } from './@components/school';
 import { DatePicker } from '@/components/form/date-picker';
+import { collegeRepository } from '@/api/college';
+import { pagination } from '@/constants/common/pagination';
+import { trim } from '@/helpers/form/trim';
+import { useSearch } from '@/hooks/form/use-search';
 
 const filter = createFilterOptions<SchoolType>();
 
@@ -31,6 +35,10 @@ export function SignUp() {
 
     const { t } = useTranslation();
     const { theme } = useTheme();
+
+    const keyword = useSearch('');
+
+    const { searchCollege } = collegeRepository();
 
     const [school, setSchool] = useState<SchoolType>();
 
@@ -46,6 +54,16 @@ export function SignUp() {
             agree: false,
         },
     });
+
+    const search = async (value: string) => {
+        const keyword = trim(value);
+        if (!keyword) return;
+        const response = await searchCollege({
+            keyword,
+            page: 0,
+            size: pagination.default,
+        });
+    };
 
     const {
         setValue,
@@ -64,6 +82,10 @@ export function SignUp() {
     const goTermsPrivacy = useCallback(() => {
         router.push(routes.terms.privacy);
     }, [router]);
+
+    useEffect(() => {
+        search(keyword.searched);
+    }, [keyword.searched]);
 
     return (
         <Sheet>
@@ -104,6 +126,9 @@ export function SignUp() {
                                 });
                             }
                             return filtered;
+                        }}
+                        onInputChange={(_, value) => {
+                            keyword.setValue(value);
                         }}
                         onChange={(_, value) => {
                             setSchool(value);

@@ -15,6 +15,7 @@ import { IBody2 } from '@/components/typography/IBody2';
 import { Row } from '@/components/grid/row';
 import { DropBox } from './@components/drop-box';
 import { size } from './@constants';
+import { color } from '@/theme/theme';
 
 export function WishList() {
     const { t } = useTranslation();
@@ -54,7 +55,7 @@ export function WishList() {
                     sx={{
                         width: 12,
                         height: 12,
-                        backgroundColor: theme.icon.info,
+                        backgroundColor: color.green.default,
                         borderRadius: 9999,
                     }}
                 />
@@ -67,7 +68,7 @@ export function WishList() {
                     sx={{
                         width: 12,
                         height: 12,
-                        backgroundColor: theme.icon.error,
+                        backgroundColor: color.red.default,
                         borderRadius: 9999,
                     }}
                 />
