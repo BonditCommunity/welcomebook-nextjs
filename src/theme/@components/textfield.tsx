@@ -80,10 +80,10 @@ export const MuiOutlinedInput: Components<Theme>['MuiOutlinedInput'] = {
             paddingBottom: '15px !important',
             paddingLeft: ownerState.startAdornment
                 ? '10px !important'
-                : '30px !important',
+                : '20px !important',
             paddingRight: ownerState.endAdornment
                 ? '10px !important'
-                : '30px !important',
+                : '20px !important',
             ...typography.FH4,
             color: theme.palette.form.outlined.text,
             '&::placeholder': {
@@ -109,10 +109,10 @@ export const MuiOutlinedInput: Components<Theme>['MuiOutlinedInput'] = {
             }),
         }),
         adornedStart: {
-            paddingLeft: 15,
+            paddingLeft: 20,
         },
         adornedEnd: {
-            paddingRight: 15,
+            paddingRight: 20,
         },
     },
 };

@@ -2,21 +2,21 @@
 
 import { useFetch } from '@/hooks/common/use-fetch';
 import { apiVersion } from '../@constants';
-import { SearchCollegesReq, SearchCollegesRes } from './dto/search-colleges';
+import { SearchProductsReq, SearchProductsRes } from './dto/search-products';
 import { Response } from '../common/dto/response';
 import { tryAPI } from '../@helpers';
 
-const domain = `api/${apiVersion}/college`;
+const domain = `api/${apiVersion}/product`;
 
-export const collegeRepository = () => {
+export const productRepository = () => {
     const { fetchAPI } = useFetch();
 
-    const searchColleges = async ({
+    const searchProducts = async ({
         keyword,
         page,
         size,
-    }: SearchCollegesReq): Promise<Response<SearchCollegesRes>> => {
-        return tryAPI<SearchCollegesRes>(() => {
+    }: SearchProductsReq): Promise<Response<SearchProductsRes>> => {
+        return tryAPI<SearchProductsRes>(() => {
             return fetchAPI(
                 `${domain}/all/search?keyword=${keyword}&page=${page}&size=${size}`,
             );
@@ -24,6 +24,6 @@ export const collegeRepository = () => {
     };
 
     return {
-        searchColleges,
+        searchProducts,
     };
 };

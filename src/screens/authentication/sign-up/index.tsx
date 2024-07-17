@@ -29,9 +29,9 @@ import { DatePicker } from '@/components/form/date-picker';
 import { collegeRepository } from '@/api/college';
 import { trim } from '@/helpers/form/trim';
 import { useSearch } from '@/hooks/form/use-search';
-import { College as CollegeType } from '@/api/college/entity/college';
+import { CollegeRes } from '@/api/college/entity/college';
 
-const filter = createFilterOptions<CollegeType>();
+const filter = createFilterOptions<CollegeRes>();
 
 export function SignUp() {
     const router = useRouter();
@@ -41,10 +41,10 @@ export function SignUp() {
 
     const keyword = useSearch('');
 
-    const { searchCollege } = collegeRepository();
+    const { searchColleges } = collegeRepository();
 
-    const [college, setCollege] = useState<CollegeType>();
-    const [colleges, setColleges] = useState<CollegeType[]>([]);
+    const [college, setCollege] = useState<CollegeRes>();
+    const [colleges, setColleges] = useState<CollegeRes[]>([]);
 
     const methods = useForm<Schema>({
         resolver: zodResolver(schema),
@@ -58,7 +58,7 @@ export function SignUp() {
     const search = async (value: string) => {
         const keyword = trim(value);
         if (!keyword) return;
-        const { result, error } = await searchCollege({
+        const { result, error } = await searchColleges({
             keyword,
             page: 0,
             size: 0,
@@ -87,7 +87,7 @@ export function SignUp() {
         formState: { isSubmitting, isValid },
     } = methods;
 
-    const handleCollege = useCallback((_: unknown, college: CollegeType) => {
+    const handleCollege = useCallback((_: unknown, college: CollegeRes) => {
         setCollege(college);
         if (college.firstDay) {
             setValue('date', new Date(college.firstDay));
@@ -97,7 +97,7 @@ export function SignUp() {
 
     const onSubmit = handleSubmit(async data => {
         alert(JSON.stringify(data));
-        // router.push(routes.wishList);
+        // router.push(routes.wishlist);
     });
 
     const goTermsService = useCallback(() => {
@@ -152,7 +152,7 @@ export function SignUp() {
                                 filtered.splice(0, 0, {
                                     id: -1,
                                     name: inputValue,
-                                } as CollegeType);
+                                } as CollegeRes);
                             }
                             return filtered;
                         }}

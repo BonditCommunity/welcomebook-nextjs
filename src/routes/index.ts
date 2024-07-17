@@ -1,7 +1,7 @@
 export const routes = {
     home: '/',
     signUp: 'sign-up',
-    wishList: 'wish-list',
+    wishlist: 'wishlist',
     terms: {
         service: 'terms/service',
         privacy: 'terms/privacy',

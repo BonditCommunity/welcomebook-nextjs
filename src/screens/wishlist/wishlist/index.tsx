@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -16,12 +16,43 @@ import { Row } from '@/components/grid/row';
 import { DropBox } from './@components/drop-box';
 import { size } from './@constants';
 import { color } from '@/theme/theme';
+import { useScroll } from '@/hooks/common/use-scroll';
+import { productRepository } from '@/api/product';
+import { trim } from '@/helpers/form/trim';
+import { pagination } from '@/constants/common/pagination';
+import { ProductRes } from '@/api/product/entity/product';
 
-export function WishList() {
+export function Wishlist() {
     const { t } = useTranslation();
     const { theme } = useTheme();
 
     const q = useSearch('');
+
+    const { searchProducts } = productRepository();
+
+    const [products, setProducts] = useState<ProductRes[]>([]);
+
+    const { ref } = useScroll({
+        offset: size.product.image,
+        onEndReached: () => {},
+    });
+
+    const search = async (value: string) => {
+        const { result, error } = await searchProducts({
+            keyword: trim(value),
+            page: 0,
+            size: pagination.default,
+        });
+        if (result) {
+            setProducts(result.content);
+        } else if (error) {
+            alert(error);
+        }
+    };
+
+    useEffect(() => {
+        search(q.searched);
+    }, [q.searched]);
 
     return (
         <Sheet type={'black'}>
@@ -29,17 +60,18 @@ export function WishList() {
                 {t('wishListTitle')}
             </FH2>
             <TextField
-                type={'text'}
-                name={'search'}
                 variant={'outlined'}
                 color={'secondary'}
+                type={'text'}
+                name={'search'}
+                placeholder={t('wishListSearchPlaceholder')}
                 fullWidth={true}
                 hiddenLabel={true}
                 value={q.value}
                 onChange={q.onChange}
                 inputMode={'search'}
                 InputProps={{
-                    startAdornment: (
+                    endAdornment: (
                         <Svg src={iconSearch} color={theme.icon.white} />
                     ),
                 }}
@@ -78,9 +110,28 @@ export function WishList() {
                     {t('wishListItemInsufficient')}
                 </IBody2>
             </Row>
+            <div
+                style={{
+                    paddingTop: 40,
+                    paddingBottom: 40,
+                }}>
+                {products.map((product, index) => {
+                    return (
+                        <div
+                            key={product.id}
+                            style={{
+                                width: size.product.image,
+                                height: size.product.image,
+                                backgroundColor: 'red',
+                            }}
+                        />
+                    );
+                })}
+                <div ref={ref} />
+            </div>
             <DropBox
                 style={{
-                    position: 'absolute',
+                    position: 'fixed',
                     left: '50%',
                     transform: `translateX(-${size.dropBox.container / 2}px)`,
                     bottom: 30,

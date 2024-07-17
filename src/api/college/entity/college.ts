@@ -1,8 +1,10 @@
-import { Entity } from '@/api/common/entity/entity';
-
-export interface College extends Entity {
+export interface CollegeRes {
+    id: number;
     name: string;
     shortName: string;
     displayName: string;
     firstDay?: Date;
+    imageUrl?: string;
+    createdAt: Date;
+    updatedAt: Date;
 }
