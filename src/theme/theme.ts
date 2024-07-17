@@ -151,6 +151,7 @@ export const light: PaletteOptions = {
         handle: color.gray.AA,
     },
     border: {
+        default: color.gray.E7,
         primary: color.primary.default,
     },
 };
@@ -235,6 +236,7 @@ export const dark: PaletteOptions = {
         handle: color.gray.AA,
     },
     border: {
+        default: color.gray.E7,
         primary: color.primary.default,
     },
 };

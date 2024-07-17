@@ -68,5 +68,6 @@ export interface TypeSheet {
 }
 
 export interface TypeBorder {
+    default: string;
     primary: string;
 }

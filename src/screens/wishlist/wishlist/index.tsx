@@ -22,6 +22,7 @@ import { ProductRes } from '@/api/product/entity/product';
 import { FlatList } from '@/components/layout/flat-list';
 import { ListRenderItem } from '@/components/layout/flat-list/@types';
 import { usePagination } from '@/hooks/common/use-pagination';
+import { Product } from './@components/product';
 
 export function Wishlist() {
     const { t } = useTranslation();
@@ -77,11 +78,13 @@ export function Wishlist() {
     const renderItem: ListRenderItem<ProductRes> = useCallback(
         ({ item, index }) => {
             return (
-                <div
+                <Product
+                    product={item}
+                    index={index}
                     style={{
-                        width: sizing.product.image,
-                        height: sizing.product.image,
-                        backgroundColor: 'red',
+                        ...(index > 0 && {
+                            marginTop: sizing.product.gap,
+                        }),
                     }}
                 />
             );

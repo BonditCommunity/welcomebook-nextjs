@@ -112,7 +112,7 @@ export const typography: {
         fontFamily: inter,
         fontWeight: Font.SemiBold,
         fontSize: 17,
-        lineHeight: 28 / 17,
+        lineHeight: 21 / 17,
     },
     ISubtitle3: {
         fontFamily: inter,
