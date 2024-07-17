@@ -9,7 +9,7 @@ import { sizing } from '@/screens/wishlist/wishlist/@constants';
 
 export const Image: React.FC<ImageProps> = ({ product }) => {
     const { attributes, listeners, transform, setNodeRef } = useDraggable({
-        id: `${product.id}`,
+        id: product.id,
     });
 
     return (
