@@ -3,6 +3,8 @@
 import { useRef } from 'react';
 import debounce from 'lodash/debounce';
 
-export function useDebounce(func: (props?: any) => void, interval?: number) {
-    return useRef(debounce(func, interval ? interval : 300)).current;
+import { UseDebounceProps } from './@types';
+
+export function useDebounce({ callback, interval = 500 }: UseDebounceProps) {
+    return useRef(debounce(callback, interval)).current;
 }

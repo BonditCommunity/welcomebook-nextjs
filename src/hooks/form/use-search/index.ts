@@ -8,7 +8,9 @@ export function useSearch(defaultValue: string) {
     const [value, setValue] = useState<string>(defaultValue);
     const [searched, setSearched] = useState<string>(defaultValue);
 
-    const search = useDebounce(value => setSearched(value));
+    const search = useDebounce({
+        callback: value => setSearched(value),
+    });
 
     const onChange: ChangeEventHandler<HTMLInputElement> = useCallback(e => {
         setValue(e.target.value);
