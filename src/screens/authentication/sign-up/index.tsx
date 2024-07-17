@@ -6,7 +6,10 @@ import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '@mui/material/Button';
-import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
+import Autocomplete, {
+    autocompleteClasses,
+    createFilterOptions,
+} from '@mui/material/Autocomplete';
 
 import { Sheet } from '@/components/layout/sheet';
 import { Form } from '@/components/form/form';
@@ -62,7 +65,18 @@ export function SignUp() {
             // size: 0,
         });
         if (response.result) {
-            setColleges(response.result.content);
+            setColleges(
+                response.result.content.sort((a, b) => {
+                    if (a.name[0].toUpperCase() === b.name[0].toUpperCase()) {
+                        return 0;
+                    } else if (
+                        a.name[0].toUpperCase() > b.name[0].toUpperCase()
+                    ) {
+                        return 1;
+                    }
+                    return -1;
+                }),
+            );
         } else if (response.error) {
             alert(response.error);
         }
@@ -73,6 +87,11 @@ export function SignUp() {
         handleSubmit,
         formState: { isSubmitting, isValid },
     } = methods;
+
+    const handleCollege = useCallback((_: unknown, college: CollegeType) => {
+        setCollege(college);
+        setValue('college', college.name);
+    }, []);
 
     const onSubmit = handleSubmit(async data => {
         router.push(routes.wishList);
@@ -134,28 +153,22 @@ export function SignUp() {
                             }
                             return filtered;
                         }}
+                        isOptionEqualToValue={(option, value) =>
+                            option.name === value.name
+                        }
+                        popupIcon={
+                            <Svg src={iconSearch} color={theme.icon.white} />
+                        }
                         onInputChange={(_, value) => {
                             keyword.setValue(value);
                         }}
-                        onChange={(_, value) => {
-                            setCollege(value);
-                            setValue('college', value.name);
-                        }}
+                        onChange={handleCollege}
                         renderInput={params => (
                             <TextField
                                 {...params}
                                 name={'college'}
                                 placeholder={t('signUpCollegePlaceholder')}
                                 onChange={undefined}
-                                InputProps={{
-                                    ...params.InputProps,
-                                    endAdornment: (
-                                        <Svg
-                                            src={iconSearch}
-                                            color={theme.icon.white}
-                                        />
-                                    ),
-                                }}
                             />
                         )}
                         renderOption={(props, option) => (
@@ -165,6 +178,11 @@ export function SignUp() {
                                 college={option}
                             />
                         )}
+                        sx={{
+                            [`& .${autocompleteClasses.popupIndicator}`]: {
+                                transform: 'none',
+                            },
+                        }}
                         style={{
                             marginTop: size.input.gap,
                         }}

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -16,15 +16,12 @@ import { TextField } from '@/components/form/text-field';
 import { countrys } from '@/constants/common/country';
 import { regexMobile, regexNumber } from '@/constants/form/regex';
 import { AddressSuccess } from '../success';
+import { Country } from '@/@types';
 
 export function AddressInput() {
     const { t } = useTranslation();
 
     const [success, setSuccess] = useState<boolean>(false);
-
-    const options = useMemo<string[]>(() => {
-        return countrys.map(country => country.label);
-    }, [countrys]);
 
     const methods = useForm<Schema>({
         resolver: zodResolver(schema),
@@ -49,8 +46,8 @@ export function AddressInput() {
         setSuccess(true);
     });
 
-    const handleCountry = useCallback((_: unknown, country: string) => {
-        setValue('country', country);
+    const handleCountry = useCallback((_: unknown, country: Country) => {
+        setValue('country', country.label);
     }, []);
 
     if (success) {
@@ -71,11 +68,12 @@ export function AddressInput() {
                 <div>
                     <Autocomplete
                         fullWidth={true}
-                        freeSolo={true}
-                        options={options}
-                        getOptionLabel={option => option}
+                        options={countrys}
+                        getOptionLabel={option => option.label}
+                        groupBy={option => option.label[0].toUpperCase()}
                         disableClearable={true}
-                        groupBy={option => option[0].toUpperCase()}
+                        selectOnFocus={true}
+                        handleHomeEndKeys={true}
                         onChange={handleCountry}
                         renderInput={params => (
                             <TextField
@@ -87,8 +85,8 @@ export function AddressInput() {
                             />
                         )}
                         renderOption={(props, option) => (
-                            <li {...props} key={option}>
-                                {option}
+                            <li {...props} key={option.value}>
+                                {option.label}
                             </li>
                         )}
                     />

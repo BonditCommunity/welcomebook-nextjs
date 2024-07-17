@@ -32,3 +32,9 @@ export interface JwtPayload {
     name: string;
     jti: string;
 }
+
+export interface Country {
+    value: string;
+    label: string;
+    number: string;
+}

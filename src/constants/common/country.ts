@@ -1,4 +1,6 @@
-export const countrys = [
+import { Country } from '@/@types';
+
+export const countrys: Country[] = [
     { value: 'AF', label: 'Afghanistan', number: '+93' },
     { value: 'AX', label: 'Aland Islands', number: '+358' },
     { value: 'AL', label: 'Albania', number: '+355' },
