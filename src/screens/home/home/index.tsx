@@ -18,27 +18,20 @@ import { Screen } from '@/components/layout/screen';
 import { useFetch } from '@/hooks/common/use-fetch';
 import { firebase } from '@/firebase';
 import { useAuth } from '@/contexts/authentication/hook';
-import { JwtPayload } from '@/@types';
+import { JwtPayload,AppleSigninResponse } from '@/@types';
 
 export function Home() {
     const { t } = useTranslation();
     const { theme, type } = useTheme();
 
     const { fetchAPI } = useFetch();
-    const { user } = useAuth();
+    const { user:firebaeUser } = useAuth();
 
     // [GSI_LOGGER]: The given origin is not allowed for the given client ID.
     const signInGoogle = async (credential: CredentialResponse) => {
         if (!credential.credential) return;
-        console.log('credential ryan kim');
-        console.log(credential);
-        console.log(credential.credential);
-
         const payload = jwtDecode<JwtPayload>(credential.credential);
-        console.log(payload);
-        console.log(payload);
-        const token = user ? await user.getIdToken() : '';
-
+        const token = firebaeUser ? await firebaeUser.getIdToken() : '';
         const response = await fetchAPI('/api/v1/auth/sign-in/custom', {
             method: 'POST',
             body: JSON.stringify({
@@ -64,8 +57,37 @@ export function Home() {
         }
     };
 
-    const signInApple = async (response: any) => {
-        console.log(response);
+    const signInApple = async (credential: AppleSigninResponse) => {
+        console.log(credential);
+        const token = firebaeUser ? await firebaeUser.getIdToken() : '';
+        const { user, authorization } = credential;
+        const { id_token, code } = authorization;
+        const userIdentifier = user ? user.id : null;
+        const email = user ? user.email : null;
+        const displayName = user && user.name ? `${user.name.firstName || ''} ${user.name.lastName || ''}`.trim() : null;
+        const response = await fetchAPI('/api/v1/auth/sign-in/custom', {
+            method: 'POST',
+            body: JSON.stringify({
+                'snsToken': id_token,
+                'snsType': 'APPLE',
+                'snsId': userIdentifier,
+                'email': email,
+                'displayName': displayName,
+                'code': code,
+                'mobile': '000000000',
+                'countryNumber': '+1',
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization':`Bearer ${token}`,
+                'Access-Control-Allow-Origin':'*'
+            },
+        });
+
+        const data = await response.json();
+        if (data.customToken) {
+            await signInWithCustomToken(firebase, data.customToken);
+        }
     };
 
     return (
@@ -106,10 +128,10 @@ export function Home() {
                             authOptions={{
                                 clientId: process.env.APPLE_CLIENT_ID!,
                                 scope: 'email name',
-                                redirectURI: 'https://welcomebook.com',
+                                redirectURI: 'http://localhost:3000',
+                                // redirectURI: 'https://welcomebook.com',
                                 state: 'state',
                                 nonce: 'nonce',
-                                // only works with https
                                 usePopup: true,
                             }}
                             uiType={type}
