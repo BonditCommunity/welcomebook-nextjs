@@ -17,7 +17,7 @@ import { FH2 } from '@/components/typography/FH2';
 import { Screen } from '@/components/layout/screen';
 import { firebase } from '@/firebase';
 import { AppleSignInResponse } from '@/@types';
-import { signIn } from '@/api/authentication/repository/sign-in';
+import { useSignIn } from '@/api/authentication/repository/sign-in';
 import { routes } from '@/routes';
 
 export function Home() {
@@ -26,7 +26,7 @@ export function Home() {
     const { t } = useTranslation();
     const { theme, type } = useTheme();
 
-    const { fetch } = signIn();
+    const { fetch } = useSignIn();
 
     const onSuccess = async () => {
         router.push(routes.signUp);

@@ -16,7 +16,7 @@ import { Row } from '@/components/grid/row';
 import { DropBox } from './@components/drop-box';
 import { sizing } from './@constants';
 import { color } from '@/theme/theme';
-import { searchProducts } from '@/api/product/repository/search-products';
+import { useSearchProducts } from '@/api/product/repository/search-products';
 import { trim } from '@/helpers/form/trim';
 import { ProductRes } from '@/api/product/entity/product';
 import { FlatList } from '@/components/layout/flat-list';
@@ -31,7 +31,7 @@ export function Wishlist() {
     const q = useSearch('');
     const { size, canMore, reset, onStartMore, onEndMore } = usePagination();
 
-    const { params, fetch } = searchProducts();
+    const { params, fetch } = useSearchProducts();
 
     const [list, setList] = useState<ProductRes[]>([]);
 

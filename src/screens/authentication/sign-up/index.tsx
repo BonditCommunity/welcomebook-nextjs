@@ -26,7 +26,7 @@ import { Checkbox } from '@/components/form/check-box';
 import { spacing } from '@/theme/spacing';
 import { College } from './@components/college';
 import { DatePicker } from '@/components/form/date-picker';
-import { searchColleges } from '@/api/college/repository/search-colleges';
+import { useSearchColleges } from '@/api/college/repository/search-colleges';
 import { trim } from '@/helpers/form/trim';
 import { useSearch } from '@/hooks/form/use-search';
 import { CollegeRes } from '@/api/college/entity/college';
@@ -41,7 +41,7 @@ export function SignUp() {
 
     const keyword = useSearch('');
 
-    const { fetch } = searchColleges();
+    const { fetch } = useSearchColleges();
 
     const [college, setCollege] = useState<CollegeRes>();
     const [colleges, setColleges] = useState<CollegeRes[]>([]);

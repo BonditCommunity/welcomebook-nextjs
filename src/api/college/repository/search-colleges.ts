@@ -8,7 +8,7 @@ import { tryAPI } from '@/api/@helpers';
 import { useFetch } from '@/hooks/common/use-fetch';
 import { domain } from './@constants';
 
-export const searchColleges = () => {
+export const useSearchColleges = () => {
     const { fetchAPI } = useFetch();
 
     const [params, setParams] = useState<SearchCollegesReq>();
