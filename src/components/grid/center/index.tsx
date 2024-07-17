@@ -18,3 +18,4 @@ export const Center = forwardRef<HTMLDivElement, BoxProps>(
         );
     },
 );
+Center.displayName = 'Center';

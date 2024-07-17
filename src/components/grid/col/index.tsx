@@ -12,3 +12,4 @@ export const Col = forwardRef<HTMLDivElement, BoxProps>(
         );
     },
 );
+Col.displayName = 'Col';

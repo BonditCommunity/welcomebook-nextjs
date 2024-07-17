@@ -12,3 +12,4 @@ export const Row = forwardRef<HTMLDivElement, BoxProps>(
         );
     },
 );
+Row.displayName = 'Row';
