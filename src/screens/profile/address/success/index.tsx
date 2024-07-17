@@ -27,7 +27,7 @@ export function AddressSuccess() {
             <Col alignItems={'center'}>
                 <FH2
                     textAlign={'center'}
-                    color={theme.text.darkPurple}
+                    color={theme.text.title}
                     style={{ marginTop: 90 }}>
                     {t('addressSuccessTitle')}
                 </FH2>
