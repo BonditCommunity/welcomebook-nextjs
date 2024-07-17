@@ -14,7 +14,7 @@ import Autocomplete, {
 import { Sheet } from '@/components/layout/sheet';
 import { Form } from '@/components/form/form';
 import { Schema } from './@types';
-import { schema, size } from './@constants';
+import { schema, sizing } from './@constants';
 import { TextField } from '@/components/form/text-field';
 import { Svg } from '@/components/image/svg';
 import { iconAlert, iconSearch } from '@/assets/icons';
@@ -187,7 +187,7 @@ export function SignUp() {
                             },
                         }}
                         style={{
-                            marginTop: size.input.gap,
+                            marginTop: sizing.input.gap,
                         }}
                     />
                     <DatePicker
@@ -215,7 +215,7 @@ export function SignUp() {
                                     'signUpCollegeStartDatePlaceholder',
                                 ),
                                 style: {
-                                    marginTop: size.input.gap,
+                                    marginTop: sizing.input.gap,
                                 },
                             },
                         }}
@@ -225,7 +225,7 @@ export function SignUp() {
                     <Row
                         alignItems={'center'}
                         style={{
-                            marginTop: size.input.gap,
+                            marginTop: sizing.input.gap,
                         }}>
                         <Svg src={iconAlert} color={theme.form.base.error} />
                         <IBody2

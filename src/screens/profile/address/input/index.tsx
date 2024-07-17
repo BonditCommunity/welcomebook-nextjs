@@ -9,7 +9,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 
 import { Sheet } from '@/components/layout/sheet';
 import { Schema } from './@types';
-import { schema, size } from './@constants';
+import { schema, sizing } from './@constants';
 import { Form } from '@/components/form/form';
 import { spacing } from '@/theme/spacing';
 import { TextField } from '@/components/form/text-field';
@@ -94,21 +94,21 @@ export function AddressInput() {
                         name={'address'}
                         placeholder={t('addressInputAddressPlaceholder')}
                         style={{
-                            marginTop: size.input.gap,
+                            marginTop: sizing.input.gap,
                         }}
                     />
                     <TextField
                         name={'city'}
                         placeholder={t('addressInputCityPlaceholder')}
                         style={{
-                            marginTop: size.input.gap,
+                            marginTop: sizing.input.gap,
                         }}
                     />
                     <TextField
                         name={'extraAddress'}
                         placeholder={t('addressInputExtraAddressPlaceholder')}
                         style={{
-                            marginTop: size.input.gap,
+                            marginTop: sizing.input.gap,
                         }}
                     />
                     <TextField
@@ -119,7 +119,7 @@ export function AddressInput() {
                         regex={regexNumber}
                         style={{
                             width: '50%',
-                            marginTop: size.input.gap,
+                            marginTop: sizing.input.gap,
                         }}
                     />
                     <TextField
@@ -129,7 +129,7 @@ export function AddressInput() {
                         inputMode={'tel'}
                         regex={regexMobile}
                         style={{
-                            marginTop: size.input.gap,
+                            marginTop: sizing.input.gap,
                         }}
                     />
                 </div>

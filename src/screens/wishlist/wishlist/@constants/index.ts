@@ -1,4 +1,4 @@
-export const size = {
+export const sizing = {
     product: {
         image: 130,
     },

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -14,41 +14,80 @@ import { iconSearch } from '@/assets/icons';
 import { IBody2 } from '@/components/typography/IBody2';
 import { Row } from '@/components/grid/row';
 import { DropBox } from './@components/drop-box';
-import { size } from './@constants';
+import { sizing } from './@constants';
 import { color } from '@/theme/theme';
-import { useScroll } from '@/hooks/common/use-scroll';
-import { productRepository } from '@/api/product';
+import { searchProducts } from '@/api/product/repository/search-products';
 import { trim } from '@/helpers/form/trim';
-import { pagination } from '@/constants/common/pagination';
 import { ProductRes } from '@/api/product/entity/product';
+import { FlatList } from '@/components/layout/flat-list';
+import { ListRenderItem } from '@/components/layout/flat-list/@types';
+import { usePagination } from '@/hooks/common/use-pagination';
 
 export function Wishlist() {
     const { t } = useTranslation();
     const { theme } = useTheme();
 
     const q = useSearch('');
+    const { size, canMore, reset, onStartMore, onEndMore } = usePagination();
 
-    const { searchProducts } = productRepository();
+    const { params, fetch } = searchProducts();
 
-    const [products, setProducts] = useState<ProductRes[]>([]);
-
-    const { ref } = useScroll({
-        offset: size.product.image,
-        onEndReached: () => {},
-    });
+    const [list, setList] = useState<ProductRes[]>([]);
 
     const search = async (value: string) => {
-        const { result, error } = await searchProducts({
+        reset();
+        const { result, error } = await fetch({
             keyword: trim(value),
             page: 0,
-            size: pagination.default,
+            size,
         });
         if (result) {
-            setProducts(result.content);
+            setList(result.content);
         } else if (error) {
             alert(error);
         }
     };
+
+    const getMore = async () => {
+        if (!params) return;
+        if (!canMore) return;
+        if (list.length > 0) {
+            if (list.length >= size) {
+                onStartMore();
+                try {
+                    const { result } = await fetch({
+                        ...params,
+                        page: params.page + 1,
+                    });
+                    if (result) {
+                        setList(list => list.concat(result.content));
+                        onEndMore(result.content.length);
+                    } else {
+                        onEndMore();
+                    }
+                } catch {
+                    onEndMore();
+                }
+            } else {
+                onEndMore();
+            }
+        }
+    };
+
+    const renderItem: ListRenderItem<ProductRes> = useCallback(
+        ({ item, index }) => {
+            return (
+                <div
+                    style={{
+                        width: sizing.product.image,
+                        height: sizing.product.image,
+                        backgroundColor: 'red',
+                    }}
+                />
+            );
+        },
+        [],
+    );
 
     useEffect(() => {
         search(q.searched);
@@ -110,30 +149,21 @@ export function Wishlist() {
                     {t('wishListItemInsufficient')}
                 </IBody2>
             </Row>
-            <div
+            <FlatList
+                data={list}
+                renderItem={renderItem}
+                keyExtractor={item => `${item.id}`}
+                onEndReached={getMore}
                 style={{
                     paddingTop: 40,
                     paddingBottom: 40,
-                }}>
-                {products.map((product, index) => {
-                    return (
-                        <div
-                            key={product.id}
-                            style={{
-                                width: size.product.image,
-                                height: size.product.image,
-                                backgroundColor: 'red',
-                            }}
-                        />
-                    );
-                })}
-                <div ref={ref} />
-            </div>
+                }}
+            />
             <DropBox
                 style={{
                     position: 'fixed',
                     left: '50%',
-                    transform: `translateX(-${size.dropBox.container / 2}px)`,
+                    transform: `translateX(-${sizing.dropBox.container / 2}px)`,
                     bottom: 30,
                 }}
             />

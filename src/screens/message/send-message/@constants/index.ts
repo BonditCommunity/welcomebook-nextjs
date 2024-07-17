@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { i18n } from '@/i18n';
 import { errors } from '@/messages/error';
 
-export const size = {
+export const sizing = {
     avatar: 95,
     sheet: {
         borderRadius: 30,

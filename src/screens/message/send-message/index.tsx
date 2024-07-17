@@ -15,7 +15,7 @@ import { Col } from '@/components/grid/col';
 import { FH3 } from '@/components/typography/FH3';
 import { Form } from '@/components/form/form';
 import { Schema } from './@types';
-import { schema, size } from './@constants';
+import { schema, sizing } from './@constants';
 import { InputBase } from '@/components/form/input-base';
 import { dropShadow } from '@/theme/shadow';
 import { Row } from '@/components/grid/row';
@@ -54,8 +54,8 @@ export function SendMessage() {
                 <div style={{ width: 60, height: 60 }}>
                     <div
                         style={{
-                            width: size.image,
-                            height: size.image,
+                            width: sizing.image,
+                            height: sizing.image,
                             backgroundColor: theme.background.primary,
                             borderRadius: 8,
                             position: 'absolute',
@@ -68,8 +68,8 @@ export function SendMessage() {
                     />
                     <img
                         src={URL.createObjectURL(file)}
-                        width={size.image}
-                        height={size.image}
+                        width={sizing.image}
+                        height={sizing.image}
                         onClick={() => setFile(undefined)}
                         style={{
                             cursor: 'pointer',
@@ -136,8 +136,8 @@ export function SendMessage() {
                             src={
                                 'https://i.namu.wiki/i/R0AhIJhNi8fkU2Al72pglkrT8QenAaCJd1as-d_iY6MC8nub1iI5VzIqzJlLa-1uzZm--TkB-KHFiT-P-t7bEg.webp'
                             }
-                            width={size.avatar}
-                            height={size.avatar}
+                            width={sizing.avatar}
+                            height={sizing.avatar}
                             style={{
                                 borderWidth: 10,
                                 borderColor: theme.background.default,
@@ -148,16 +148,16 @@ export function SendMessage() {
                     </Col>
                     <div
                         style={{
-                            borderRadius: size.sheet.borderRadius,
+                            borderRadius: sizing.sheet.borderRadius,
                             boxShadow: dropShadow,
-                            marginTop: -size.avatar / 2,
+                            marginTop: -sizing.avatar / 2,
                         }}>
                         <div
                             style={{
-                                borderTopLeftRadius: size.sheet.borderRadius,
-                                borderTopRightRadius: size.sheet.borderRadius,
+                                borderTopLeftRadius: sizing.sheet.borderRadius,
+                                borderTopRightRadius: sizing.sheet.borderRadius,
                                 backgroundColor: theme.background.primary,
-                                paddingTop: 15 + size.avatar / 2,
+                                paddingTop: 15 + sizing.avatar / 2,
                                 paddingBottom: 15,
                                 paddingLeft: 45,
                                 paddingRight: 45,
@@ -173,9 +173,10 @@ export function SendMessage() {
                         </div>
                         <div
                             style={{
-                                borderBottomLeftRadius: size.sheet.borderRadius,
+                                borderBottomLeftRadius:
+                                    sizing.sheet.borderRadius,
                                 borderBottomRightRadius:
-                                    size.sheet.borderRadius,
+                                    sizing.sheet.borderRadius,
                                 backgroundColor: theme.background.default,
                                 padding: 10,
                                 position: 'relative',
@@ -191,8 +192,10 @@ export function SendMessage() {
                                 }}
                                 sx={{
                                     paddingTop: 25,
-                                    paddingLeft: size.input.padding.horizontal,
-                                    paddingRight: size.input.padding.horizontal,
+                                    paddingLeft:
+                                        sizing.input.padding.horizontal,
+                                    paddingRight:
+                                        sizing.input.padding.horizontal,
                                 }}
                             />
                             <Row alignItems={'center'}>
@@ -204,9 +207,9 @@ export function SendMessage() {
                                     sx={{
                                         flex: 1,
                                         paddingLeft:
-                                            size.input.padding.horizontal,
+                                            sizing.input.padding.horizontal,
                                         paddingRight:
-                                            size.input.padding.horizontal,
+                                            sizing.input.padding.horizontal,
                                     }}
                                 />
                                 {renderImage()}
