@@ -23,6 +23,7 @@ import { FlatList } from '@/components/layout/flat-list';
 import { ListRenderItem } from '@/components/layout/flat-list/@types';
 import { usePagination } from '@/hooks/common/use-pagination';
 import { Product } from './@components/product';
+import { parseError } from '@/helpers/format/parse-error';
 
 export function Wishlist() {
     const { t } = useTranslation();
@@ -45,7 +46,7 @@ export function Wishlist() {
         if (result) {
             setList(result.content);
         } else if (error) {
-            alert(error);
+            alert(parseError(error));
         }
     };
 

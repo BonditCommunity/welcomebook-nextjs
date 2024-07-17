@@ -19,6 +19,7 @@ import { firebase } from '@/firebase';
 import { AppleSignInResponse } from '@/@types';
 import { useSignIn } from '@/api/authentication/repository/sign-in';
 import { routes } from '@/routes';
+import { parseError } from '@/helpers/format/parse-error';
 
 export function Home() {
     const router = useRouter();
@@ -43,7 +44,7 @@ export function Home() {
             await signInWithCustomToken(firebase, result.customToken);
             onSuccess();
         } else if (error) {
-            alert(error);
+            alert(parseError(error));
         }
     };
 
@@ -57,7 +58,7 @@ export function Home() {
             await signInWithCustomToken(firebase, result.customToken);
             onSuccess();
         } else if (error) {
-            alert(error);
+            alert(parseError(error));
         }
     };
 

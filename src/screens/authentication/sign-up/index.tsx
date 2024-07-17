@@ -30,6 +30,7 @@ import { useSearchColleges } from '@/api/college/repository/search-colleges';
 import { trim } from '@/helpers/form/trim';
 import { useSearch } from '@/hooks/form/use-search';
 import { CollegeRes } from '@/api/college/entity/college';
+import { parseError } from '@/helpers/format/parse-error';
 
 const filter = createFilterOptions<CollegeRes>();
 
@@ -77,7 +78,7 @@ export function SignUp() {
                 }),
             );
         } else if (error) {
-            alert(error);
+            alert(parseError(error));
         }
     };
 
