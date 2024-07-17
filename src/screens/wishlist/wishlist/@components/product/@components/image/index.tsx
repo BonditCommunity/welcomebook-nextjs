@@ -6,6 +6,7 @@ import { CSS } from '@dnd-kit/utilities';
 
 import { ImageProps } from './@types';
 import { sizing } from '@/screens/wishlist/wishlist/@constants';
+import { Image as LazyImage } from '@/components/image/image/image';
 
 export const Image: React.FC<ImageProps> = ({ product }) => {
     const { attributes, listeners, transform, setNodeRef } = useDraggable({
@@ -20,17 +21,21 @@ export const Image: React.FC<ImageProps> = ({ product }) => {
             style={{
                 width: sizing.product.image,
                 height: sizing.product.image,
-                backgroundImage: `url(${product.imageUrl})`,
-                backgroundSize: 'contain',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
                 transform: CSS.Translate.toString(transform),
                 touchAction: 'none',
                 ...(transform && {
                     zIndex: 9999,
                     transform: CSS.Translate.toString(transform),
                 }),
-            }}
-        />
+            }}>
+            <LazyImage
+                src={product.imageUrl}
+                width={sizing.product.image}
+                height={sizing.product.image}
+                style={{
+                    objectFit: 'contain',
+                }}
+            />
+        </div>
     );
 };
