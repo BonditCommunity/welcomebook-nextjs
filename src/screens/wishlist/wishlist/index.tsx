@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
+import { DndContext } from '@dnd-kit/core';
 
 import { Sheet } from '@/components/layout/sheet';
 import { FH2 } from '@/components/typography/FH2';
@@ -98,79 +99,76 @@ export function Wishlist() {
     }, [q.searched]);
 
     return (
-        <Sheet type={'black'}>
-            <FH2 color={theme.text.primary} style={{ paddingTop: 30 }}>
-                {t('wishListTitle')}
-            </FH2>
-            <TextField
-                variant={'outlined'}
-                color={'secondary'}
-                type={'text'}
-                name={'search'}
-                placeholder={t('wishListSearchPlaceholder')}
-                fullWidth={true}
-                hiddenLabel={true}
-                value={q.value}
-                onChange={q.onChange}
-                inputMode={'search'}
-                InputProps={{
-                    endAdornment: (
-                        <Svg src={iconSearch} color={theme.icon.white} />
-                    ),
-                }}
-                style={{
-                    marginTop: 30,
-                }}
-            />
-            <IBody2 color={theme.text.white} style={{ marginTop: 30 }}>
-                {t('wishListItemCaution')}
-            </IBody2>
-            <Row alignItems={'center'} style={{ marginTop: 25 }}>
-                <Box
-                    sx={{
-                        width: 12,
-                        height: 12,
-                        backgroundColor: color.green.default,
-                        borderRadius: 9999,
+        <DndContext autoScroll={false}>
+            <Sheet type={'black'}>
+                <FH2 color={theme.text.primary} style={{ paddingTop: 30 }}>
+                    {t('wishListTitle')}
+                </FH2>
+                <TextField
+                    variant={'outlined'}
+                    color={'secondary'}
+                    type={'text'}
+                    name={'search'}
+                    placeholder={t('wishListSearchPlaceholder')}
+                    fullWidth={true}
+                    hiddenLabel={true}
+                    value={q.value}
+                    onChange={q.onChange}
+                    inputMode={'search'}
+                    InputProps={{
+                        endAdornment: (
+                            <Svg src={iconSearch} color={theme.icon.white} />
+                        ),
+                    }}
+                    style={{
+                        marginTop: 30,
                     }}
                 />
-                <IBody2 color={theme.text.caption} style={{ marginLeft: 15 }}>
-                    {t('wishListItemSufficient')}
+                <IBody2 color={theme.text.white} style={{ marginTop: 30 }}>
+                    {t('wishListItemCaution')}
                 </IBody2>
-            </Row>
-            <Row alignItems={'center'} style={{ flex: 1, marginTop: 10 }}>
-                <Box
-                    sx={{
-                        width: 12,
-                        height: 12,
-                        backgroundColor: color.red.default,
-                        borderRadius: 9999,
+                <Row alignItems={'center'} style={{ marginTop: 25 }}>
+                    <Box
+                        sx={{
+                            width: 12,
+                            height: 12,
+                            backgroundColor: color.green.default,
+                            borderRadius: 9999,
+                        }}
+                    />
+                    <IBody2
+                        color={theme.text.caption}
+                        style={{ marginLeft: 15 }}>
+                        {t('wishListItemSufficient')}
+                    </IBody2>
+                </Row>
+                <Row alignItems={'center'} style={{ flex: 1, marginTop: 10 }}>
+                    <Box
+                        sx={{
+                            width: 12,
+                            height: 12,
+                            backgroundColor: color.red.default,
+                            borderRadius: 9999,
+                        }}
+                    />
+                    <IBody2
+                        color={theme.text.caption}
+                        style={{ flex: 1, marginLeft: 15 }}>
+                        {t('wishListItemInsufficient')}
+                    </IBody2>
+                </Row>
+                <FlatList
+                    data={list}
+                    renderItem={renderItem}
+                    keyExtractor={item => `${item.id}`}
+                    onEndReached={getMore}
+                    style={{
+                        paddingTop: 40,
+                        paddingBottom: 40,
                     }}
                 />
-                <IBody2
-                    color={theme.text.caption}
-                    style={{ flex: 1, marginLeft: 15 }}>
-                    {t('wishListItemInsufficient')}
-                </IBody2>
-            </Row>
-            <FlatList
-                data={list}
-                renderItem={renderItem}
-                keyExtractor={item => `${item.id}`}
-                onEndReached={getMore}
-                style={{
-                    paddingTop: 40,
-                    paddingBottom: 40,
-                }}
-            />
-            <DropBox
-                style={{
-                    position: 'fixed',
-                    left: '50%',
-                    transform: `translateX(-${sizing.dropBox.container / 2}px)`,
-                    bottom: 30,
-                }}
-            />
-        </Sheet>
+                <DropBox />
+            </Sheet>
+        </DndContext>
     );
 }

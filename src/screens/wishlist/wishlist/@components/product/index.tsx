@@ -3,29 +3,24 @@
 import React from 'react';
 
 import { ProductProps } from './@types';
-import { Image } from '@/components/image/image/image';
 import { sizing } from '../../@constants';
 import { Row } from '@/components/grid/row';
 import { ISubtitle2 } from '@/components/typography/ISubtitle2';
 import { useTheme } from '@/hooks/common/use-theme';
+import { Image } from './@components/image';
+import { Col } from '@/components/grid/col';
 
-export const Product: React.FC<ProductProps> = ({ style, product, index }) => {
+export const Product: React.FC<ProductProps> = ({
+    product,
+    index,
+    ...props
+}) => {
     const { theme } = useTheme();
 
     if (index % 4 === 0) {
         return (
-            <Row
-                style={{
-                    ...style,
-                }}>
-                <Image
-                    src={product.imageUrl}
-                    width={sizing.product.image}
-                    height={sizing.product.image}
-                    style={{
-                        objectFit: 'contain',
-                    }}
-                />
+            <Row {...props}>
+                <Image product={product} />
                 <div
                     style={{
                         flex: 1,
@@ -47,10 +42,7 @@ export const Product: React.FC<ProductProps> = ({ style, product, index }) => {
         );
     } else if (index % 4 === 1) {
         return (
-            <Row
-                style={{
-                    ...style,
-                }}>
+            <Row {...props}>
                 <div
                     style={{
                         flex: 1,
@@ -69,30 +61,24 @@ export const Product: React.FC<ProductProps> = ({ style, product, index }) => {
                         {`$${product.price}`}
                     </ISubtitle2>
                 </div>
-                <Image
-                    src={product.imageUrl}
-                    width={sizing.product.image}
-                    height={sizing.product.image}
-                    style={{
-                        objectFit: 'contain',
-                    }}
-                />
+                <Image product={product} />
             </Row>
         );
     }
     return (
-        <div
-            style={{
-                ...style,
-            }}>
-            <Image
-                src={product.imageUrl}
-                width={sizing.product.image}
-                height={sizing.product.image}
+        <Col {...props}>
+            <Image product={product} />
+            <ISubtitle2 color={theme.text.white} textAlign={'center'}>
+                {product.productName}
+            </ISubtitle2>
+            <ISubtitle2
+                color={theme.text.white}
+                textAlign={'center'}
                 style={{
-                    objectFit: 'contain',
-                }}
-            />
-        </div>
+                    marginTop: sizing.product.price.gap,
+                }}>
+                {`$${product.price}`}
+            </ISubtitle2>
+        </Col>
     );
 };

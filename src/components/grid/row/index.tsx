@@ -1,12 +1,14 @@
 'use client';
 
-import React from 'react';
+import React, { forwardRef } from 'react';
 import Box, { BoxProps } from '@mui/material/Box';
 
-export const Row: React.FC<BoxProps> = ({ children, ...props }) => {
-    return (
-        <Box display={'flex'} flexDirection={'row'} {...props}>
-            {children}
-        </Box>
-    );
-};
+export const Row = forwardRef<HTMLDivElement, BoxProps>(
+    ({ children, ...props }, ref) => {
+        return (
+            <Box ref={ref} display={'flex'} flexDirection={'row'} {...props}>
+                {children}
+            </Box>
+        );
+    },
+);
