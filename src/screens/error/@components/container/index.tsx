@@ -33,7 +33,7 @@ export const Container: React.FC<ContainerProps> = ({ error }) => {
                 </FTitle>
                 <FH3
                     textAlign={'center'}
-                    color={theme.text.darkPurple}
+                    color={theme.text.title}
                     style={{ marginTop: 20 }}>
                     {t(`error${error}Title`)}
                 </FH3>

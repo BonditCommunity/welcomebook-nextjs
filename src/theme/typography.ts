@@ -82,7 +82,7 @@ export const typography: {
         fontFamily: fredoka,
         fontWeight: Font.Medium,
         fontSize: 9,
-        lineHeight: 28 / 9,
+        lineHeight: 20 / 9,
     },
     IH1: {
         fontFamily: inter,
@@ -113,6 +113,12 @@ export const typography: {
         fontWeight: Font.SemiBold,
         fontSize: 17,
         lineHeight: 28 / 17,
+    },
+    ISubtitle3: {
+        fontFamily: inter,
+        fontWeight: Font.SemiBold,
+        fontSize: 13,
+        lineHeight: 21 / 13,
     },
     IBody1: {
         fontFamily: inter,

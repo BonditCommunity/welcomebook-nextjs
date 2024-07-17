@@ -61,8 +61,7 @@ export function SignUp() {
         const { result, error } = await searchCollege({
             keyword,
             page: 0,
-            size: 999,
-            // size: 0,
+            size: 0,
         });
         if (result) {
             setColleges(
@@ -90,11 +89,15 @@ export function SignUp() {
 
     const handleCollege = useCallback((_: unknown, college: CollegeType) => {
         setCollege(college);
+        if (college.firstDay) {
+            setValue('date', new Date(college.firstDay));
+        }
         setValue('college', college.name);
     }, []);
 
     const onSubmit = handleSubmit(async data => {
-        router.push(routes.wishList);
+        alert(JSON.stringify(data));
+        // router.push(routes.wishList);
     });
 
     const goTermsService = useCallback(() => {
@@ -200,7 +203,9 @@ export function SignUp() {
                             okButtonLabel: t('buttonSelect'),
                             cancelButtonLabel: t('buttonCancel'),
                         }}
-                        disabled={!college || college.id > 0}
+                        disabled={
+                            !college || !!college.firstDay || college.id > 0
+                        }
                         slotProps={{
                             textField: {
                                 fullWidth: true,
@@ -225,7 +230,11 @@ export function SignUp() {
                         <Svg src={iconAlert} color={theme.form.base.error} />
                         <IBody2
                             color={theme.text.white}
-                            style={{ flex: 1, marginLeft: 10 }}>
+                            sx={{
+                                flex: 1,
+                                letterSpacing: -0.32,
+                                marginLeft: 10,
+                            }}>
                             {t('signUpStartDateCaution')}
                         </IBody2>
                     </Row>
@@ -234,7 +243,11 @@ export function SignUp() {
                         <IBody2
                             component={'span'}
                             color={theme.text.white}
-                            style={{ flex: 1, marginLeft: 10 }}>
+                            sx={{
+                                flex: 1,
+                                letterSpacing: -0.32,
+                                marginLeft: 10,
+                            }}>
                             {`${t('signUpTermsPrefix')} `}
                             <IBody2
                                 component={'span'}
