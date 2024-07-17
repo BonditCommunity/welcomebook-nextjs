@@ -58,15 +58,15 @@ export function SignUp() {
     const search = async (value: string) => {
         const keyword = trim(value);
         if (!keyword) return;
-        const response = await searchCollege({
+        const { result, error } = await searchCollege({
             keyword,
             page: 0,
             size: 999,
             // size: 0,
         });
-        if (response.result) {
+        if (result) {
             setColleges(
-                response.result.content.sort((a, b) => {
+                result.content.sort((a, b) => {
                     if (a.name[0].toUpperCase() === b.name[0].toUpperCase()) {
                         return 0;
                     } else if (
@@ -77,8 +77,8 @@ export function SignUp() {
                     return -1;
                 }),
             );
-        } else if (response.error) {
-            alert(response.error);
+        } else if (error) {
+            alert(error);
         }
     };
 

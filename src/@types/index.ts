@@ -27,10 +27,19 @@ export interface Asset extends Size {
 
 export type ThemeType = 'light' | 'dark';
 
-export interface JwtPayload {
-    email: string;
-    name: string;
-    jti: string;
+export interface AppleSignInResponse {
+    user?: {
+        email?: string;
+        id: string;
+        name?: {
+            firstName?: string;
+            lastName?: string;
+        };
+    };
+    authorization: {
+        id_token: string;
+        code: string;
+    };
 }
 
 export interface Country {

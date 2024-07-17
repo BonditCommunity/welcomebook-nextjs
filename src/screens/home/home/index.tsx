@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import {
     CredentialResponse,
@@ -9,56 +10,55 @@ import {
 } from '@react-oauth/google';
 import AppleSignIn from 'react-apple-signin-auth';
 import { signInWithCustomToken } from 'firebase/auth';
-import { jwtDecode } from 'jwt-decode';
 
 import { FTitle } from '@/components/typography/FTitle';
 import { useTheme } from '@/hooks/common/use-theme';
 import { FH2 } from '@/components/typography/FH2';
 import { Screen } from '@/components/layout/screen';
-import { useFetch } from '@/hooks/common/use-fetch';
 import { firebase } from '@/firebase';
-import { useAuth } from '@/contexts/authentication/hook';
-import { JwtPayload } from '@/@types';
+import { AppleSignInResponse } from '@/@types';
+import { authenticationRepository } from '@/api/authentication';
+import { routes } from '@/routes';
 
 export function Home() {
+    const router = useRouter();
+
     const { t } = useTranslation();
     const { theme, type } = useTheme();
 
-    const { user } = useAuth();
+    const { signIn } = authenticationRepository();
 
-    const { fetchAPI } = useFetch();
+    const onSuccess = async () => {
+        router.push(routes.signUp);
+    };
 
     const signInGoogle = async (credential: CredentialResponse) => {
         if (!credential.credential) return;
-        const payload = jwtDecode<JwtPayload>(credential.credential);
-        const token = user ? await user.getIdToken() : '';
-        const response = await fetchAPI('/api/v1/auth', {
-            method: 'POST',
-            body: JSON.stringify({
-                snsToken: credential.credential,
-                snsType: 'GOOGLE',
-                snsId: credential.clientId || '',
-                email: payload.email,
-                displayName: payload.name,
-                code: payload.jti,
-                mobile: '000000000',
-                countryNumber: '+1',
-            }),
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
-                'Access-Control-Allow-Origin': '*',
-            },
+        const { result, error } = await signIn({
+            snsType: 'GOOGLE',
+            snsToken: credential.credential,
         });
 
-        const data = await response.json();
-        if (data.customToken) {
-            await signInWithCustomToken(firebase, data.customToken);
+        if (result?.customToken) {
+            await signInWithCustomToken(firebase, result.customToken);
+            onSuccess();
+        } else if (error) {
+            alert(error);
         }
     };
 
-    const signInApple = async (response: any) => {
-        console.log(response);
+    const signInApple = async (credential: AppleSignInResponse) => {
+        const { result, error } = await signIn({
+            snsType: 'APPLE',
+            snsToken: credential.authorization.id_token,
+        });
+
+        if (result?.customToken) {
+            await signInWithCustomToken(firebase, result.customToken);
+            onSuccess();
+        } else if (error) {
+            alert(error);
+        }
     };
 
     return (
@@ -96,10 +96,10 @@ export function Home() {
                             authOptions={{
                                 clientId: process.env.APPLE_CLIENT_ID!,
                                 scope: 'email name',
-                                redirectURI: 'https://welcomebook.com',
-                                state: 'state',
+                                redirectURI: 'http://localhost:3000',
+                                // redirectURI: 'https://welcomebook.com',
+                                state: 'origin:web',
                                 nonce: 'nonce',
-                                // only works with https
                                 usePopup: true,
                             }}
                             uiType={type}

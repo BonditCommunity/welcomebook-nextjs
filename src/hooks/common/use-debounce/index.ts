@@ -5,6 +5,6 @@ import debounce from 'lodash/debounce';
 
 import { UseDebounceProps } from './@types';
 
-export function useDebounce({ callback, interval = 500 }: UseDebounceProps) {
+export function useDebounce({ callback, interval = 300 }: UseDebounceProps) {
     return useRef(debounce(callback, interval)).current;
 }
