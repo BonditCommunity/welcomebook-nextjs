@@ -17,7 +17,7 @@ import { FH2 } from '@/components/typography/FH2';
 import { Screen } from '@/components/layout/screen';
 import { firebase } from '@/firebase';
 import { AppleSignInResponse } from '@/@types';
-import { authenticationRepository } from '@/api/authentication';
+import { signIn } from '@/api/authentication/repository/sign-in';
 import { routes } from '@/routes';
 
 export function Home() {
@@ -26,7 +26,7 @@ export function Home() {
     const { t } = useTranslation();
     const { theme, type } = useTheme();
 
-    const { signIn } = authenticationRepository();
+    const { fetch } = signIn();
 
     const onSuccess = async () => {
         router.push(routes.signUp);
@@ -34,7 +34,7 @@ export function Home() {
 
     const signInGoogle = async (credential: CredentialResponse) => {
         if (!credential.credential) return;
-        const { result, error } = await signIn({
+        const { result, error } = await fetch({
             snsType: 'GOOGLE',
             snsToken: credential.credential,
         });
@@ -48,7 +48,7 @@ export function Home() {
     };
 
     const signInApple = async (credential: AppleSignInResponse) => {
-        const { result, error } = await signIn({
+        const { result, error } = await fetch({
             snsType: 'APPLE',
             snsToken: credential.authorization.id_token,
         });
