@@ -17,27 +17,38 @@ import { FH2 } from '@/components/typography/FH2';
 import { Screen } from '@/components/layout/screen';
 import { useFetch } from '@/hooks/common/use-fetch';
 import { firebase } from '@/firebase';
+import { useAuth } from '@/contexts/authentication/hook';
+import { JwtPayload } from '@/@types';
 
 export function Home() {
     const { t } = useTranslation();
     const { theme, type } = useTheme();
 
+    const { user } = useAuth();
+
     const { fetchAPI } = useFetch();
 
-    // [GSI_LOGGER]: The given origin is not allowed for the given client ID.
     const signInGoogle = async (credential: CredentialResponse) => {
         if (!credential.credential) return;
-        const payload = jwtDecode(credential.credential);
+        const payload = jwtDecode<JwtPayload>(credential.credential);
+        const token = user ? await user.getIdToken() : '';
         const response = await fetchAPI('/api/v1/auth', {
             method: 'POST',
             body: JSON.stringify({
-                // snsToken: account?.id_token,
-                // snsType: 'GOOGLE',
-                // snsId: user.id,
-                // email: user.email,
-                // displayName: user.name,
-                // code: account?.access_token,
+                snsToken: credential.credential,
+                snsType: 'GOOGLE',
+                snsId: credential.clientId || '',
+                email: payload.email,
+                displayName: payload.name,
+                code: payload.jti,
+                mobile: '000000000',
+                countryNumber: '+1',
             }),
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+                'Access-Control-Allow-Origin': '*',
+            },
         });
 
         const data = await response.json();
