@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
@@ -10,7 +10,7 @@ import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 
 import { Sheet } from '@/components/layout/sheet';
 import { Form } from '@/components/form/form';
-import { Schema, School as SchoolType } from './@types';
+import { Schema } from './@types';
 import { schema, size } from './@constants';
 import { TextField } from '@/components/form/text-field';
 import { Svg } from '@/components/image/svg';
@@ -21,14 +21,14 @@ import { Row } from '@/components/grid/row';
 import { routes } from '@/routes';
 import { Checkbox } from '@/components/form/check-box';
 import { spacing } from '@/theme/spacing';
-import { Shcool } from './@components/school';
+import { College } from './@components/college';
 import { DatePicker } from '@/components/form/date-picker';
 import { collegeRepository } from '@/api/college';
-import { pagination } from '@/constants/common/pagination';
 import { trim } from '@/helpers/form/trim';
 import { useSearch } from '@/hooks/form/use-search';
+import { College as CollegeType } from '@/api/college/entity/college';
 
-const filter = createFilterOptions<SchoolType>();
+const filter = createFilterOptions<CollegeType>();
 
 export function SignUp() {
     const router = useRouter();
@@ -40,17 +40,14 @@ export function SignUp() {
 
     const { searchCollege } = collegeRepository();
 
-    const [school, setSchool] = useState<SchoolType>();
-
-    const schools = useMemo<SchoolType[]>(() => {
-        return [];
-    }, []);
+    const [college, setCollege] = useState<CollegeType>();
+    const [colleges, setColleges] = useState<CollegeType[]>([]);
 
     const methods = useForm<Schema>({
         resolver: zodResolver(schema),
         defaultValues: {
             name: '',
-            school: '',
+            college: '',
             agree: false,
         },
     });
@@ -61,8 +58,14 @@ export function SignUp() {
         const response = await searchCollege({
             keyword,
             page: 0,
-            size: pagination.default,
+            size: 999,
+            // size: 0,
         });
+        if (response.result) {
+            setColleges(response.result.content);
+        } else if (response.error) {
+            alert(response.error);
+        }
     };
 
     const {
@@ -106,24 +109,28 @@ export function SignUp() {
                     />
                     <Autocomplete
                         fullWidth={true}
-                        options={schools}
+                        options={colleges}
                         getOptionLabel={option => option.name}
-                        noOptionsText={t('signUpSchoolNoOptionText')}
+                        noOptionsText={t('signUpCollegeNoOptionText')}
                         groupBy={option => option.name[0].toUpperCase()}
                         disableClearable={true}
                         selectOnFocus={true}
                         handleHomeEndKeys={true}
                         filterOptions={(options, params) => {
-                            const filtered = filter(options, params);
+                            let filtered = filter(options, params);
                             const { inputValue } = params;
                             const isExisting = options.some(
                                 option => inputValue === option.name,
                             );
-                            if (inputValue !== '' && !isExisting) {
-                                filtered.push({
+                            if (
+                                colleges.length === 0 &&
+                                inputValue !== '' &&
+                                !isExisting
+                            ) {
+                                filtered.splice(0, 0, {
                                     id: -1,
                                     name: inputValue,
-                                });
+                                } as CollegeType);
                             }
                             return filtered;
                         }}
@@ -131,14 +138,14 @@ export function SignUp() {
                             keyword.setValue(value);
                         }}
                         onChange={(_, value) => {
-                            setSchool(value);
-                            setValue('school', value.name);
+                            setCollege(value);
+                            setValue('college', value.name);
                         }}
                         renderInput={params => (
                             <TextField
                                 {...params}
-                                name={'school'}
-                                placeholder={t('signUpSchoolPlaceholder')}
+                                name={'college'}
+                                placeholder={t('signUpCollegePlaceholder')}
                                 onChange={undefined}
                                 InputProps={{
                                     ...params.InputProps,
@@ -152,10 +159,10 @@ export function SignUp() {
                             />
                         )}
                         renderOption={(props, option) => (
-                            <Shcool
+                            <College
                                 {...props}
                                 key={option.id}
-                                school={option}
+                                college={option}
                             />
                         )}
                         style={{
@@ -169,18 +176,20 @@ export function SignUp() {
                         disablePast={true}
                         format={'YYYY.MM.DD'}
                         localeText={{
-                            toolbarTitle: t('signUpSchoolStartDatePlaceholder'),
+                            toolbarTitle: t(
+                                'signUpCollegeStartDatePlaceholder',
+                            ),
                             okButtonLabel: t('buttonSelect'),
                             cancelButtonLabel: t('buttonCancel'),
                         }}
-                        disabled={!school || school.id > 0}
+                        disabled={!college || college.id > 0}
                         slotProps={{
                             textField: {
                                 fullWidth: true,
                                 variant: 'outlined',
                                 hiddenLabel: true,
                                 placeholder: t(
-                                    'signUpSchoolStartDatePlaceholder',
+                                    'signUpCollegeStartDatePlaceholder',
                                 ),
                                 style: {
                                     marginTop: size.input.gap,

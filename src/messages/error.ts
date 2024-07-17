@@ -4,7 +4,7 @@ export const errors = {
         required: {
             user: {
                 name: 'errorFormRequiredUserName',
-                school: 'errorFormRequiredUserSchool',
+                college: 'errorFormRequiredUserCollege',
                 terms: 'errorFormRequiredUserTerms',
             },
             message: {

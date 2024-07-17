@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { UseVisibleProps } from './@types';
 
-export const useVisible = ({ offset = 0 }: UseVisibleProps) => {
+export const useVisible = (props?: UseVisibleProps) => {
     const ref = useRef<any>(null);
     const rootRef = useRef<any>(null);
     const observer = useRef<IntersectionObserver>();
@@ -16,7 +16,7 @@ export const useVisible = ({ offset = 0 }: UseVisibleProps) => {
             ([entry]) => setVisible(entry.isIntersecting),
             {
                 root: rootRef.current,
-                rootMargin: `0px 0px ${offset}px`,
+                rootMargin: `0px 0px ${props?.offset ?? 0}px`,
             },
         );
         observer.current.observe(ref.current);
