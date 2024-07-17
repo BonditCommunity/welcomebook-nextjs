@@ -25,6 +25,7 @@ export const Image: React.FC<ImageProps> = ({ product }) => {
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
                 transform: CSS.Translate.toString(transform),
+                touchAction: 'none',
                 ...(transform && {
                     zIndex: 9999,
                     transform: CSS.Translate.toString(transform),
