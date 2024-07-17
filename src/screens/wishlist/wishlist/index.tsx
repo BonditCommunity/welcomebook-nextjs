@@ -4,7 +4,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-import { DndContext } from '@dnd-kit/core';
+import { DndContext, DragEndEvent } from '@dnd-kit/core';
 
 import { Sheet } from '@/components/layout/sheet';
 import { FH2 } from '@/components/typography/FH2';
@@ -36,6 +36,7 @@ export function Wishlist() {
     const { params, fetch } = useSearchProducts();
 
     const [list, setList] = useState<ProductRes[]>([]);
+    const [productIds, setProductIds] = useState<number[]>([]);
 
     const search = async (value: string) => {
         reset();
@@ -77,6 +78,12 @@ export function Wishlist() {
         }
     };
 
+    const onDragEnd = useCallback((event: DragEndEvent) => {
+        const { active, over } = event;
+        if (!over) return;
+        setProductIds(ids => ids.concat(active.id as number));
+    }, []);
+
     const renderItem: ListRenderItem<ProductRes> = useCallback(
         ({ item, index }) => {
             return (
@@ -99,7 +106,7 @@ export function Wishlist() {
     }, [q.searched]);
 
     return (
-        <DndContext autoScroll={false}>
+        <DndContext autoScroll={false} onDragEnd={onDragEnd}>
             <Sheet type={'black'}>
                 <FH2 color={theme.text.primary} style={{ paddingTop: 30 }}>
                     {t('wishListTitle')}
@@ -167,7 +174,7 @@ export function Wishlist() {
                         paddingBottom: 40,
                     }}
                 />
-                <DropBox />
+                <DropBox products={productIds.length} />
             </Sheet>
         </DndContext>
     );
