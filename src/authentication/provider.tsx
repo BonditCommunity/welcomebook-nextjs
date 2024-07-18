@@ -22,7 +22,7 @@ export const AuthProvider: React.FC<ChildrenProps> = ({ children }) => {
         const guard = () => {
             if (loginRequiredPath.includes(pathname)) {
                 if (!user || user.isAnonymous) {
-                    router.replace(routes.home);
+                    // router.replace(routes.home);
                     return;
                 }
             }
@@ -35,7 +35,7 @@ export const AuthProvider: React.FC<ChildrenProps> = ({ children }) => {
         const unsubscribe = onAuthStateChanged(firebase, async user => {
             if (user) {
                 if (!user.isAnonymous) {
-                    router.replace(routes.wishlist.root);
+                    // router.replace(routes.wishlist.root);
                 }
                 setUser(user);
             } else {

@@ -7,7 +7,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 export async function POST(req: NextRequest) {
     try {
         const { amount } = await req.json();
-
+        console.log('req.nextUrl.origin');
+        console.log(req.nextUrl.origin);
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: [
@@ -17,7 +18,7 @@ export async function POST(req: NextRequest) {
                         product_data: {
                             name: 'Donation',
                         },
-                        unit_amount: amount, // Stripe expects amount in cents
+                        unit_amount: amount * 100, // Stripe expects amount in cents
                     },
                     quantity: 1,
                 },
