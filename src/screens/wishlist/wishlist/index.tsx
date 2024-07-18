@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
+import Dialog from '@mui/material/Dialog';
+import Button from '@mui/material/Button';
 import { DndContext, DragEndEvent } from '@dnd-kit/core';
 
 import { Sheet } from '@/components/layout/sheet';
@@ -33,6 +35,7 @@ import { useFindProfileByFirebaseUid } from '@/api/user-info/repository/find-pro
 import { UserInfoRes } from '@/api/user-info/vm/res/user-info';
 import { WishListRes } from '@/api/wishlist/vm/res/wish-list';
 import { useUpdateWishList } from '@/api/wishlist/repository/update-wish-list';
+import { FH4 } from '@/components/typography/FH4';
 
 export function Wishlist() {
     const { t } = useTranslation();
@@ -52,6 +55,7 @@ export function Wishlist() {
     const [userInfo, setUserInfo] = useState<UserInfoRes>();
     const [list, setList] = useState<ProductRes[]>(products);
     const [productIds, setProductIds] = useState<number[]>([]);
+    const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
     const disabled = useMemo<boolean>(() => {
         return creating || editing;
@@ -111,15 +115,12 @@ export function Wishlist() {
         [disabled],
     );
 
-    const onSuccess = (wishList: WishListRes) => {
-        setProductIds([]);
-        setWishList(wishList);
-    };
+    const onCloseConfirm = useCallback(() => {
+        setShowConfirm(false);
+    }, []);
 
-    const submit = async () => {
+    const onConfirm = async () => {
         if (!userInfo) return;
-        if (disabled) return;
-        if (productIds.length === 0) return;
         if (userInfo.wishListId) {
             const { result, error } = await updateWishList({
                 addProductIds: productIds,
@@ -140,6 +141,19 @@ export function Wishlist() {
                 alert(parseError(error));
             }
         }
+    };
+
+    const onSuccess = useCallback((wishList: WishListRes) => {
+        setProductIds([]);
+        setWishList(wishList);
+        setShowConfirm(false);
+    }, []);
+
+    const submit = async () => {
+        if (!userInfo) return;
+        if (disabled) return;
+        if (productIds.length === 0) return;
+        setShowConfirm(true);
     };
 
     const renderItem: ListRenderItem<ProductRes> = useCallback(
@@ -249,6 +263,24 @@ export function Wishlist() {
                 />
                 <DropBox products={productIds.length} onSubmit={submit} />
             </Sheet>
+            <Dialog open={showConfirm} onClose={onCloseConfirm}>
+                <div
+                    style={{
+                        paddingTop: 60,
+                        paddingLeft: 30,
+                        paddingRight: 30,
+                        paddingBottom: 25,
+                    }}>
+                    <FH4 textAlign={'center'}>{t('wishListConfirmText')}</FH4>
+                    <Button
+                        onClick={onConfirm}
+                        style={{
+                            marginTop: 40,
+                        }}>
+                        {t('wishListConfirmSubmitText')}
+                    </Button>
+                </div>
+            </Dialog>
         </DndContext>
     );
 }

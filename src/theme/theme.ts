@@ -3,6 +3,7 @@ import { PaletteOptions } from '@mui/material/styles';
 import {
     TypeBorder,
     TypeButton,
+    TypeDialog,
     TypeForm,
     TypeIcon,
     TypeSheet,
@@ -25,6 +26,7 @@ declare module '@mui/material/styles/createPalette' {
         form: TypeForm;
         sheet: TypeSheet;
         border: TypeBorder;
+        dialog: TypeDialog;
     }
     interface Palette {
         icon: TypeIcon;
@@ -32,6 +34,7 @@ declare module '@mui/material/styles/createPalette' {
         form: TypeForm;
         sheet: TypeSheet;
         border: TypeBorder;
+        dialog: TypeDialog;
     }
 }
 
@@ -154,6 +157,21 @@ export const light: PaletteOptions = {
         default: color.gray.E7,
         primary: color.primary.default,
     },
+    dialog: {
+        background: color.white.default,
+        action: {
+            default: {
+                background: color.primary.default,
+                text: color.black.default,
+                border: color.primary.default,
+            },
+            inverted: {
+                background: color.white.default,
+                text: color.black.default,
+                border: color.primary.default,
+            },
+        },
+    },
 };
 
 export const dark: PaletteOptions = {
@@ -238,5 +256,20 @@ export const dark: PaletteOptions = {
     border: {
         default: color.gray.E7,
         primary: color.primary.default,
+    },
+    dialog: {
+        background: color.white.default,
+        action: {
+            default: {
+                background: color.primary.default,
+                text: color.black.default,
+                border: color.primary.default,
+            },
+            inverted: {
+                background: color.white.default,
+                text: color.black.default,
+                border: color.primary.default,
+            },
+        },
     },
 };

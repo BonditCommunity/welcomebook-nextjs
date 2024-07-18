@@ -71,3 +71,19 @@ export interface TypeBorder {
     default: string;
     primary: string;
 }
+
+export interface TypeDialog {
+    background: string;
+    action: {
+        default: {
+            background: string;
+            text: string;
+            border: string;
+        };
+        inverted: {
+            background: string;
+            text: string;
+            border: string;
+        };
+    };
+}
