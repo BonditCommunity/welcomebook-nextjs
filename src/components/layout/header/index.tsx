@@ -21,35 +21,44 @@ export const Header: React.FC<HeaderProps> = ({
     const { theme } = useTheme();
 
     return (
-        <Row
-            alignItems={'center'}
-            justifyContent={'space-between'}
+        <div
             style={{
-                height: spacing.header.height,
                 backgroundColor: theme.background.default,
-                paddingLeft: spacing.screen.padding.horizontal,
-                paddingRight: spacing.screen.padding.horizontal,
                 position: 'fixed',
                 top: 0,
                 left: 0,
                 right: 0,
                 ...style,
             }}>
-            <FH3
-                textAlign={'center'}
+            <Row
+                alignItems={'center'}
+                justifyContent={'space-between'}
                 style={{
-                    position: 'absolute',
-                    left: spacing.screen.padding.horizontal,
-                    right: spacing.screen.padding.horizontal,
+                    width: '100%',
+                    minWidth: spacing.screen.minWidth,
+                    maxWidth: spacing.screen.maxWidth,
+                    height: spacing.header.height,
+                    paddingLeft: spacing.screen.padding.horizontal,
+                    paddingRight: spacing.screen.padding.horizontal,
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
                 }}>
-                {title}
-            </FH3>
-            <Svg
-                src={iconBack}
-                color={theme.icon.action}
-                onClick={router.back}
-            />
-            {renderAction?.()}
-        </Row>
+                <FH3
+                    textAlign={'center'}
+                    style={{
+                        position: 'absolute',
+                        left: spacing.screen.padding.horizontal,
+                        right: spacing.screen.padding.horizontal,
+                    }}>
+                    {title}
+                </FH3>
+                <Svg
+                    src={iconBack}
+                    color={theme.icon.action}
+                    onClick={router.back}
+                />
+                {renderAction?.()}
+            </Row>
+        </div>
     );
 };
