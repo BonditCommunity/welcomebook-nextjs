@@ -14,6 +14,7 @@ export const TextField: React.FC<TextFieldProps> = ({
     hiddenLabel = true,
     helperText,
     regex,
+    hiddenError = false,
     ...props
 }) => {
     const { control } = useFormContext();
@@ -42,8 +43,12 @@ export const TextField: React.FC<TextFieldProps> = ({
                             field.onChange(event.target.value);
                         }
                     }}
-                    error={!!error}
-                    helperText={error?.message ?? helperText}
+                    error={!hiddenError ? !!error : false}
+                    helperText={
+                        !hiddenError
+                            ? error?.message ?? helperText
+                            : helperText ?? undefined
+                    }
                     {...props}
                 />
             )}

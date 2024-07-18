@@ -3,4 +3,5 @@ import type { TextFieldProps as MuiTextFieldProps } from '@mui/material/TextFiel
 export type TextFieldProps = MuiTextFieldProps & {
     name: string;
     regex?: RegExp;
+    hiddenError?: boolean;
 };
