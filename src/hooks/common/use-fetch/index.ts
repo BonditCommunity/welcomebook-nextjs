@@ -1,6 +1,6 @@
 'use client';
 
-import { useAuth } from '@/contexts/authentication/hook';
+import { useAuth } from '@/authentication/hook';
 
 export function useFetch() {
     const { user } = useAuth();

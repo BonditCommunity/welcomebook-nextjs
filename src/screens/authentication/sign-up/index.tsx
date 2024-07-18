@@ -106,7 +106,7 @@ export function SignUp() {
             collegeFirstDay: data.date,
         });
         if (result) {
-            router.replace(routes.wishlist);
+            router.replace(routes.wishlist.root);
         } else if (error) {
             alert(parseError(error));
         }

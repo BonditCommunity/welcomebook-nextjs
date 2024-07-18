@@ -34,7 +34,7 @@ export function Home() {
         if (status === SignInStatus.FINISHEDSNSLOGIN) {
             router.push(routes.signUp);
         } else if (status === SignInStatus.FINISHEDSIGNUP) {
-            router.push(routes.wishlist);
+            router.push(routes.wishlist.root);
         }
     };
 

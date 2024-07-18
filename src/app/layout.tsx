@@ -11,8 +11,8 @@ import { Layout } from '@/components/layout/layout';
 import { ThemeProvider } from '@/theme/provider';
 import { DEFAULT_LOCALE } from '@/constants/common/locale';
 import { color } from '@/theme/theme';
-import { AuthProvider } from '@/contexts/authentication/provider';
-import { AuthConsumer } from '@/contexts/authentication/consumer';
+import { AuthProvider } from '@/authentication/provider';
+import { AuthConsumer } from '@/authentication/consumer';
 
 export const metadata: Metadata = {
     title: 'Welcome Book',

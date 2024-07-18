@@ -19,7 +19,7 @@ export const AuthProvider: React.FC<ChildrenProps> = ({ children }) => {
         const unsubscribe = onAuthStateChanged(firebase, async user => {
             if (user) {
                 if (!user.isAnonymous) {
-                    router.replace(routes.wishlist);
+                    router.replace(routes.wishlist.root);
                 }
                 setUser(user);
             } else {
