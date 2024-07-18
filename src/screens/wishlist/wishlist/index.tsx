@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import { DndContext, DragEndEvent } from '@dnd-kit/core';
@@ -26,10 +27,15 @@ import { usePagination } from '@/hooks/common/use-pagination';
 import { Product } from './@components/product';
 import { parseError } from '@/helpers/format/parse-error';
 import { useCreateWishList } from '@/api/wishlist/repository/create-wish-list';
+import { wishListState } from '@/recoil/atoms/wishlist/wish-list';
+import { productsState } from '@/recoil/atoms/product/products';
 
 export function Wishlist() {
     const { t } = useTranslation();
     const { theme } = useTheme();
+
+    const [products, setProducts] = useRecoilState(productsState);
+    const setWishList = useSetRecoilState(wishListState);
 
     const q = useSearch('');
     const { size, canMore, reset, onStartMore, onEndMore } = usePagination();
@@ -37,18 +43,22 @@ export function Wishlist() {
     const { params, fetch } = useSearchProducts();
     const { loading, fetch: createWishList } = useCreateWishList();
 
-    const [list, setList] = useState<ProductRes[]>([]);
+    const [list, setList] = useState<ProductRes[]>(products);
     const [productIds, setProductIds] = useState<number[]>([]);
 
     const search = async (value: string) => {
         reset();
+        const keyword = trim(value);
         const { result, error } = await fetch({
-            keyword: trim(value),
+            keyword,
             page: 0,
             size,
         });
         if (result) {
             setList(result.content);
+            if (!keyword) {
+                setProducts(result.content);
+            }
         } else if (error) {
             alert(parseError(error));
         }
@@ -96,7 +106,8 @@ export function Wishlist() {
             productIds,
         });
         if (result) {
-            alert(JSON.stringify(result));
+            setProductIds([]);
+            setWishList(result);
         } else if (error) {
             alert(parseError(error));
         }
