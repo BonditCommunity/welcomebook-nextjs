@@ -5,7 +5,11 @@ import { useAuth } from '@/authentication/hook';
 export function useFetch() {
     const { user } = useAuth();
 
-    const fetchAPI = async (route: string, init?: RequestInit) => {
+    const fetchAPI = async (
+        route: string,
+        init?: RequestInit,
+        multipart?: boolean,
+    ) => {
         const token = user ? await user.getIdToken() : '';
         return fetch(
             `${process.env.NEXT_PUBLIC_API_URL}${
@@ -14,7 +18,9 @@ export function useFetch() {
             {
                 ...init,
                 headers: {
-                    'Content-Type': 'application/json',
+                    ...(!multipart && {
+                        'Content-Type': 'application/json',
+                    }),
                     ...(token && {
                         Authorization: `Bearer ${token}`,
                     }),

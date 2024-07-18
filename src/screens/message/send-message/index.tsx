@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Fab from '@mui/material/Fab';
 import Button from '@mui/material/Button';
+import dayjs, { Dayjs } from 'dayjs';
 
 import { Screen } from '@/components/layout/screen';
 import { FH2 } from '@/components/typography/FH2';
@@ -30,6 +31,7 @@ import { colorWithAlpha } from '@/helpers/common/color-with-alpha';
 import { useCreateLetter } from '@/api/letter/repository/create-letter';
 import { parseError } from '@/helpers/format/parse-error';
 import { color } from '@/theme/theme';
+import { useImageUpload } from '@/api/media/repository/image-upload';
 
 export function SendMessage() {
     const params = useParams<SendMessageParams>();
@@ -38,9 +40,11 @@ export function SendMessage() {
     const { theme } = useTheme();
 
     const { fetch } = useFindProfileById();
+    const { fetch: imageUpload } = useImageUpload();
     const { fetch: createLetter } = useCreateLetter();
 
     const [user, setUser] = useState<UserInfoRes>();
+    const [dDay, setDDay] = useState<number>(0);
 
     const methods = useForm<Schema>({
         resolver: zodResolver(schema),
@@ -63,11 +67,24 @@ export function SendMessage() {
 
     const onSubmit = handleSubmit(async data => {
         if (!user) return;
+        let imageUrl: string = '';
+        if (file) {
+            const { result, error } = await imageUpload({
+                file,
+            });
+            if (result) {
+                imageUrl = result.fullPath;
+            } else if (error) {
+                alert(parseError(error));
+            }
+        }
         const { result, error } = await createLetter({
             myPageId: Number(params.id),
-            // imageUrl?: string;
             writer: data.writer,
             content: data.content,
+            ...(imageUrl && {
+                imageUrl,
+            }),
         });
         if (result) {
             alert(JSON.stringify(result));
@@ -160,6 +177,11 @@ export function SendMessage() {
             });
             if (result) {
                 setUser(result);
+                if (result.firstDay) {
+                    setDDay(
+                        dayjs(result.firstDay).diff(dayjs(new Date()), 'd'),
+                    );
+                }
             }
         };
         initialize();
@@ -179,9 +201,10 @@ export function SendMessage() {
                 }}>
                 <div>
                     <FH2 textAlign={'center'} color={theme.text.primary}>
-                        {t('dDay', {
-                            day: '20',
-                        })}
+                        {!!user?.firstDay &&
+                            t('dDay', {
+                                dDay,
+                            })}
                     </FH2>
                     <Col
                         alignItems={'center'}
