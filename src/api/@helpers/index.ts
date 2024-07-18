@@ -7,8 +7,15 @@ export async function tryAPI<T>(
 ): Promise<Response<T>> {
     try {
         const response = await callback();
+        if (response.status === 200) {
+            return {
+                result: await response.json(),
+            };
+        }
         return {
-            result: await response.json(),
+            error: {
+                text: i18n.t(errors.common),
+            },
         };
     } catch {
         return {
