@@ -29,6 +29,7 @@ import { Center } from '@/components/grid/center';
 import { colorWithAlpha } from '@/helpers/common/color-with-alpha';
 import { useCreateLetter } from '@/api/letter/repository/create-letter';
 import { parseError } from '@/helpers/format/parse-error';
+import { color } from '@/theme/theme';
 
 export function SendMessage() {
     const params = useParams<SendMessageParams>();
@@ -83,7 +84,7 @@ export function SendMessage() {
                         style={{
                             width: sizing.image.image,
                             height: sizing.image.image,
-                            backgroundColor: theme.background.primary,
+                            backgroundColor: color.primary['3'],
                             borderRadius: 8,
                             position: 'absolute',
                             right: 20,
