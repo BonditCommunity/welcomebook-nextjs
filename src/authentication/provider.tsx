@@ -15,25 +15,25 @@ export const AuthProvider: React.FC<ChildrenProps> = ({ children }) => {
     const pathname = usePathname();
 
     const [user, setUser] = useState<User>();
-    const [renderable, setRenderable] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(true);
 
-    useEffect(() => {
-        const guard = () => {
-            if (!user) return;
-            if (loginRequiredPath.includes(pathname)) {
-                if (user.isAnonymous) {
-                    router.replace(routes.home);
-                    return;
-                }
-            } else if (pathname === routes.home) {
-                if (!user.isAnonymous) {
-                    router.replace(routes.wishlist.root);
-                }
+    const guard = (user: User) => {
+        if (loginRequiredPath.includes(pathname)) {
+            if (user.isAnonymous) {
+                router.replace(routes.home);
             }
-            setRenderable(true);
-        };
-        guard();
+        } else if (pathname === routes.home) {
+            if (!user.isAnonymous) {
+                router.replace(routes.wishlist.root);
+            }
+        }
+        setLoading(false);
+    };
+
+    useEffect(() => {
+        if (user) {
+            guard(user);
+        }
     }, [pathname, user]);
 
     useEffect(() => {
@@ -41,18 +41,16 @@ export const AuthProvider: React.FC<ChildrenProps> = ({ children }) => {
             if (user) {
                 setUser(user);
             } else {
-                const credential = await signInAnonymously(firebase);
-                setUser(credential.user);
+                const { user } = await signInAnonymously(firebase);
+                setUser(user);
             }
-            setLoading(false);
         });
-
         return unsubscribe;
     }, []);
 
     return (
         <AuthContext.Provider value={{ user, loading }}>
-            {renderable && children}
+            {children}
         </AuthContext.Provider>
     );
 };
