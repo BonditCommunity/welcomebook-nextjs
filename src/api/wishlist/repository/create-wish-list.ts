@@ -3,24 +3,24 @@
 import { useState } from 'react';
 
 import { useFetch } from '@/hooks/common/use-fetch';
-import { UserInfoReq } from '../vm/req/user-info';
+import { CreateWishListReq } from '../vm/req/create-wish-list';
 import { Response } from '@/api/common/vm/res/response';
-import { CommonUserInfoRes } from '../vm/res/common-user-info';
+import { WishListRes } from '../vm/res/wish-list';
 import { tryAPI } from '@/api/@helpers';
 import { domain } from './@constants';
 
-export const useUpdateUserInfo = () => {
+export const useCreateWishList = () => {
     const { fetchAPI } = useFetch();
 
     const [loading, setLoading] = useState<boolean>(false);
 
     const fetch = async (
-        params: UserInfoReq,
-    ): Promise<Response<CommonUserInfoRes>> => {
+        params: CreateWishListReq,
+    ): Promise<Response<WishListRes>> => {
         setLoading(true);
-        const result = await tryAPI<CommonUserInfoRes>(() => {
+        const result = await tryAPI<WishListRes>(() => {
             return fetchAPI(`${domain}`, {
-                method: 'PUT',
+                method: 'POST',
                 body: JSON.stringify(params),
             });
         });

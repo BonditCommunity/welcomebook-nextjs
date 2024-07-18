@@ -25,6 +25,7 @@ import { ListRenderItem } from '@/components/layout/flat-list/@types';
 import { usePagination } from '@/hooks/common/use-pagination';
 import { Product } from './@components/product';
 import { parseError } from '@/helpers/format/parse-error';
+import { useCreateWishList } from '@/api/wishlist/repository/create-wish-list';
 
 export function Wishlist() {
     const { t } = useTranslation();
@@ -34,6 +35,7 @@ export function Wishlist() {
     const { size, canMore, reset, onStartMore, onEndMore } = usePagination();
 
     const { params, fetch } = useSearchProducts();
+    const { loading, fetch: createWishList } = useCreateWishList();
 
     const [list, setList] = useState<ProductRes[]>([]);
     const [productIds, setProductIds] = useState<number[]>([]);
@@ -78,11 +80,27 @@ export function Wishlist() {
         }
     };
 
-    const onDragEnd = useCallback((event: DragEndEvent) => {
-        const { active, over } = event;
-        if (!over) return;
-        setProductIds(ids => ids.concat(active.id as number));
-    }, []);
+    const onDragEnd = useCallback(
+        (event: DragEndEvent) => {
+            if (loading) return;
+            const { active, over } = event;
+            if (!over) return;
+            setProductIds(ids => ids.concat(active.id as number));
+        },
+        [loading],
+    );
+
+    const submit = async () => {
+        if (productIds.length === 0) return;
+        const { result, error } = await createWishList({
+            productIds,
+        });
+        if (result) {
+            alert(JSON.stringify(result));
+        } else if (error) {
+            alert(parseError(error));
+        }
+    };
 
     const renderItem: ListRenderItem<ProductRes> = useCallback(
         ({ item, index }) => {
@@ -179,7 +197,7 @@ export function Wishlist() {
                         marginRight: -5,
                     }}
                 />
-                <DropBox products={productIds.length} />
+                <DropBox products={productIds.length} onSubmit={submit} />
             </Sheet>
         </DndContext>
     );

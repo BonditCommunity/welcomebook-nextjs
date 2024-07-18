@@ -13,6 +13,7 @@ import { domain } from './@constants';
 export const useSearchProducts = () => {
     const { fetchAPI } = useFetch();
 
+    const [loading, setLoading] = useState<boolean>(false);
     const [params, setParams] = useState<SearchReq>();
 
     const fetch = async ({
@@ -20,19 +21,23 @@ export const useSearchProducts = () => {
         page,
         size,
     }: SearchReq): Promise<Response<Page<ProductRes>>> => {
+        setLoading(true);
         setParams({
             keyword,
             page,
             size,
         });
-        return tryAPI<Page<ProductRes>>(() => {
+        const result = await tryAPI<Page<ProductRes>>(() => {
             return fetchAPI(
                 `${domain}/all/search?keyword=${keyword}&page=${page}&size=${size}`,
             );
         });
+        setLoading(false);
+        return result;
     };
 
     return {
+        loading,
         params,
         fetch,
     };

@@ -12,17 +12,14 @@ import { domain } from './@constants';
 export const useSignIn = () => {
     const { fetchAPI } = useFetch();
 
-    const [params, setParams] = useState<SignInReq>();
+    const [loading, setLoading] = useState<boolean>(false);
 
     const fetch = async ({
         snsType,
         snsToken,
     }: SignInReq): Promise<Response<SignInRes>> => {
-        setParams({
-            snsType,
-            snsToken,
-        });
-        return tryAPI<SignInRes>(() => {
+        setLoading(true);
+        const result = await tryAPI<SignInRes>(() => {
             return fetchAPI(`${domain}/sign-in/custom`, {
                 method: 'POST',
                 body: JSON.stringify({
@@ -31,10 +28,12 @@ export const useSignIn = () => {
                 }),
             });
         });
+        setLoading(false);
+        return result;
     };
 
     return {
-        params,
+        loading,
         fetch,
     };
 };

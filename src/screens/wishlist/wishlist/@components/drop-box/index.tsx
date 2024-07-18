@@ -14,7 +14,7 @@ import { colorWithAlpha } from '@/helpers/common/color-with-alpha';
 import { color } from '@/theme/theme';
 import { ISubtitle2 } from '@/components/typography/ISubtitle2';
 
-export const DropBox: React.FC<DropBoxProps> = ({ products }) => {
+export const DropBox: React.FC<DropBoxProps> = ({ products, onSubmit }) => {
     const { theme } = useTheme();
 
     const { isOver, setNodeRef } = useDroppable({
@@ -24,6 +24,7 @@ export const DropBox: React.FC<DropBoxProps> = ({ products }) => {
     return (
         <Center
             ref={setNodeRef}
+            onClick={onSubmit}
             sx={{
                 cursor: 'pointer',
                 width: sizing.dropBox.container,
