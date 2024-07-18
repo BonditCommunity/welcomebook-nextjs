@@ -1,0 +1,16 @@
+export enum PaymentMethodType {
+    CREDIT = 'CREDIT',
+    PAYPAL = 'PAYPAL',
+}
+
+export enum OrderStatus {
+    INIT = 'INIT',
+    COMPLETED = 'COMPLETED',
+    BUYER_CANCEL = 'BUYER_CANCEL',
+    SYSTEM_CANCEL = 'SYSTEM_CANCEL',
+    ADMIN_CANCEL = 'ADMIN_CANCEL',
+    REQUEST_REFUND = 'REQUEST_REFUND',
+    REJECT_REFUND = 'REJECT_REFUND',
+    WAIT_REFUND = 'WAIT_REFUND',
+    REFUNDED = 'REFUNDED',
+}
