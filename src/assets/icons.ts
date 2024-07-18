@@ -20,4 +20,6 @@ export const iconHeart = `${basePath}/icon_heart.svg`;
 
 export const iconImage = `${basePath}/icon_image.svg`;
 
+export const iconMinus = `${basePath}/icon_minus.svg`;
+
 export const iconSearch = `${basePath}/icon_search.svg`;

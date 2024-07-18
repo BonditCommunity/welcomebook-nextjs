@@ -4,6 +4,8 @@ import React, { useCallback, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState } from 'recoil';
+import Checkbox from '@mui/material/Checkbox';
+import Button from '@mui/material/Button';
 
 import { Screen } from '@/components/layout/screen';
 import { Header } from '@/components/layout/header';
@@ -20,6 +22,9 @@ import {
 } from '@/components/layout/flat-list/@types';
 import { ProductRes } from '@/api/product/vm/res/product';
 import { Product } from './@components/product';
+import { Row } from '@/components/grid/row';
+import { IBody2 } from '@/components/typography/IBody2';
+import { spacing } from '@/theme/spacing';
 
 export function MyWishList() {
     const router = useRouter();
@@ -28,6 +33,8 @@ export function MyWishList() {
     const { theme } = useTheme();
 
     const [wishList, setWishList] = useRecoilState(wishListState);
+
+    const [checked, setChecked] = useState<boolean>(false);
 
     const renderItem: ListRenderItem<ProductRes> = useCallback(({ item }) => {
         return <Product product={item} />;
@@ -56,7 +63,13 @@ export function MyWishList() {
     return (
         <Screen>
             <Header title={t('myWishListTitle')} renderAction={renderAction} />
-            <SafeArea>
+            <SafeArea
+                display={'flex'}
+                flexDirection={'column'}
+                justifyContent={'space-between'}
+                sx={{
+                    minHeight: '100vh',
+                }}>
                 <FlatList
                     data={wishList.products}
                     renderItem={renderItem}
@@ -67,6 +80,31 @@ export function MyWishList() {
                         paddingBottom: 40,
                     }}
                 />
+                <div style={{ marginTop: 30 }}>
+                    <Row alignItems={'center'}>
+                        <Checkbox
+                            onChange={(_, value) => setChecked(value)}
+                            style={{
+                                color: theme.icon.action,
+                            }}
+                        />
+                        <IBody2
+                            sx={{
+                                letterSpacing: -0.32,
+                                marginLeft: 10,
+                            }}>
+                            {`${t('myWishListConfirmText')} `}
+                        </IBody2>
+                    </Row>
+                    <Button
+                        disabled={!checked}
+                        style={{
+                            marginTop: 30,
+                            marginBottom: spacing.form.submit.margin.bottom,
+                        }}>
+                        {t('buttonDone')}
+                    </Button>
+                </div>
             </SafeArea>
         </Screen>
     );

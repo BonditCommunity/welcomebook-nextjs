@@ -5,7 +5,7 @@ import { outlinedInputClasses } from '@mui/material/OutlinedInput';
 
 import { typography } from '../typography';
 import { Typography } from '../@enums';
-import { inputClasses } from '@mui/material';
+import { inputClasses } from '@mui/material/Input';
 
 export const MuiInputBase: Components<Theme>['MuiInputBase'] = {
     styleOverrides: {

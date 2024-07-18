@@ -1,18 +1,19 @@
 'use client';
 
 import React from 'react';
+import Box, { BoxProps } from '@mui/material/Box';
 
-import { FCProps } from '@/@types';
 import { spacing } from '@/theme/spacing';
 
-export const SafeArea: React.FC<FCProps> = ({ style, children }) => {
+export const SafeArea: React.FC<BoxProps> = ({ sx, children, ...props }) => {
     return (
-        <div
-            style={{
+        <Box
+            sx={{
                 paddingTop: spacing.header.height,
-                ...style,
-            }}>
+                ...sx,
+            }}
+            {...props}>
             {children}
-        </div>
+        </Box>
     );
 };
