@@ -20,6 +20,7 @@ import { AppleSignInResponse } from '@/@types';
 import { useSignIn } from '@/api/authentication/repository/sign-in';
 import { routes } from '@/routes';
 import { parseError } from '@/helpers/format/parse-error';
+import { SignInStatus } from '@/api/authentication/vm/enum/sign-in-status';
 
 export function Home() {
     const router = useRouter();
@@ -29,8 +30,12 @@ export function Home() {
 
     const { fetch } = useSignIn();
 
-    const onSuccess = async () => {
-        router.push(routes.signUp);
+    const onSuccess = async (status?: SignInStatus) => {
+        if (status === SignInStatus.FINISHEDSNSLOGIN) {
+            router.push(routes.signUp);
+        } else if (status === SignInStatus.FINISHEDSIGNUP) {
+            router.push(routes.wishlist);
+        }
     };
 
     const signInGoogle = async (credential: CredentialResponse) => {
@@ -42,7 +47,7 @@ export function Home() {
 
         if (result?.customToken) {
             await signInWithCustomToken(firebase, result.customToken);
-            onSuccess();
+            onSuccess(result.status);
         } else if (error) {
             alert(parseError(error));
         }
@@ -56,7 +61,7 @@ export function Home() {
 
         if (result?.customToken) {
             await signInWithCustomToken(firebase, result.customToken);
-            onSuccess();
+            onSuccess(result.status);
         } else if (error) {
             alert(parseError(error));
         }
@@ -98,7 +103,7 @@ export function Home() {
                                 clientId: process.env.APPLE_CLIENT_ID!,
                                 scope: 'email name',
                                 redirectURI: 'http://localhost:3000',
-                                // redirectURI: 'https://welcomebook.com',
+                                // redirectURI: 'https://uscollege.live',
                                 state: 'origin:web',
                                 nonce: 'nonce',
                                 usePopup: true,

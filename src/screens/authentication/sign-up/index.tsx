@@ -31,6 +31,7 @@ import { trim } from '@/helpers/form/trim';
 import { useSearch } from '@/hooks/form/use-search';
 import { CollegeRes } from '@/api/college/vm/res/college';
 import { parseError } from '@/helpers/format/parse-error';
+import { useUpdateUserInfo } from '@/api/user-info/repository/update-user-info';
 
 const filter = createFilterOptions<CollegeRes>();
 
@@ -43,6 +44,7 @@ export function SignUp() {
     const keyword = useSearch('');
 
     const { fetch } = useSearchColleges();
+    const { fetch: updateUserInfo } = useUpdateUserInfo();
 
     const [college, setCollege] = useState<CollegeRes>();
     const [colleges, setColleges] = useState<CollegeRes[]>([]);
@@ -97,8 +99,17 @@ export function SignUp() {
     }, []);
 
     const onSubmit = handleSubmit(async data => {
-        alert(JSON.stringify(data));
-        // router.push(routes.wishlist);
+        if (!college) return;
+        const { result, error } = await updateUserInfo({
+            name: data.name,
+            collegeId: college.id,
+            collegeFirstDay: data.date,
+        });
+        if (result) {
+            router.replace(routes.wishlist);
+        } else if (error) {
+            alert(parseError(error));
+        }
     });
 
     const goTermsService = useCallback(() => {
