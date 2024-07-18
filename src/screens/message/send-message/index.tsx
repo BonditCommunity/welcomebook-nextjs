@@ -1,6 +1,7 @@
 'use client';
 
-import React, { ChangeEvent, useCallback, useState } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -14,18 +15,28 @@ import { Image } from '@/components/image/image/image';
 import { Col } from '@/components/grid/col';
 import { FH3 } from '@/components/typography/FH3';
 import { Form } from '@/components/form/form';
-import { Schema } from './@types';
+import { Schema, SendMessageParams } from './@types';
 import { schema, sizing } from './@constants';
 import { InputBase } from '@/components/form/input-base';
 import { dropShadow } from '@/theme/shadow';
 import { Row } from '@/components/grid/row';
 import { Svg } from '@/components/image/svg';
-import { iconImage } from '@/assets/icons';
+import { iconClose, iconImage } from '@/assets/icons';
 import { spacing } from '@/theme/spacing';
+import { useFindProfileById } from '@/api/user-info/repository/find-profile-by-id';
+import { UserInfoRes } from '@/api/user-info/vm/res/user-info';
+import { Center } from '@/components/grid/center';
+import { colorWithAlpha } from '@/helpers/common/color-with-alpha';
 
 export function SendMessage() {
+    const params = useParams<SendMessageParams>();
+
     const { t } = useTranslation();
     const { theme } = useTheme();
+
+    const { fetch } = useFindProfileById();
+
+    const [user, setUser] = useState<UserInfoRes>();
 
     const methods = useForm<Schema>({
         resolver: zodResolver(schema),
@@ -54,8 +65,8 @@ export function SendMessage() {
                 <div style={{ width: 60, height: 60 }}>
                     <div
                         style={{
-                            width: sizing.image,
-                            height: sizing.image,
+                            width: sizing.image.image,
+                            height: sizing.image.image,
                             backgroundColor: theme.background.primary,
                             borderRadius: 8,
                             position: 'absolute',
@@ -68,11 +79,9 @@ export function SendMessage() {
                     />
                     <img
                         src={URL.createObjectURL(file)}
-                        width={sizing.image}
-                        height={sizing.image}
-                        onClick={() => setFile(undefined)}
+                        width={sizing.image.image}
+                        height={sizing.image.image}
                         style={{
-                            cursor: 'pointer',
                             objectFit: 'cover',
                             borderRadius: 8,
                             borderWidth: 1.5,
@@ -86,6 +95,24 @@ export function SendMessage() {
                             zIndex: 2,
                         }}
                     />
+                    <Center
+                        onClick={() => setFile(undefined)}
+                        style={{
+                            cursor: 'pointer',
+                            width: sizing.image.close.container,
+                            height: sizing.image.close.container,
+                            borderRadius: 9999,
+                            backgroundColor: colorWithAlpha(
+                                theme.background.default,
+                                0.45,
+                            ),
+                            position: 'absolute',
+                            right: 40,
+                            bottom: 50,
+                            zIndex: 3,
+                        }}>
+                        <Svg src={iconClose} color={theme.icon.action} />
+                    </Center>
                 </div>
             );
         }
@@ -108,6 +135,18 @@ export function SendMessage() {
             </Fab>
         );
     }, [file]);
+
+    useEffect(() => {
+        const initialize = async () => {
+            const { result } = await fetch({
+                id: params.id,
+            });
+            if (result) {
+                setUser(result);
+            }
+        };
+        initialize();
+    }, []);
 
     return (
         <Screen>
@@ -134,6 +173,7 @@ export function SendMessage() {
                         }}>
                         <Image
                             src={
+                                user?.imageUrl ??
                                 'https://i.namu.wiki/i/R0AhIJhNi8fkU2Al72pglkrT8QenAaCJd1as-d_iY6MC8nub1iI5VzIqzJlLa-1uzZm--TkB-KHFiT-P-t7bEg.webp'
                             }
                             width={sizing.avatar}

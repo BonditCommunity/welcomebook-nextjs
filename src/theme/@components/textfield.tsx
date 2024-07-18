@@ -11,7 +11,6 @@ export const MuiInputBase: Components<Theme>['MuiInputBase'] = {
     styleOverrides: {
         input: ({ ownerState, theme }) => ({
             ...typography.IH3,
-            maxHeight: 300,
             color: theme.palette.form.base.text,
             '&::placeholder': {
                 ...typography[

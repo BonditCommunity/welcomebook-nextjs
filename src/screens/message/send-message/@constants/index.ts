@@ -15,7 +15,13 @@ export const sizing = {
             horizontal: 15,
         },
     },
-    image: 120,
+    image: {
+        image: 120,
+        close: {
+            container: 35,
+            icon: 12,
+        },
+    },
 };
 
 export const schema = z.object({
