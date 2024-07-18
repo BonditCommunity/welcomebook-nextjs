@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import TextField from '@mui/material/TextField';
@@ -32,6 +32,7 @@ import { productsState } from '@/recoil/atoms/product/products';
 import { useFindProfileByFirebaseUid } from '@/api/user-info/repository/find-profile-by-firebase-uid';
 import { UserInfoRes } from '@/api/user-info/vm/res/user-info';
 import { WishListRes } from '@/api/wishlist/vm/res/wish-list';
+import { useUpdateWishList } from '@/api/wishlist/repository/update-wish-list';
 
 export function Wishlist() {
     const { t } = useTranslation();
@@ -45,11 +46,16 @@ export function Wishlist() {
 
     const { fetch: getProfile } = useFindProfileByFirebaseUid();
     const { params, fetch } = useSearchProducts();
-    const { loading, fetch: createWishList } = useCreateWishList();
+    const { loading: creating, fetch: createWishList } = useCreateWishList();
+    const { loading: editing, fetch: updateWishList } = useUpdateWishList();
 
     const [userInfo, setUserInfo] = useState<UserInfoRes>();
     const [list, setList] = useState<ProductRes[]>(products);
     const [productIds, setProductIds] = useState<number[]>([]);
+
+    const disabled = useMemo<boolean>(() => {
+        return creating || editing;
+    }, [creating, editing]);
 
     const search = async (value: string) => {
         reset();
@@ -97,23 +103,35 @@ export function Wishlist() {
 
     const onDragEnd = useCallback(
         (event: DragEndEvent) => {
-            if (loading) return;
+            if (disabled) return;
             const { active, over } = event;
             if (!over) return;
             setProductIds(ids => ids.concat(active.id as number));
         },
-        [loading],
+        [disabled],
     );
 
-    const onSuccess = (wishList: WishListRes) => {
+    const onSuccess = (wishList?: WishListRes) => {
         setProductIds([]);
-        setWishList(wishList);
+        if (wishList) {
+            setWishList(wishList);
+        }
     };
 
     const submit = async () => {
         if (!userInfo) return;
+        if (disabled) return;
         if (productIds.length === 0) return;
         if (userInfo.wishListId) {
+            const { result, error } = await updateWishList({
+                addProductIds: productIds,
+                deleteProductIds: [],
+            });
+            if (result) {
+                onSuccess();
+            } else if (error) {
+                alert(parseError(error));
+            }
         } else {
             const { result, error } = await createWishList({
                 productIds,
