@@ -1,5 +1,3 @@
-import { SignInStatus } from '../../authentication/entity/@enums';
-
 export interface StripePaymentReq {
     orderUid: string;
     currencyCode: string;

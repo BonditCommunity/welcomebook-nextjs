@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { Response } from '@/api/common/dto/response';
+import { Response } from '@/api/common/vm/res/response';
 import { tryAPI } from '@/api/@helpers';
 import { useFetch } from '@/hooks/common/use-fetch';
 import { domain } from './@constants';
