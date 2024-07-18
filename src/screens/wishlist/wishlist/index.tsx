@@ -111,11 +111,9 @@ export function Wishlist() {
         [disabled],
     );
 
-    const onSuccess = (wishList?: WishListRes) => {
+    const onSuccess = (wishList: WishListRes) => {
         setProductIds([]);
-        if (wishList) {
-            setWishList(wishList);
-        }
+        setWishList(wishList);
     };
 
     const submit = async () => {
@@ -128,7 +126,7 @@ export function Wishlist() {
                 deleteProductIds: [],
             });
             if (result) {
-                onSuccess();
+                onSuccess(result);
             } else if (error) {
                 alert(parseError(error));
             }

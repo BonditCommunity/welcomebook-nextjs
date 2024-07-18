@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useFetch } from '@/hooks/common/use-fetch';
 import { UpdateWishListReq } from '../vm/req/update-wish-list';
 import { Response } from '@/api/common/vm/res/response';
-import { UpdateWishListRes } from '../vm/res/update-wish-list';
+import { WishListRes } from '../vm/res/wish-list';
 import { tryAPI } from '@/api/@helpers';
 import { domain } from './@constants';
 
@@ -16,9 +16,9 @@ export const useUpdateWishList = () => {
 
     const fetch = async (
         params: UpdateWishListReq,
-    ): Promise<Response<UpdateWishListRes>> => {
+    ): Promise<Response<WishListRes>> => {
         setLoading(true);
-        const result = await tryAPI<UpdateWishListRes>(() => {
+        const result = await tryAPI<WishListRes>(() => {
             return fetchAPI(`${domain}`, {
                 method: 'PUT',
                 body: JSON.stringify(params),
