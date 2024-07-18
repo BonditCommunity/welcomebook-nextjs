@@ -1,20 +1,20 @@
 export const routes = {
     home: '/',
-    signUp: 'sign-up',
+    signUp: '/sign-up',
     wishlist: {
-        root: 'wishlist',
+        root: '/wishlist',
     },
     terms: {
-        service: 'terms/service',
-        privacy: 'terms/privacy',
+        service: '/terms/service',
+        privacy: '/terms/privacy',
     },
     funding: {
-        root: 'funding',
+        root: '/funding',
     },
     message: {
-        send: 'message/send',
+        send: '/message/send',
     },
     profile: {
-        address: 'profile/address',
+        address: '/profile/address',
     },
 };

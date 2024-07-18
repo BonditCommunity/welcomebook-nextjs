@@ -1,19 +1,35 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { onAuthStateChanged, signInAnonymously, User } from 'firebase/auth';
 
 import { ChildrenProps } from '@/@types';
 import { AuthContext } from './context';
 import { firebase } from '@/firebase';
 import { routes } from '@/routes';
+import { loginRequiredPath } from './@constants';
 
 export const AuthProvider: React.FC<ChildrenProps> = ({ children }) => {
     const router = useRouter();
+    const pathname = usePathname();
 
     const [user, setUser] = useState<User>();
+    const [renderable, setRenderable] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(true);
+
+    useEffect(() => {
+        const guard = () => {
+            if (loginRequiredPath.includes(pathname)) {
+                if (!user || user.isAnonymous) {
+                    router.replace(routes.home);
+                    return;
+                }
+            }
+            setRenderable(true);
+        };
+        guard();
+    }, [pathname, user]);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(firebase, async user => {
@@ -34,7 +50,7 @@ export const AuthProvider: React.FC<ChildrenProps> = ({ children }) => {
 
     return (
         <AuthContext.Provider value={{ user, loading }}>
-            {children}
+            {renderable && children}
         </AuthContext.Provider>
     );
 };
