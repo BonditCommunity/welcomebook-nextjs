@@ -1,5 +1,5 @@
 import { i18n } from '@/i18n';
-import { Response } from '../common/dto/response';
+import { Response } from '../common/vm/res/response';
 import { errors } from '@/messages/error';
 
 export async function tryAPI<T>(

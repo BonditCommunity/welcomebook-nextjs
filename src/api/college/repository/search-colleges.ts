@@ -2,8 +2,10 @@
 
 import { useState } from 'react';
 
-import { SearchCollegesReq, SearchCollegesRes } from '../dto/search-colleges';
-import { Response } from '@/api/common/dto/response';
+import { SearchReq } from '@/api/common/vm/req/search';
+import { Page } from '@/api/common/vm/res/page';
+import { CollegeRes } from '../vm/res/college';
+import { Response } from '@/api/common/vm/res/response';
 import { tryAPI } from '@/api/@helpers';
 import { useFetch } from '@/hooks/common/use-fetch';
 import { domain } from './@constants';
@@ -11,19 +13,19 @@ import { domain } from './@constants';
 export const useSearchColleges = () => {
     const { fetchAPI } = useFetch();
 
-    const [params, setParams] = useState<SearchCollegesReq>();
+    const [params, setParams] = useState<SearchReq>();
 
     const fetch = async ({
         keyword,
         page,
         size,
-    }: SearchCollegesReq): Promise<Response<SearchCollegesRes>> => {
+    }: SearchReq): Promise<Response<Page<CollegeRes>>> => {
         setParams({
             keyword,
             page,
             size,
         });
-        return tryAPI<SearchCollegesRes>(() => {
+        return tryAPI<Page<CollegeRes>>(() => {
             return fetchAPI(
                 `${domain}/all/search?keyword=${keyword}&page=${page}&size=${size}`,
             );

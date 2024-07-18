@@ -1,4 +1,4 @@
-import { Error } from '../entity/error';
+import { Error } from './error';
 
 export interface Response<T> {
     result?: T;

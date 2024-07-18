@@ -1,4 +1,4 @@
-import { Error } from '@/api/common/entity/error';
+import { Error } from '@/api/common/vm/res/error';
 import { i18n } from '@/i18n';
 import { parseTParams } from './parse-t-params';
 

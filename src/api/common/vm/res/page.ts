@@ -1,6 +1,4 @@
-import { Response } from '../dto/response';
-
-export interface Page<T> extends Response<T> {
+export interface Page<T> {
     content: T[];
     pageable: {
         pageNumber: number;

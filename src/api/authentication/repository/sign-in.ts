@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 
-import { SignInReq, SignInRes } from '../dto/sign-in';
-import { Response } from '@/api/common/dto/response';
+import { SignInReq } from '../vm/req/sign-in';
+import { SignInRes } from '../vm/res/sign-in';
+import { Response } from '@/api/common/vm/res/response';
 import { tryAPI } from '@/api/@helpers';
 import { useFetch } from '@/hooks/common/use-fetch';
 import { domain } from './@constants';

@@ -19,7 +19,7 @@ import { sizing } from './@constants';
 import { color } from '@/theme/theme';
 import { useSearchProducts } from '@/api/product/repository/search-products';
 import { trim } from '@/helpers/form/trim';
-import { ProductRes } from '@/api/product/entity/product';
+import { ProductRes } from '@/api/product/vm/res/product';
 import { FlatList } from '@/components/layout/flat-list';
 import { ListRenderItem } from '@/components/layout/flat-list/@types';
 import { usePagination } from '@/hooks/common/use-pagination';

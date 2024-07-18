@@ -2,8 +2,10 @@
 
 import { useState } from 'react';
 
-import { SearchProductsReq, SearchProductsRes } from '../dto/search-products';
-import { Response } from '@/api/common/dto/response';
+import { SearchReq } from '@/api/common/vm/req/search';
+import { Page } from '@/api/common/vm/res/page';
+import { ProductRes } from '../vm/res/product';
+import { Response } from '@/api/common/vm/res/response';
 import { tryAPI } from '@/api/@helpers';
 import { useFetch } from '@/hooks/common/use-fetch';
 import { domain } from './@constants';
@@ -11,19 +13,19 @@ import { domain } from './@constants';
 export const useSearchProducts = () => {
     const { fetchAPI } = useFetch();
 
-    const [params, setParams] = useState<SearchProductsReq>();
+    const [params, setParams] = useState<SearchReq>();
 
     const fetch = async ({
         keyword,
         page,
         size,
-    }: SearchProductsReq): Promise<Response<SearchProductsRes>> => {
+    }: SearchReq): Promise<Response<Page<ProductRes>>> => {
         setParams({
             keyword,
             page,
             size,
         });
-        return tryAPI<SearchProductsRes>(() => {
+        return tryAPI<Page<ProductRes>>(() => {
             return fetchAPI(
                 `${domain}/all/search?keyword=${keyword}&page=${page}&size=${size}`,
             );
