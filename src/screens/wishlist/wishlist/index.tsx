@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import TextField from '@mui/material/TextField';
@@ -36,8 +37,11 @@ import { UserInfoRes } from '@/api/user-info/vm/res/user-info';
 import { WishListRes } from '@/api/wishlist/vm/res/wish-list';
 import { useUpdateWishList } from '@/api/wishlist/repository/update-wish-list';
 import { FH4 } from '@/components/typography/FH4';
+import { routes } from '@/routes';
 
 export function Wishlist() {
+    const router = useRouter();
+
     const { t } = useTranslation();
     const { theme } = useTheme();
 
@@ -147,6 +151,7 @@ export function Wishlist() {
         setProductIds([]);
         setWishList(wishList);
         setShowConfirm(false);
+        router.push(routes.wishlist.my);
     }, []);
 
     const submit = async () => {

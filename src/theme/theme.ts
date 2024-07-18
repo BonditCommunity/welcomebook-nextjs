@@ -90,6 +90,7 @@ export const light: PaletteOptions = {
     },
     icon: {
         white: color.white.default,
+        action: color.black.default,
         caption: color.gray.AA,
     },
     button: {
@@ -190,6 +191,7 @@ export const dark: PaletteOptions = {
     },
     icon: {
         white: color.white.default,
+        action: color.black.default,
         caption: color.gray.AA,
     },
     button: {

@@ -1,8 +1,11 @@
+// check login required route
+
 export const routes = {
     home: '/',
     signUp: '/sign-up',
     wishlist: {
         root: '/wishlist',
+        my: '/wishlist/my',
     },
     terms: {
         service: '/terms/service',

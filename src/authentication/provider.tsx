@@ -20,10 +20,15 @@ export const AuthProvider: React.FC<ChildrenProps> = ({ children }) => {
 
     useEffect(() => {
         const guard = () => {
+            if (!user) return;
             if (loginRequiredPath.includes(pathname)) {
-                if (!user || user.isAnonymous) {
+                if (user.isAnonymous) {
                     router.replace(routes.home);
                     return;
+                }
+            } else if (pathname === routes.home) {
+                if (!user.isAnonymous) {
+                    router.replace(routes.wishlist.root);
                 }
             }
             setRenderable(true);
@@ -34,9 +39,6 @@ export const AuthProvider: React.FC<ChildrenProps> = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(firebase, async user => {
             if (user) {
-                if (!user.isAnonymous) {
-                    router.replace(routes.wishlist.root);
-                }
                 setUser(user);
             } else {
                 const credential = await signInAnonymously(firebase);

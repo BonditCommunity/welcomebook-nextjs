@@ -1,5 +1,6 @@
 export interface TypeIcon {
     white: string;
+    action: string;
     caption: string;
 }
 
