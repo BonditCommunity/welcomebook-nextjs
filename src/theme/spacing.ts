@@ -6,6 +6,9 @@ export const spacing = {
             horizontal: 20,
         },
     },
+    header: {
+        height: 60,
+    },
     form: {
         submit: {
             margin: {

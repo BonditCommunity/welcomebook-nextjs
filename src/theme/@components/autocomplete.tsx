@@ -4,7 +4,7 @@ import { inputBaseClasses } from '@mui/material/InputBase';
 import { outlinedInputClasses } from '@mui/material/OutlinedInput';
 
 import { typography } from '../typography';
-import { hideScrollBarY } from '../scrollbar';
+import { hideScrollBarY } from '../styles';
 import { Svg } from '@/components/image/svg';
 import { iconArrowDown } from '@/assets/icons';
 

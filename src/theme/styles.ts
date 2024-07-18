@@ -13,3 +13,12 @@ export const hideScrollBarY: CSSObject = {
     overflowY: 'auto',
     '&::-webkit-scrollbar': { display: 'none' },
 };
+
+export const maxlines = (line: number): CSSObject => {
+    return {
+        display: '-webkit-box',
+        overflow: 'hidden',
+        WebkitBoxOrient: 'vertical',
+        WebkitLineClamp: line,
+    };
+};

@@ -25,7 +25,14 @@ export const Header: React.FC<HeaderProps> = ({
             alignItems={'center'}
             justifyContent={'space-between'}
             style={{
-                height: 60,
+                height: spacing.header.height,
+                backgroundColor: theme.background.default,
+                paddingLeft: spacing.screen.padding.horizontal,
+                paddingRight: spacing.screen.padding.horizontal,
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                right: 0,
                 ...style,
             }}>
             <FH3
