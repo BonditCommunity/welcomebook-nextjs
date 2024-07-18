@@ -27,6 +27,8 @@ import { useFindProfileById } from '@/api/user-info/repository/find-profile-by-i
 import { UserInfoRes } from '@/api/user-info/vm/res/user-info';
 import { Center } from '@/components/grid/center';
 import { colorWithAlpha } from '@/helpers/common/color-with-alpha';
+import { useCreateLetter } from '@/api/letter/repository/create-letter';
+import { parseError } from '@/helpers/format/parse-error';
 
 export function SendMessage() {
     const params = useParams<SendMessageParams>();
@@ -35,14 +37,15 @@ export function SendMessage() {
     const { theme } = useTheme();
 
     const { fetch } = useFindProfileById();
+    const { fetch: createLetter } = useCreateLetter();
 
     const [user, setUser] = useState<UserInfoRes>();
 
     const methods = useForm<Schema>({
         resolver: zodResolver(schema),
         defaultValues: {
-            message: '',
-            name: '',
+            content: '',
+            writer: '',
         },
     });
 
@@ -57,7 +60,20 @@ export function SendMessage() {
         setFile(event.target.files?.item(0) ?? undefined);
     }, []);
 
-    const onSubmit = handleSubmit(async data => {});
+    const onSubmit = handleSubmit(async data => {
+        if (!user) return;
+        const { result, error } = await createLetter({
+            myPageId: Number(params.id),
+            // imageUrl?: string;
+            writer: data.writer,
+            content: data.content,
+        });
+        if (result) {
+            alert(JSON.stringify(result));
+        } else if (error) {
+            alert(parseError(error));
+        }
+    });
 
     const renderImage = useCallback(() => {
         if (file) {
@@ -222,8 +238,8 @@ export function SendMessage() {
                                 position: 'relative',
                             }}>
                             <InputBase
-                                name={'message'}
-                                placeholder={t('sendMessageMessagePlaceholder')}
+                                name={'content'}
+                                placeholder={t('sendMessageContentPlaceholder')}
                                 multiline={true}
                                 inputProps={{
                                     style: {
@@ -240,9 +256,9 @@ export function SendMessage() {
                             />
                             <Row alignItems={'center'}>
                                 <InputBase
-                                    name={'name'}
+                                    name={'writer'}
                                     placeholder={t(
-                                        'sendMessageNamePlaceholder',
+                                        'sendMessageWriterPlaceholder',
                                     )}
                                     sx={{
                                         flex: 1,

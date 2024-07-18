@@ -25,10 +25,10 @@ export const sizing = {
 };
 
 export const schema = z.object({
-    message: z
+    content: z
         .string()
-        .min(1, { message: i18n.t(errors.form.required.message.message) }),
-    name: z
+        .min(1, { message: i18n.t(errors.form.required.message.content) }),
+    writer: z
         .string()
-        .min(1, { message: i18n.t(errors.form.required.message.name) }),
+        .min(1, { message: i18n.t(errors.form.required.message.writer) }),
 });

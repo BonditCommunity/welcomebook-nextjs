@@ -8,8 +8,8 @@ export const errors = {
                 terms: 'errorFormRequiredUserTerms',
             },
             message: {
-                message: 'errorFormRequiredMessageMessage',
-                name: 'errorFormRequiredMessageName',
+                content: 'errorFormRequiredMessageContent',
+                writer: 'errorFormRequiredMessageWriter',
             },
             address: {
                 country: 'errorFormRequiredAddressCountry',
