@@ -21,6 +21,7 @@ import { useSignIn } from '@/api/authentication/repository/sign-in';
 import { routes } from '@/routes';
 import { parseError } from '@/helpers/format/parse-error';
 import { SignInStatus } from '@/api/authentication/vm/enum/sign-in-status';
+import { SnsType } from '@/api/user-info/vm/enum/sns-type';
 
 export function Home() {
     const router = useRouter();
@@ -41,7 +42,7 @@ export function Home() {
     const signInGoogle = async (credential: CredentialResponse) => {
         if (!credential.credential) return;
         const { result, error } = await fetch({
-            snsType: 'GOOGLE',
+            snsType: SnsType.GOOGLE,
             snsToken: credential.credential,
         });
 
@@ -55,7 +56,7 @@ export function Home() {
 
     const signInApple = async (credential: AppleSignInResponse) => {
         const { result, error } = await fetch({
-            snsType: 'APPLE',
+            snsType: SnsType.APPLE,
             snsToken: credential.authorization.id_token,
         });
 

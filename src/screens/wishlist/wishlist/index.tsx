@@ -29,6 +29,9 @@ import { parseError } from '@/helpers/format/parse-error';
 import { useCreateWishList } from '@/api/wishlist/repository/create-wish-list';
 import { wishListState } from '@/recoil/atoms/wishlist/wish-list';
 import { productsState } from '@/recoil/atoms/product/products';
+import { useFindProfileByFirebaseUid } from '@/api/user-info/repository/find-profile-by-firebase-uid';
+import { UserInfoRes } from '@/api/user-info/vm/res/user-info';
+import { WishListRes } from '@/api/wishlist/vm/res/wish-list';
 
 export function Wishlist() {
     const { t } = useTranslation();
@@ -40,9 +43,11 @@ export function Wishlist() {
     const q = useSearch('');
     const { size, canMore, reset, onStartMore, onEndMore } = usePagination();
 
+    const { fetch: getProfile } = useFindProfileByFirebaseUid();
     const { params, fetch } = useSearchProducts();
     const { loading, fetch: createWishList } = useCreateWishList();
 
+    const [userInfo, setUserInfo] = useState<UserInfoRes>();
     const [list, setList] = useState<ProductRes[]>(products);
     const [productIds, setProductIds] = useState<number[]>([]);
 
@@ -100,16 +105,24 @@ export function Wishlist() {
         [loading],
     );
 
+    const onSuccess = (wishList: WishListRes) => {
+        setProductIds([]);
+        setWishList(wishList);
+    };
+
     const submit = async () => {
+        if (!userInfo) return;
         if (productIds.length === 0) return;
-        const { result, error } = await createWishList({
-            productIds,
-        });
-        if (result) {
-            setProductIds([]);
-            setWishList(result);
-        } else if (error) {
-            alert(parseError(error));
+        if (userInfo.wishListId) {
+        } else {
+            const { result, error } = await createWishList({
+                productIds,
+            });
+            if (result) {
+                onSuccess(result);
+            } else if (error) {
+                alert(parseError(error));
+            }
         }
     };
 
@@ -136,6 +149,16 @@ export function Wishlist() {
     useEffect(() => {
         search(q.searched);
     }, [q.searched]);
+
+    useEffect(() => {
+        const initialize = async () => {
+            const { result } = await getProfile();
+            if (result) {
+                setUserInfo(result);
+            }
+        };
+        initialize();
+    }, []);
 
     return (
         <DndContext autoScroll={false} onDragEnd={onDragEnd}>
