@@ -92,7 +92,10 @@ export function Wishlist() {
                     index={index}
                     style={{
                         ...(index > 0 && {
-                            marginTop: sizing.product.gap,
+                            marginTop:
+                                index % 4 === 0
+                                    ? sizing.product.gap.lg
+                                    : sizing.product.gap.sm,
                         }),
                     }}
                 />
@@ -172,6 +175,8 @@ export function Wishlist() {
                     style={{
                         paddingTop: 40,
                         paddingBottom: 40,
+                        marginLeft: -5,
+                        marginRight: -5,
                     }}
                 />
                 <DropBox products={productIds.length} />

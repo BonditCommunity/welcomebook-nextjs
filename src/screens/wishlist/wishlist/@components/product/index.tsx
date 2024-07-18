@@ -9,6 +9,7 @@ import { ISubtitle2 } from '@/components/typography/ISubtitle2';
 import { useTheme } from '@/hooks/common/use-theme';
 import { Image } from './@components/image';
 import { Col } from '@/components/grid/col';
+import { Status } from './@components/status';
 
 export const Product: React.FC<ProductProps> = ({
     product,
@@ -19,66 +20,133 @@ export const Product: React.FC<ProductProps> = ({
 
     if (index % 4 === 0) {
         return (
-            <Row {...props}>
+            <Row alignItems={'center'} {...props}>
                 <Image product={product} />
                 <div
                     style={{
                         flex: 1,
-                        paddingTop: sizing.product.text.padding,
-                        paddingLeft: sizing.product.text.padding,
+                        marginLeft: sizing.product.text.gap,
                     }}>
                     <ISubtitle2 color={theme.text.white}>
                         {product.productName}
                     </ISubtitle2>
-                    <ISubtitle2
-                        color={theme.text.white}
+                    <Row
+                        alignItems={'center'}
                         style={{
                             marginTop: sizing.product.price.gap,
                         }}>
-                        {`$${product.price}`}
-                    </ISubtitle2>
+                        <ISubtitle2 color={theme.text.white}>
+                            {`$${product.price}`}
+                        </ISubtitle2>
+                        <Status
+                            product={product}
+                            style={{
+                                marginLeft: sizing.product.status.gap,
+                            }}
+                        />
+                    </Row>
                 </div>
             </Row>
         );
     } else if (index % 4 === 1) {
         return (
-            <Row {...props}>
+            <Row alignItems={'center'} {...props}>
                 <div
                     style={{
                         flex: 1,
-                        paddingTop: sizing.product.text.padding,
-                        paddingRight: sizing.product.text.padding,
+                        paddingRight: sizing.product.text.gap,
                     }}>
                     <ISubtitle2 color={theme.text.white} textAlign={'right'}>
                         {product.productName}
                     </ISubtitle2>
-                    <ISubtitle2
-                        color={theme.text.white}
-                        textAlign={'right'}
+                    <Row
+                        alignItems={'center'}
+                        justifyContent={'flex-end'}
                         style={{
                             marginTop: sizing.product.price.gap,
                         }}>
-                        {`$${product.price}`}
-                    </ISubtitle2>
+                        <ISubtitle2 color={theme.text.white}>
+                            {`$${product.price}`}
+                        </ISubtitle2>
+                        <Status
+                            product={product}
+                            style={{
+                                marginLeft: sizing.product.status.gap,
+                            }}
+                        />
+                    </Row>
                 </div>
                 <Image product={product} />
             </Row>
         );
+    } else if (index % 4 === 2) {
+        return (
+            <Col
+                alignItems={'center'}
+                style={{
+                    width: sizing.product.container.width,
+                    ...props.style,
+                }}>
+                <Image product={product} />
+                <ISubtitle2
+                    color={theme.text.white}
+                    textAlign={'center'}
+                    style={{
+                        marginTop: sizing.product.text.gap,
+                    }}>
+                    {product.productName}
+                </ISubtitle2>
+                <Row
+                    alignItems={'center'}
+                    justifyContent={'center'}
+                    style={{
+                        marginTop: sizing.product.price.gap,
+                    }}>
+                    <ISubtitle2 color={theme.text.white}>
+                        {`$${product.price}`}
+                    </ISubtitle2>
+                    <Status
+                        product={product}
+                        style={{
+                            marginLeft: sizing.product.status.gap,
+                        }}
+                    />
+                </Row>
+            </Col>
+        );
     }
     return (
         <Col {...props}>
-            <Image product={product} />
-            <ISubtitle2 color={theme.text.white} textAlign={'center'}>
-                {product.productName}
-            </ISubtitle2>
-            <ISubtitle2
-                color={theme.text.white}
-                textAlign={'center'}
-                style={{
-                    marginTop: sizing.product.price.gap,
-                }}>
-                {`$${product.price}`}
-            </ISubtitle2>
+            <Col
+                alignItems={'center'}
+                alignSelf={'flex-end'}
+                style={{ width: sizing.product.container.width }}>
+                <Image product={product} />
+                <ISubtitle2
+                    color={theme.text.white}
+                    textAlign={'center'}
+                    style={{
+                        marginTop: sizing.product.text.gap,
+                    }}>
+                    {product.productName}
+                </ISubtitle2>
+                <Row
+                    alignItems={'center'}
+                    justifyContent={'center'}
+                    style={{
+                        marginTop: sizing.product.price.gap,
+                    }}>
+                    <ISubtitle2 color={theme.text.white}>
+                        {`$${product.price}`}
+                    </ISubtitle2>
+                    <Status
+                        product={product}
+                        style={{
+                            marginLeft: sizing.product.status.gap,
+                        }}
+                    />
+                </Row>
+            </Col>
         </Col>
     );
 };

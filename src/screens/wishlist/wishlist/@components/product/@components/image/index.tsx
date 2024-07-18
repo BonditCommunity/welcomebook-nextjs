@@ -4,11 +4,11 @@ import React from 'react';
 import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
 
-import { ImageProps } from './@types';
+import { ProductComponentProps } from '../@types';
 import { sizing } from '@/screens/wishlist/wishlist/@constants';
 import { Image as LazyImage } from '@/components/image/image/image';
 
-export const Image: React.FC<ImageProps> = ({ product }) => {
+export const Image: React.FC<ProductComponentProps> = ({ style, product }) => {
     const { attributes, listeners, transform, setNodeRef } = useDraggable({
         id: product.id,
     });
@@ -27,6 +27,7 @@ export const Image: React.FC<ImageProps> = ({ product }) => {
                     zIndex: 9999,
                     transform: CSS.Translate.toString(transform),
                 }),
+                ...style,
             }}>
             <LazyImage
                 src={product.imageUrl}
