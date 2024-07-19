@@ -22,6 +22,9 @@ export const sizing = {
             icon: 12,
         },
     },
+    success: {
+        icon: 55,
+    },
 };
 
 export const schema = z.object({

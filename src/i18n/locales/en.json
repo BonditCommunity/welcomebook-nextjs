@@ -35,6 +35,7 @@
     "sendMessageContentPlaceholder": "Please write here...",
     "sendMessageWriterPlaceholder": "From.",
     "sendMessageSubmitText": "Posting",
+    "sendMessageSuccessText": "The letter is scheduled to be released after the school start day.",
     "profileAddressCountryPlaceholder": "Country*",
     "profileAddressStreetAddressPlaceholder": "Street Address*",
     "profileAddressCityPlaceholder": "City*",

@@ -1,11 +1,12 @@
 'use client';
 
 import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Fab from '@mui/material/Fab';
+import Dialog from '@mui/material/Dialog';
 import dayjs from 'dayjs';
 
 import { Screen } from '@/components/layout/screen';
@@ -20,7 +21,7 @@ import { schema, sizing } from './@constants';
 import { dropShadow } from '@/theme/shadow';
 import { Row } from '@/components/grid/row';
 import { Svg } from '@/components/image/svg';
-import { iconClose, iconImage } from '@/assets/icons';
+import { iconCheckCircle, iconClose, iconImage } from '@/assets/icons';
 import { spacing } from '@/theme/spacing';
 import { useFindProfileById } from '@/api/user-info/repository/find-profile-by-id';
 import { UserInfoRes } from '@/api/user-info/vm/res/user-info';
@@ -35,6 +36,7 @@ import { FormInput } from '@/components/form/input/form-input';
 import { RoundButton } from '@/components/button/round-button';
 
 export function SendMessage() {
+    const router = useRouter();
     const params = useParams<SendMessageParams>();
 
     const { t } = useTranslation();
@@ -46,6 +48,7 @@ export function SendMessage() {
 
     const [user, setUser] = useState<UserInfoRes>();
     const [dDay, setDDay] = useState<number>(0);
+    const [showSuccess, setShowSuccess] = useState<boolean>(false);
 
     const methods = useForm<Schema>({
         resolver: zodResolver(schema),
@@ -65,6 +68,8 @@ export function SendMessage() {
     const handleFile = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         setFile(event.target.files?.item(0) ?? undefined);
     }, []);
+
+    const onCloseSuccess = useCallback(() => {}, []);
 
     const onSubmit = handleSubmit(async data => {
         if (!user) return;
@@ -327,6 +332,24 @@ export function SendMessage() {
                     }}
                 />
             </Form>
+            <Dialog open={showSuccess} onClose={onCloseSuccess}>
+                <div
+                    style={{
+                        paddingTop: 35,
+                        paddingLeft: 30,
+                        paddingRight: 30,
+                        paddingBottom: 65,
+                    }}>
+                    <Svg
+                        src={iconCheckCircle}
+                        width={sizing.success.icon}
+                        height={sizing.success.icon}
+                    />
+                    <FH3 textAlign={'center'} style={{ marginTop: 20 }}>
+                        {t('sendMessageSuccessText')}
+                    </FH3>
+                </div>
+            </Dialog>
         </Screen>
     );
 }
