@@ -83,6 +83,7 @@ export const Product: React.FC<ProductProps> = ({
         return (
             <Col
                 alignItems={'center'}
+                onDoubleClick={props.onDoubleClick}
                 style={{
                     width: sizing.product.container.width,
                     ...props.style,

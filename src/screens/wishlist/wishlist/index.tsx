@@ -167,6 +167,9 @@ export function Wishlist() {
                 <Product
                     product={item}
                     index={index}
+                    onDoubleClick={() =>
+                        setProductIds(ids => ids.concat(item.id as number))
+                    }
                     style={{
                         ...(index > 0 && {
                             marginTop:

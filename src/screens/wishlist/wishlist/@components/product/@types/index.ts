@@ -4,4 +4,5 @@ import { ProductRes } from '@/api/product/vm/res/product';
 export interface ProductProps extends ComponentProps {
     product: ProductRes;
     index: number;
+    onDoubleClick: () => void;
 }
