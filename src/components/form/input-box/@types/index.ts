@@ -1,8 +1,5 @@
-import { TextFieldProps as MuiTextFieldProps } from '@mui/material/TextField';
+import { InputProps } from '../../@types';
 
-export type InputBoxProps = Omit<MuiTextFieldProps, 'color'> & {
-    name: string;
+export type InputBoxProps = InputProps & {
     color?: 'default' | 'inverted' | 'black';
-    regex?: RegExp;
-    hiddenError?: boolean;
 };

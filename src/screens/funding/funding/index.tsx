@@ -13,7 +13,6 @@ import { schema, steps } from './@constants';
 import { IBody1 } from '@/components/typography/IBody1';
 import { useTheme } from '@/hooks/common/use-theme';
 import { Form } from '@/components/form/form';
-import { TextField } from '@/components/form/text-field';
 import { regexNumber } from '@/constants/form/regex';
 import { IH1 } from '@/components/typography/IH1';
 import { Col } from '@/components/grid/col';
@@ -24,6 +23,7 @@ import { Svg } from '@/components/image/svg';
 import { iconAdd } from '@/assets/icons';
 import { spacing } from '@/theme/spacing';
 import { routes } from '@/routes';
+import { FormInputUnderlined } from '@/components/form/input-underlined/form-input-underlined';
 
 export function Funding() {
     const router = useRouter();
@@ -111,10 +111,9 @@ export function Funding() {
                                     position: 'absolute',
                                     visibility: 'hidden',
                                 }}>{`${amount}`}</IH1>
-                            <TextField
+                            <FormInputUnderlined
                                 type={'number'}
                                 name={'amount'}
-                                variant={'standard'}
                                 fullWidth={false}
                                 regex={regexNumber}
                                 hiddenError={true}

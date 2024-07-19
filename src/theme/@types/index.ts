@@ -29,7 +29,7 @@ export interface TypeForm {
         placeholder: string;
         error: string;
     };
-    standard: {
+    underlined: {
         border: string;
     };
     outlined: {

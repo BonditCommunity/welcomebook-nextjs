@@ -117,7 +117,7 @@ export const light: PaletteOptions = {
             placeholder: color.gray.AA,
             error: color.red.default,
         },
-        standard: {
+        underlined: {
             border: color.black.default,
         },
         outlined: {
@@ -245,7 +245,7 @@ export const dark: PaletteOptions = {
             placeholder: color.gray.AA,
             error: color.red.default,
         },
-        standard: {
+        underlined: {
             border: color.black.default,
         },
         outlined: {
