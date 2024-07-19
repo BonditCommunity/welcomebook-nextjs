@@ -6,6 +6,8 @@ export const iconAdd = `${basePath}/icon_add.svg`;
 
 export const iconAlert = `${basePath}/icon_alert.svg`;
 
+export const iconArrowDownLg = `${basePath}/icon_arrow_down_lg.svg`;
+
 export const iconArrowDown = `${basePath}/icon_arrow_down.svg`;
 
 export const iconBack = `${basePath}/icon_back.svg`;

@@ -29,6 +29,7 @@ import { useCreateOrderHistoryByInStripe } from '@/api/order/repository/create-o
 import { parseError } from '@/helpers/format/parse-error';
 import { errors } from '@/messages/error';
 import { useCompleteFund } from '@/api/fund/repository/complete-fund';
+import { Success } from './success';
 
 export function FundingSuccess() {
     const params = useParams<FundingSuccessParams>();
@@ -42,6 +43,7 @@ export function FundingSuccess() {
     const { fetch: completeFund } = useCompleteFund();
 
     const [fund, setFund] = useState<FundInMyPageRes>();
+    const [success, setSuccess] = useState<boolean>(false);
 
     const percent = useMemo<number>(() => {
         if (!fund) return 0;
@@ -99,7 +101,7 @@ export function FundingSuccess() {
             mobile: data.mobile,
         });
         if (result) {
-            alert(JSON.stringify(result));
+            setSuccess(true);
         } else if (error) {
             alert(parseError(error));
         }
@@ -115,6 +117,9 @@ export function FundingSuccess() {
         initialize();
     }, []);
 
+    if (success) {
+        return <Success />;
+    }
     return (
         <Sheet type={'white'}>
             <Form
