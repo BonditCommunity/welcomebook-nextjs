@@ -20,6 +20,9 @@ export const routes = {
     profile: {
         address: '/profile/address',
     },
+    api: {
+        createCheckoutSession: '/api/create-checkout-session',
+    },
 };
 
 export const loginRequiredRoutes: string[] = [

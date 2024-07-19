@@ -12,7 +12,6 @@ export async function tryAPI<T>(
                 result: await response.json(),
             };
         }
-        console.log(await response.json());
         return {
             error: {
                 text: i18n.t(errors.common),

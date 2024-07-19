@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
+import { loadStripe } from '@stripe/stripe-js';
 
 import { Sheet } from '@/components/layout/sheet';
 import { FH2 } from '@/components/typography/FH2';
@@ -24,6 +25,14 @@ import { iconAdd } from '@/assets/icons';
 import { spacing } from '@/theme/spacing';
 import { routes } from '@/routes';
 import { FormInputUnderlined } from '@/components/form/input-underlined/form-input-underlined';
+import { useCreatePreFund } from '@/api/order/repository/create-pre-fund';
+import { useCreateStripePaymentIntent } from '@/api/order/repository/create-stripe-payment-intent';
+import { PaymentMethodType } from '@/api/order/vm/enum/payment-method-type';
+import { parseError } from '@/helpers/format/parse-error';
+
+const stripePromise = loadStripe(
+    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!,
+);
 
 export function FundingUser() {
     const router = useRouter();
@@ -34,6 +43,9 @@ export function FundingUser() {
 
     const { t } = useTranslation();
     const { theme } = useTheme();
+
+    const { fetch: createPreFund } = useCreatePreFund();
+    const { fetch: createStripePaymentIntent } = useCreateStripePaymentIntent();
 
     const [width, setWidth] = useState<number>(0);
 
@@ -60,6 +72,51 @@ export function FundingUser() {
     };
 
     const onSubmit = handleSubmit(async data => {
+        const preFund = await createPreFund(
+            {
+                paymentMethod: PaymentMethodType.CREDIT,
+                currency: 'currency',
+                currencySymbol: 'currencySymbol',
+                totalPrice: data.amount * 100,
+            },
+            Number(params.id),
+        );
+        if (preFund.error) {
+            alert(parseError(preFund.error));
+            return;
+        }
+        const payment = await createStripePaymentIntent(
+            {
+                orderUid: preFund.result?.orderUid ?? '',
+                amount: data.amount * 100,
+                currency: 'usd',
+                putSourceId: 0,
+            },
+            Number(params.id),
+        );
+        if (payment.error) {
+            alert(parseError(payment.error));
+            return;
+        }
+        const stripe = await stripePromise;
+        const response = await fetch(routes.api.createCheckoutSession, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                amount: data.amount,
+                userInfoId: params.id,
+            }),
+        });
+        const session = await response.json();
+        const result = await stripe?.redirectToCheckout({
+            sessionId: session.id,
+        });
+        if (result?.error) {
+            alert(result.error.message);
+            return;
+        }
         router.push(routes.funding.success(params.id));
     });
 
