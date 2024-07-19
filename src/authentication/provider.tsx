@@ -22,10 +22,6 @@ export const AuthProvider: React.FC<ChildrenProps> = ({ children }) => {
             if (user.isAnonymous) {
                 router.replace(routes.home);
             }
-        } else if (pathname === routes.home) {
-            if (!user.isAnonymous) {
-                router.replace(routes.wishlist.root);
-            }
         }
         setLoading(false);
     };
