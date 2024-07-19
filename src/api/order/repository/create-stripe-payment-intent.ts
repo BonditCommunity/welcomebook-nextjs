@@ -11,36 +11,22 @@ import { PaymentIntentRes, PaymentReq } from '../dto/payment-intent';
 
 export const createStripePaymentIntent = () => {
     const { fetchAPI } = useFetch();
-
-    const [params, setParams] = useState<PaymentReq>();
-
-    const fetch = async ({
-        orderUid,
-        amount,
-        currency,
-        putSourceId,
-    }: PaymentReq, toUserInfoId: number): Promise<Response<PaymentIntentRes>> => {
-        setParams({
-            orderUid,
-            amount,
-            currency,
-            putSourceId,
-        });
-        return tryAPI<PaymentIntentRes>(() => {
+    const [loading, setLoading] = useState<boolean>(false);
+    const fetch = async (
+        params: PaymentReq,toUserInfoId: number
+    ): Promise<Response<PaymentIntentRes>> => {
+        setLoading(true);
+        const result = await tryAPI<PaymentIntentRes>(() => {
             return fetchAPI(`${domain}/fund/stripe/${toUserInfoId}`, {
                 method: 'POST',
-                body: JSON.stringify({
-                    orderUid,
-                    amount,
-                    currency,
-                    putSourceId,
-                }),
+                body: JSON.stringify(params),
             });
         });
+        setLoading(false);
+        return result;
     };
-
     return {
-        params,
+        loading,
         fetch,
     };
 };

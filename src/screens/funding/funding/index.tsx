@@ -53,17 +53,17 @@ export function Funding() {
     });
 
     const handleCheckout = async () => {
-        const { result, error } = await createPreFundAPI({
-            paymentMethod: PaymentMethodType.CREDIT,
-            currency: 'string',
-            currencySymbol: 'string',
-            totalPrice: 0,
-        });
-        if (result) {
-            // onSuccess(result);
-        } else if (error) {
-            // alert(parseError(error));
-        }
+        // const { result, error } = await createPreFundAPI({
+        //     paymentMethod: PaymentMethodType.CREDIT,
+        //     currency: 'string',
+        //     currencySymbol: 'string',
+        //     totalPrice: 0,
+        // });
+        // if (result) {
+        //     // onSuccess(result);
+        // } else if (error) {
+        //     // alert(parseError(error));
+        // }
 
         const stripe = await stripePromise;
         console.log(stripe);
