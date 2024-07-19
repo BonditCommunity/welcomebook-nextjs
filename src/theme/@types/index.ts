@@ -29,13 +29,36 @@ export interface TypeForm {
         border: string;
     };
     outlined: {
-        background: string;
         text: string;
-        placeholder: string;
-        border: string;
-        secondary: {
-            background: string;
-            placeholder: string;
+        background: {
+            default: string;
+            inverted: string;
+            black: string;
+            focused: {
+                default: string;
+                inverted: string;
+                black: string;
+            };
+        };
+        placeholder: {
+            default: string;
+            inverted: string;
+            black: string;
+        };
+        border: {
+            default: string;
+            inverted: string;
+            black: string;
+            focused: {
+                default: string;
+                inverted: string;
+                black: string;
+            };
+            hover: {
+                default: string;
+                inverted: string;
+                black: string;
+            };
         };
     };
     checkbox: {

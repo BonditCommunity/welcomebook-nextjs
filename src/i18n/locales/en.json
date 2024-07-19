@@ -46,6 +46,8 @@
     "fundingSuccessTitle": "Successfully Funded !",
     "fundingSuccessGuide": "We send letters if {{user}} gets {{amount}} funded",
     "fundingSuccessFormTitle": "Your Name / Phone Number",
+    "fundingSuccessNamePlaceholder": "Name",
+    "fundingSuccessMobilePlaceholder": "Phone Number",
     "dDay": "D-{{dDay}}",
     "buttonNext": "Next",
     "buttonComplete": "Complete",
@@ -63,5 +65,8 @@
     "errorFormRequiredAddressAddress": "Address required.",
     "errorFormRequiredAddressCity": "City required.",
     "errorFormRequiredFundingAmount": "Amount required.",
+    "errorFormRequiredFundingName": "Name required.",
+    "errorFormRequiredFundingMobile": "Phone Number required.",
+    "errorFormRequiredFundingCountryNumber": "Country number required.",
     "errorFormInvalidFundingAmount": "Funding is only available in five units"
 }

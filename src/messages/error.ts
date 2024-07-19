@@ -18,6 +18,9 @@ export const errors = {
             },
             funding: {
                 amount: 'errorFormRequiredFundingAmount',
+                name: 'errorFormRequiredFundingName',
+                mobile: 'errorFormRequiredFundingMobile',
+                countryNumber: 'errorFormRequiredFundingCountryNumber',
             },
         },
         invalid: {

@@ -117,13 +117,36 @@ export const light: PaletteOptions = {
             border: color.black.default,
         },
         outlined: {
-            background: color.primary['0'],
             text: color.white.default,
-            placeholder: color.primary['2'],
-            border: color.white.default,
-            secondary: {
-                background: 'transparent',
-                placeholder: color.gray.AA,
+            background: {
+                default: color.primary['0'],
+                inverted: color.gray.E7,
+                black: 'transparent',
+                focused: {
+                    default: color.primary['0'],
+                    inverted: color.primary.default,
+                    black: 'transparent',
+                },
+            },
+            placeholder: {
+                default: color.primary['2'],
+                inverted: color.gray.AA,
+                black: color.gray.AA,
+            },
+            border: {
+                default: color.primary['0'],
+                inverted: color.gray.E7,
+                black: color.white.default,
+                focused: {
+                    default: color.white.default,
+                    inverted: color.primary.default,
+                    black: color.white.default,
+                },
+                hover: {
+                    default: color.white.default,
+                    inverted: 'transparent',
+                    black: color.white.default,
+                },
             },
         },
         checkbox: {
@@ -218,13 +241,36 @@ export const dark: PaletteOptions = {
             border: color.black.default,
         },
         outlined: {
-            background: color.primary['0'],
             text: color.white.default,
-            placeholder: color.primary['2'],
-            border: color.white.default,
-            secondary: {
-                background: 'transparent',
-                placeholder: color.gray.AA,
+            background: {
+                default: color.primary['0'],
+                inverted: color.gray.E7,
+                black: 'transparent',
+                focused: {
+                    default: color.primary['0'],
+                    inverted: color.primary.default,
+                    black: 'transparent',
+                },
+            },
+            placeholder: {
+                default: color.primary['2'],
+                inverted: color.gray.AA,
+                black: color.gray.AA,
+            },
+            border: {
+                default: 'transparent',
+                inverted: 'transparent',
+                black: color.white.default,
+                focused: {
+                    default: color.white.default,
+                    inverted: 'transparent',
+                    black: color.white.default,
+                },
+                hover: {
+                    default: color.white.default,
+                    inverted: 'transparent',
+                    black: color.white.default,
+                },
             },
         },
         checkbox: {

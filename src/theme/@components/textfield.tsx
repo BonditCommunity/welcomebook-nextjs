@@ -46,11 +46,8 @@ export const MuiInput: Components<Theme>['MuiInput'] = {
 export const MuiOutlinedInput: Components<Theme>['MuiOutlinedInput'] = {
     styleOverrides: {
         root: ({ ownerState, theme }) => ({
+            color: 'yellow',
             borderRadius: 15,
-            backgroundColor:
-                ownerState.color === 'secondary'
-                    ? theme.palette.form.outlined.secondary.background
-                    : theme.palette.form.outlined.background,
             [`&.${outlinedInputClasses.focused}`]: {
                 [`& .${outlinedInputClasses.notchedOutline}`]: {
                     borderColor: theme.palette.form.outlined.border,
@@ -89,7 +86,7 @@ export const MuiOutlinedInput: Components<Theme>['MuiOutlinedInput'] = {
                 ...typography.IBody1,
                 color:
                     ownerState.color === 'secondary'
-                        ? theme.palette.form.outlined.secondary.placeholder
+                        ? theme.palette.form.outlined.placeholder
                         : theme.palette.form.outlined.placeholder,
             },
             [`&.${outlinedInputClasses.disabled}`]: {
@@ -101,7 +98,7 @@ export const MuiOutlinedInput: Components<Theme>['MuiOutlinedInput'] = {
             borderWidth: ownerState.color === 'secondary' ? 2 : 1,
             borderColor:
                 ownerState.color === 'secondary'
-                    ? theme.palette.form.outlined.border
+                    ? theme.palette.form.outlined.border.default
                     : 'transparent',
             transition: theme.transitions.create(['border-color'], {
                 duration: theme.transitions.duration.shortest,

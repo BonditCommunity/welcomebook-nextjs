@@ -6,6 +6,7 @@ export type RoundButtonProps = Pick<
     'type' | 'disabled' | 'onClick' | 'sx'
 > & {
     size?: 'sm' | 'lg';
+    color?: 'default' | 'rounded';
     text: string;
     renderPrefix?: () => ReactNode;
 };

@@ -9,10 +9,12 @@ import { FH3 } from '@/components/typography/FH3';
 import { Row } from '@/components/grid/row';
 import { useTheme } from '@/hooks/common/use-theme';
 import { colorWithAlpha } from '@/helpers/common/color-with-alpha';
+import { dropShadow } from '@/theme/shadow';
 
 export const RoundButton: React.FC<RoundButtonProps> = ({
     sx,
     size = 'lg',
+    color = 'rounded',
     text,
     renderPrefix,
     ...props
@@ -25,12 +27,13 @@ export const RoundButton: React.FC<RoundButtonProps> = ({
         <Button
             {...props}
             sx={{
-                backgroundColor: theme.button.rounded.background,
+                backgroundColor: theme.button[color].background,
                 padding: size === 'lg' ? '20px 0px' : '10px 15px',
                 borderRadius: 9999,
+                boxShadow: dropShadow,
                 '&:hover': {
                     backgroundColor: colorWithAlpha(
-                        theme.button.rounded.background,
+                        theme.button[color].background,
                         0.9,
                     ),
                 },
@@ -38,7 +41,7 @@ export const RoundButton: React.FC<RoundButtonProps> = ({
             }}>
             <Row alignItems={'center'}>
                 {renderPrefix?.()}
-                <Text color={theme.button.rounded.text} textAlign={'center'}>
+                <Text color={theme.button[color].text} textAlign={'center'}>
                     {text}
                 </Text>
             </Row>
