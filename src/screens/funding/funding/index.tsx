@@ -24,13 +24,19 @@ import { Svg } from '@/components/image/svg';
 import { iconAdd } from '@/assets/icons';
 import { spacing } from '@/theme/spacing';
 import { routes } from '@/routes';
+import { loadStripe } from '@stripe/stripe-js';
+import { createPreFund } from '@/api/order/repository/create-pre-fund';
+import { PaymentMethodType } from '@/api/order/entity/@enums';
+import { createStripePaymentIntent } from '@/api/order/repository/create-stripe-payment-intent';
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
 export function Funding() {
     const router = useRouter();
 
     const adornmentRef = useRef<HTMLParagraphElement>(null);
     const textRef = useRef<HTMLParagraphElement>(null);
-
+    const { loading: editing1, fetch: createPreFundAPI } = createPreFund();
+    const { loading: editing2, fetch: createStripePaymentIntentAPI } = createStripePaymentIntent();
     const { t } = useTranslation();
     const { theme } = useTheme();
 
@@ -59,7 +65,58 @@ export function Funding() {
     };
 
     const onSubmit = handleSubmit(async data => {
-        router.push(routes.funding.success);
+        const { result: preOrderResult, error: preOrderResultError } = await createPreFundAPI({
+            paymentMethod: PaymentMethodType.CREDIT,
+            currency: 'currency',
+            currencySymbol: 'currencySymbol',
+            totalPrice: amount,
+        });
+        console.log(preOrderResult);
+        if (preOrderResult) {
+            console.log(preOrderResult);
+            // onSuccess(result);
+        } else if (preOrderResultError) {
+            console.log(preOrderResultError);
+            // alert(parseError(error));
+        }
+
+        const { result: PaymentIntentRes, error: PaymentIntentResError } = await createStripePaymentIntentAPI({
+            orderUid: preOrderResult?.orderUid!,
+            amount: amount,
+            currency: 'currency',
+            putSourceId: 0,
+        }, 1);
+        ///1에 상대방 uid를 입력
+        console.log(PaymentIntentRes);
+        if (PaymentIntentRes) {
+            console.log(PaymentIntentRes);
+            // onSuccess(result);
+        } else if (PaymentIntentResError) {
+            console.log(PaymentIntentResError);
+            // alert(parseError(error));
+        }
+
+        const stripe = await stripePromise;
+        console.log(stripe);
+        const response = await fetch('/api/create-checkout-session', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ amount }),
+        });
+        console.log('response');
+        console.log(response);
+        const session = await response.json();
+        console.log(response);
+        const redirectResult = await stripe?.redirectToCheckout({
+            sessionId: session.id,
+        });
+        if (redirectResult?.error) {
+            console.error(redirectResult.error.message);
+        }
+
+        // router.push(routes.funding.success);
     });
 
     const renderPrefix = useCallback(() => {

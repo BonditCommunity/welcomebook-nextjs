@@ -20,11 +20,11 @@ export const AuthProvider: React.FC<ChildrenProps> = ({ children }) => {
     const guard = (user: User) => {
         if (loginRequiredPath.includes(pathname)) {
             if (user.isAnonymous) {
-                router.replace(routes.home);
+                // router.replace(routes.home);
             }
         } else if (pathname === routes.home) {
             if (!user.isAnonymous) {
-                router.replace(routes.wishlist.root);
+                // router.replace(routes.wishlist.root);
             }
         }
         setLoading(false);
