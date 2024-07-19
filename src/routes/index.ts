@@ -11,8 +11,8 @@ export const routes = {
         privacy: '/terms/privacy',
     },
     funding: {
-        root: '/funding',
-        success: '/funding/success',
+        user: (id: string) => `/funding/user/${id}`,
+        success: (id: string) => `/funding/success/${id}`,
     },
     message: {
         send: (id: string) => `/message/send/${id}`,

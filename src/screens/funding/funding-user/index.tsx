@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 
 import { Sheet } from '@/components/layout/sheet';
 import { FH2 } from '@/components/typography/FH2';
-import { Schema } from './@types';
+import { FundingUserParams, Schema } from './@types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { schema, steps } from './@constants';
 import { IBody1 } from '@/components/typography/IBody1';
@@ -25,8 +25,9 @@ import { spacing } from '@/theme/spacing';
 import { routes } from '@/routes';
 import { FormInputUnderlined } from '@/components/form/input-underlined/form-input-underlined';
 
-export function Funding() {
+export function FundingUser() {
     const router = useRouter();
+    const params = useParams<FundingUserParams>();
 
     const adornmentRef = useRef<HTMLParagraphElement>(null);
     const textRef = useRef<HTMLParagraphElement>(null);
@@ -59,7 +60,7 @@ export function Funding() {
     };
 
     const onSubmit = handleSubmit(async data => {
-        router.push(routes.funding.success);
+        router.push(routes.funding.success(params.id));
     });
 
     const renderPrefix = useCallback(() => {

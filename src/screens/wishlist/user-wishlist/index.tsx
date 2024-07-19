@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useCallback, useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
+import Fab from '@mui/material/Fab';
 import useEmblaCarousel from 'embla-carousel-react';
 import { EmblaCarouselType } from 'embla-carousel';
 
@@ -13,7 +14,6 @@ import { useTheme } from '@/hooks/common/use-theme';
 import { UserInfoRes } from '@/api/user-info/vm/res/user-info';
 import { useFindProfileById } from '@/api/user-info/repository/find-profile-by-id';
 import { UserWishListParams } from './@types';
-import { Center } from '@/components/grid/center';
 import { Svg } from '@/components/image/svg';
 import { iconClose, iconNext, iconPrev } from '@/assets/icons';
 import { sizing, slideHeight, step } from './@constants';
@@ -28,8 +28,10 @@ import { useFindAllProductsByUserInfoId } from '@/api/wishlist/repository/find-a
 import { ProductInWishListRes } from '@/api/wishlist/vm/res/product-in-wish-list';
 import { Slide } from './@components/slide';
 import { Indicator } from './@components/indicator';
+import { routes } from '@/routes';
 
 export function UserWishList() {
+    const router = useRouter();
     const params = useParams<UserWishListParams>();
 
     const { t } = useTranslation();
@@ -57,6 +59,10 @@ export function UserWishList() {
 
     const onSelect = useCallback((emblaApi: EmblaCarouselType) => {
         setIndex(emblaApi.selectedScrollSnap());
+    }, []);
+
+    const goFunding = useCallback(() => {
+        router.push(routes.funding.user(params.id));
     }, []);
 
     useEffect(() => {
@@ -116,13 +122,13 @@ export function UserWishList() {
                             user: user?.name ?? '',
                         })}
                     </FH3>
-                    <Center
-                        style={{
-                            cursor: 'pointer',
+                    <Fab
+                        component={'label'}
+                        sx={{
                             width: 35,
                             height: 35,
                             borderRadius: 9999,
-                            backgroundColor: theme.form.action.background,
+                            padding: 0,
                         }}>
                         <Svg
                             src={iconClose}
@@ -130,8 +136,9 @@ export function UserWishList() {
                             width={12}
                             height={12}
                         />
-                    </Center>
+                    </Fab>
                 </Row>
+
                 <Col
                     alignItems={'center'}
                     style={{
@@ -254,6 +261,7 @@ export function UserWishList() {
                 <RoundButton
                     color={'primary'}
                     text={t('userWishListFundingText')}
+                    onClick={goFunding}
                     sx={{
                         width: '100%',
                         marginTop: 10,
