@@ -107,6 +107,7 @@ export function FundingUser() {
             body: JSON.stringify({
                 amount: data.amount,
                 userInfoId: params.id,
+                orderUid: preFund.result?.orderUid ?? '',
             }),
         });
         const session = await response.json();

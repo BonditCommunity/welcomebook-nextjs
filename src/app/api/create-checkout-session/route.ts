@@ -8,7 +8,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 export async function POST(req: NextRequest) {
     try {
-        const { amount, userInfoId } = await req.json();
+        const { amount, userInfoId, orderUid } = await req.json();
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
             line_items: [
@@ -24,10 +24,9 @@ export async function POST(req: NextRequest) {
                 },
             ],
             mode: 'payment',
-            success_url: `${req.nextUrl.origin}/funding/success/${userInfoId}?session_id={CHECKOUT_SESSION_ID}`,
+            success_url: `${req.nextUrl.origin}/funding/success/${userInfoId}?orderUid=${orderUid}&session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${req.nextUrl.origin}/funding/user/${userInfoId}`,
         });
-
         return NextResponse.json({ id: session.id });
     } catch (err) {
         return NextResponse.json({ error: 'Server error' }, { status: 500 });
