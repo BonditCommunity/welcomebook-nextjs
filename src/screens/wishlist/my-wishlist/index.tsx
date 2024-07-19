@@ -53,25 +53,32 @@ export function MyWishList() {
     }, [creating, editing, checked]);
 
     const submit = async () => {
-        let addProductIds: number[] = [];
-        let deleteProductIds: number[] = [];
-        for (const { id, totalCount } of products) {
-            const index = products.findIndex(item => item.id === id);
-            if (index < 0) {
-                continue;
-            }
-            const item = products[index];
-            if (totalCount > item.totalCount) {
-                for (var i = 0; i < totalCount - item.totalCount; i++) {
-                    addProductIds.push(id);
-                }
-            } else if (totalCount < item.totalCount) {
-                for (var i = 0; i < item.totalCount - totalCount; i++) {
-                    deleteProductIds.push(id);
-                }
-            }
-        }
         if (wishList) {
+            let addProductIds: number[] = [];
+            let deleteProductIds: number[] = [];
+            for (const { id, totalCount } of products) {
+                const index = wishList.products.findIndex(
+                    item => item.id === id,
+                );
+                if (index < 0) {
+                    continue;
+                }
+                const item = wishList.products[index];
+                if (totalCount > item.totalCount) {
+                    for (var i = 0; i < totalCount - item.totalCount; i++) {
+                        addProductIds.push(id);
+                    }
+                } else if (totalCount < item.totalCount) {
+                    for (var i = 0; i < item.totalCount - totalCount; i++) {
+                        deleteProductIds.push(id);
+                    }
+                }
+            }
+            alert(
+                `add:${JSON.stringify(addProductIds)}\ndelete:${JSON.stringify(
+                    deleteProductIds,
+                )}`,
+            );
             const { result, error } = await updateWishList({
                 addProductIds,
                 deleteProductIds,
@@ -82,8 +89,14 @@ export function MyWishList() {
                 alert(parseError(error));
             }
         } else {
+            let productIds: number[] = [];
+            for (const { id, totalCount } of products) {
+                for (var i = 0; i < totalCount; i++) {
+                    productIds.push(id);
+                }
+            }
             const { result, error } = await createWishList({
-                productIds: addProductIds,
+                productIds,
             });
             if (result) {
                 onSuccess(result);

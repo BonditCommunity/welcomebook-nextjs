@@ -26,7 +26,7 @@ export const FlatList = <T extends any>({
 
     if (numColumns > 1) {
         let list: T[][] = [];
-        for (let i = 0; i < Math.floor(data.length / numColumns); i++) {
+        for (let i = 0; i < Math.ceil(data.length / numColumns); i++) {
             let row: T[] = [];
             for (let j = 0; j < numColumns; j++) {
                 row.push(data[i * numColumns + j]);
@@ -40,6 +40,16 @@ export const FlatList = <T extends any>({
                         <Row key={i}>
                             {row.map((item, j) => {
                                 const index = i * numColumns + j;
+                                if (!item) {
+                                    return (
+                                        <div
+                                            key={`${i}-${index}`}
+                                            style={getItemContainerStyle?.(
+                                                index,
+                                            )}
+                                        />
+                                    );
+                                }
                                 return (
                                     <div
                                         key={`${i}-${keyExtractor(
