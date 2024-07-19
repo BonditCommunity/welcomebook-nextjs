@@ -10,6 +10,7 @@ import { Row } from '@/components/grid/row';
 import { useTheme } from '@/hooks/common/use-theme';
 import { colorWithAlpha } from '@/helpers/common/color-with-alpha';
 import { dropShadow } from '@/theme/shadow';
+import { FH2 } from '@/components/typography/FH2';
 
 export const RoundButton: React.FC<RoundButtonProps> = ({
     sx,
@@ -22,7 +23,7 @@ export const RoundButton: React.FC<RoundButtonProps> = ({
 }) => {
     const { theme } = useTheme();
 
-    const Text = size === 'lg' ? FH3 : IBody1;
+    const Text = size === 'xl' ? FH2 : size === 'lg' ? FH3 : IBody1;
 
     return (
         <Button
@@ -32,7 +33,6 @@ export const RoundButton: React.FC<RoundButtonProps> = ({
                 textTransform: 'none',
                 backgroundColor:
                     theme.button[disabled ? 'disabled' : color].background,
-                padding: size === 'lg' ? '20px 0px' : '10px 15px',
                 borderRadius: 9999,
                 boxShadow: dropShadow,
                 '&:hover': {
@@ -41,6 +41,12 @@ export const RoundButton: React.FC<RoundButtonProps> = ({
                         0.9,
                     ),
                 },
+                ...(size !== 'xl' && {
+                    padding: size === 'lg' ? '20px 0px' : '10px 15px',
+                }),
+                ...(size === 'xl' && {
+                    height: 100,
+                }),
                 ...sx,
             }}>
             <Row alignItems={'center'}>

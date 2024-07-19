@@ -74,11 +74,6 @@ export function MyWishList() {
                     }
                 }
             }
-            alert(
-                `add:${JSON.stringify(addProductIds)}\ndelete:${JSON.stringify(
-                    deleteProductIds,
-                )}`,
-            );
             const { result, error } = await updateWishList({
                 addProductIds,
                 deleteProductIds,
