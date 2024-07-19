@@ -54,6 +54,7 @@
     "fundingSuccessGuide": "We send letters if {{user}} gets {{amount}} funded",
     "fundingSuccessFormTitle": "Your Name / Phone Number",
     "fundingSuccessNamePlaceholder": "Name",
+    "fundingSuccessCountryNumberPlaceholder": "Country",
     "fundingSuccessMobilePlaceholder": "Phone Number",
     "dDay": "D-{{dDay}}",
     "buttonNext": "Next",

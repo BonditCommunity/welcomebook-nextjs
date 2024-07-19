@@ -50,7 +50,7 @@ export const InputBox = forwardRef<HTMLDivElement, InputBoxProps>(
                 },
                 hover: {
                     [`& .${outlinedInputClasses.notchedOutline}`]: {
-                        borderColor: theme.form.outlined.border.hover[color],
+                        borderColor: `${theme.form.outlined.border.hover[color]} !important`,
                     },
                 },
             };

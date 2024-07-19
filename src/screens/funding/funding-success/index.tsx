@@ -1,9 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useParams } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import Autocomplete from '@mui/material/Autocomplete';
 
 import { Sheet } from '@/components/layout/sheet';
 import { FH2 } from '@/components/typography/FH2';
@@ -12,41 +14,65 @@ import { Chart } from './@components/chart';
 import { Col } from '@/components/grid/col';
 import { FBody2 } from '@/components/typography/FBody2';
 import { ISubtitle2 } from '@/components/typography/ISubtitle2';
-import { Schema } from './@types';
-import { schema } from './@constants';
+import { FundingSuccessParams, Schema } from './@types';
+import { schema, sizing } from './@constants';
 import { Form } from '@/components/form/form';
 import { RoundButton } from '@/components/button/round-button';
 import { spacing } from '@/theme/spacing';
 import { regexMobile } from '@/constants/form/regex';
-import { CountryNumber } from './@components/country-number';
 import { FormInputBox } from '@/components/form/input-box/form-input-box';
+import { useFindAllFundsByUserInfoId } from '@/api/fund/repository/find-all-fund-by-user-info-id';
+import { countrys } from '@/constants/common/country';
+import { Country } from '@/@types';
+import { FundInMyPageRes } from '@/api/fund/vm/res/fund-in-my-page';
 
 export function FundingSuccess() {
+    const params = useParams<FundingSuccessParams>();
+
     const { t } = useTranslation();
     const { theme } = useTheme();
 
-    const [focusedMobile, setFocusedMobile] = useState<boolean>(false);
+    const { fetch } = useFindAllFundsByUserInfoId();
+
+    const [fund, setFund] = useState<FundInMyPageRes>();
+
+    const percent = useMemo<number>(() => {
+        if (!fund) return 0;
+        return fund.totalFund > 100 ? 100 : fund.totalFund;
+    }, [fund]);
 
     const methods = useForm<Schema>({
         resolver: zodResolver(schema),
         defaultValues: {
             name: '',
             mobile: '',
-            countryNumber: '+1',
+            countryNumber: '',
         },
     });
 
     const {
-        watch,
         setValue,
         handleSubmit,
         formState: { isSubmitting, isValid },
     } = methods;
 
-    const mobile = watch('mobile');
-    const countryNumber = watch('countryNumber');
+    const handleCountryNumber = useCallback((_: unknown, country: Country) => {
+        setValue('countryNumber', country.number);
+    }, []);
 
-    const onSubmit = handleSubmit(async data => {});
+    const onSubmit = handleSubmit(async data => {
+        alert(JSON.stringify(data));
+    });
+
+    useEffect(() => {
+        const initialize = async () => {
+            const { result } = await fetch(Number(params.id));
+            if (result) {
+                setFund(result);
+            }
+        };
+        initialize();
+    }, []);
 
     return (
         <Sheet type={'white'}>
@@ -65,11 +91,11 @@ export function FundingSuccess() {
                         {t('fundingSuccessTitle')}
                     </FH2>
                     <Col alignItems={'center'} style={{ marginTop: 30 }}>
-                        <Chart percent={62} />
+                        <Chart percent={percent} />
                     </Col>
                     <FBody2 textAlign={'center'}>
                         {t('fundingSuccessGuide', {
-                            user: 'Eunju',
+                            user: fund?.userInfo.name ?? '',
                             amount: `$${100}`,
                         })}
                     </FBody2>
@@ -84,6 +110,34 @@ export function FundingSuccess() {
                             marginTop: 15,
                         }}
                     />
+                    <Autocomplete
+                        fullWidth={true}
+                        options={countrys}
+                        getOptionLabel={option => option.label}
+                        groupBy={option => option.label[0].toUpperCase()}
+                        disableClearable={true}
+                        selectOnFocus={true}
+                        handleHomeEndKeys={true}
+                        onChange={handleCountryNumber}
+                        renderInput={params => (
+                            <FormInputBox
+                                {...params}
+                                color={'inverted'}
+                                name={'countryNumber'}
+                                placeholder={t(
+                                    'fundingSuccessCountryNumberPlaceholder',
+                                )}
+                                style={{
+                                    marginTop: sizing.input.gap,
+                                }}
+                            />
+                        )}
+                        renderOption={(props, option) => (
+                            <li {...props} key={option.value}>
+                                {`${option.label} (${option.number})`}
+                            </li>
+                        )}
+                    />
                     <FormInputBox
                         type={'tel'}
                         name={'mobile'}
@@ -91,19 +145,8 @@ export function FundingSuccess() {
                         inputMode={'tel'}
                         placeholder={t('fundingSuccessMobilePlaceholder')}
                         regex={regexMobile}
-                        onFocus={() => setFocusedMobile(true)}
-                        onBlur={() => setFocusedMobile(false)}
-                        InputProps={{
-                            startAdornment: (
-                                <CountryNumber
-                                    countryNumber={countryNumber}
-                                    focused={focusedMobile || !!mobile}
-                                    style={{ marginRight: 10 }}
-                                />
-                            ),
-                        }}
                         style={{
-                            marginTop: 15,
+                            marginTop: sizing.input.gap,
                         }}
                     />
                 </div>
