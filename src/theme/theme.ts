@@ -139,11 +139,11 @@ export const light: PaletteOptions = {
             },
             border: {
                 default: color.primary['0'],
-                inverted: color.gray.E7,
+                inverted: 'transparent',
                 black: color.white.default,
                 focused: {
                     default: color.white.default,
-                    inverted: color.primary.default,
+                    inverted: 'transparent',
                     black: color.white.default,
                 },
                 hover: {
@@ -266,7 +266,7 @@ export const dark: PaletteOptions = {
                 black: color.gray.AA,
             },
             border: {
-                default: 'transparent',
+                default: color.primary['0'],
                 inverted: 'transparent',
                 black: color.white.default,
                 focused: {

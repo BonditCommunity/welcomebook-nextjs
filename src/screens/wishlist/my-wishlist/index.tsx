@@ -56,7 +56,7 @@ export function MyWishList() {
         if (wishList) {
             let addProductIds: number[] = [];
             let deleteProductIds: number[] = [];
-            for (const { id, totalCount } of products) {
+            for (const { id, productId, totalCount } of products) {
                 const index = wishList.products.findIndex(
                     item => item.id === id,
                 );
@@ -66,11 +66,11 @@ export function MyWishList() {
                 const item = wishList.products[index];
                 if (totalCount > item.totalCount) {
                     for (var i = 0; i < totalCount - item.totalCount; i++) {
-                        addProductIds.push(id);
+                        addProductIds.push(productId);
                     }
                 } else if (totalCount < item.totalCount) {
                     for (var i = 0; i < item.totalCount - totalCount; i++) {
-                        deleteProductIds.push(id);
+                        deleteProductIds.push(productId);
                     }
                 }
             }
@@ -85,9 +85,9 @@ export function MyWishList() {
             }
         } else {
             let productIds: number[] = [];
-            for (const { id, totalCount } of products) {
+            for (const { productId, totalCount } of products) {
                 for (var i = 0; i < totalCount; i++) {
-                    productIds.push(id);
+                    productIds.push(productId);
                 }
             }
             const { result, error } = await createWishList({

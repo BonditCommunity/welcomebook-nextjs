@@ -37,10 +37,14 @@ export const InputBox = forwardRef<HTMLDivElement, InputBoxProps>(
                         theme.form.outlined.background.focused[color],
                     borderRadius: '15px',
                     transition: createTransition('background-color'),
-                    borderWidth: color === 'black' ? 2 : 1,
+                    ...(color !== 'inverted' && {
+                        borderWidth: color === 'black' ? 2 : 1,
+                    }),
                     borderColor: theme.form.outlined.border.focused[color],
                     [`& .${outlinedInputClasses.notchedOutline}`]: {
-                        borderWidth: color === 'black' ? 2 : 1,
+                        ...(color !== 'inverted' && {
+                            borderWidth: color === 'black' ? 2 : 1,
+                        }),
                         borderColor: theme.form.outlined.border.focused[color],
                     },
                 },
@@ -88,21 +92,27 @@ export const InputBox = forwardRef<HTMLDivElement, InputBoxProps>(
                         },
                     },
                     [`& .${outlinedInputClasses.notchedOutline}`]: {
+                        ...(color !== 'inverted' && {
+                            borderWidth: color === 'black' ? 2 : 1,
+                        }),
                         borderColor: theme.form.outlined.border[color],
-                        borderWidth: color === 'black' ? 2 : 1,
                         borderRadius: '15px',
                         transition: createTransition('border-color'),
                     },
                     [`& .${outlinedInputClasses.focused}`]: styles.focused,
                     [`& .${outlinedInputClasses.error}`]: {
                         [`& .${outlinedInputClasses.notchedOutline}`]: {
-                            borderWidth: color === 'black' ? 2 : 1,
+                            ...(color !== 'inverted' && {
+                                borderWidth: color === 'black' ? 2 : 1,
+                            }),
                             borderColor: theme.form.base.error,
                         },
                     },
                     [`& .${outlinedInputClasses.disabled}`]: {
                         [`& .${outlinedInputClasses.notchedOutline}`]: {
-                            borderWidth: color === 'black' ? 2 : 1,
+                            ...(color !== 'inverted' && {
+                                borderWidth: color === 'black' ? 2 : 1,
+                            }),
                             borderColor: `${theme.form.outlined.border[color]} !important`,
                         },
                     },

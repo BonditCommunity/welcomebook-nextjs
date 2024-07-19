@@ -42,7 +42,6 @@ export function AddressInput() {
     } = methods;
 
     const onSubmit = handleSubmit(async data => {
-        console.log(data);
         setSuccess(true);
     });
 

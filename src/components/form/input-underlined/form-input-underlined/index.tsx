@@ -26,6 +26,7 @@ export const FormInputUnderlined: React.FC<InputProps> = ({
             render={({ field, fieldState: { error } }) => (
                 <InputUnderlined
                     {...field}
+                    type={type}
                     value={
                         type === 'number' && field.value === 0
                             ? ''

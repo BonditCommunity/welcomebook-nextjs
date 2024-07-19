@@ -9,7 +9,6 @@ import { InputBox } from '..';
 export const FormInputBox: React.FC<InputBoxProps> = ({
     sx,
     name,
-    color = 'default',
     type = 'text',
     fullWidth = true,
     hiddenLabel = true,
@@ -27,6 +26,7 @@ export const FormInputBox: React.FC<InputBoxProps> = ({
             render={({ field, fieldState: { error } }) => (
                 <InputBox
                     {...field}
+                    type={type}
                     value={
                         type === 'number' && field.value === 0
                             ? ''

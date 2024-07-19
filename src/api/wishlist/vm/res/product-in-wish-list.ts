@@ -2,6 +2,7 @@ import { ProductStatus } from '@/api/product/vm/enum/product-status';
 
 export interface ProductInWishListRes {
     id: number;
+    productId: number;
     productName: string;
     price: number;
     amazonPrice?: number;

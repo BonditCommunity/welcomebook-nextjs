@@ -17,9 +17,9 @@ import { schema } from './@constants';
 import { Form } from '@/components/form/form';
 import { RoundButton } from '@/components/button/round-button';
 import { spacing } from '@/theme/spacing';
-import { InputBox } from '@/components/form/input-box';
 import { regexMobile } from '@/constants/form/regex';
 import { CountryNumber } from './@components/country-number';
+import { FormInputBox } from '@/components/form/input-box/form-input-box';
 
 export function FundingSuccess() {
     const { t } = useTranslation();
@@ -40,7 +40,6 @@ export function FundingSuccess() {
         watch,
         setValue,
         handleSubmit,
-        getFieldState,
         formState: { isSubmitting, isValid },
     } = methods;
 
@@ -49,7 +48,6 @@ export function FundingSuccess() {
 
     const onSubmit = handleSubmit(async data => {});
 
-    console.log(focusedMobile);
     return (
         <Sheet type={'white'}>
             <Form
@@ -78,7 +76,7 @@ export function FundingSuccess() {
                     <ISubtitle2 style={{ marginTop: 60 }}>
                         {t('fundingSuccessFormTitle')}
                     </ISubtitle2>
-                    <InputBox
+                    <FormInputBox
                         name={'name'}
                         color={'inverted'}
                         placeholder={t('fundingSuccessNamePlaceholder')}
@@ -86,7 +84,7 @@ export function FundingSuccess() {
                             marginTop: 15,
                         }}
                     />
-                    <InputBox
+                    <FormInputBox
                         type={'tel'}
                         name={'mobile'}
                         color={'inverted'}
