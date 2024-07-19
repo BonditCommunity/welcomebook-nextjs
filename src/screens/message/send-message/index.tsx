@@ -80,7 +80,7 @@ export function SendMessage() {
             }
         }
         const { result, error } = await createLetter({
-            myPageId: Number(params.id),
+            userInfoId: Number(params.id),
             writer: data.writer,
             content: data.content,
             ...(imageUrl && {

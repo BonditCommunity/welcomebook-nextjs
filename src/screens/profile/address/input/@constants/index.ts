@@ -16,14 +16,20 @@ export const schema = z
         country: z
             .string()
             .min(1, { message: i18n.t(errors.form.required.address.country) }),
-        address: z
-            .string()
-            .min(1, { message: i18n.t(errors.form.required.address.address) }),
+        streetAddress: z.string().min(1, {
+            message: i18n.t(errors.form.required.address.streetAddress),
+        }),
         city: z
             .string()
             .min(1, { message: i18n.t(errors.form.required.address.city) }),
-        extraAddress: z.string(),
-        postcode: z.string(),
-        mobile: z.string(),
+        optionalAddress: z.string().nullable(),
+        zipCode: z
+            .string()
+            .min(1, { message: i18n.t(errors.form.required.address.zipCode) }),
+        phoneNumber: z
+            .string()
+            .min(1, {
+                message: i18n.t(errors.form.required.address.phoneNumber),
+            }),
     })
     .required();

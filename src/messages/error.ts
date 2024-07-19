@@ -13,8 +13,10 @@ export const errors = {
             },
             address: {
                 country: 'errorFormRequiredAddressCountry',
-                address: 'errorFormRequiredAddressAddress',
+                streetAddress: 'c',
                 city: 'errorFormRequiredAddressCity',
+                zipCode: 'errorFormRequiredAddressZipCode',
+                phoneNumber: 'errorFormRequiredAddressPhoneNumber',
             },
             funding: {
                 amount: 'errorFormRequiredFundingAmount',

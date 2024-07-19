@@ -17,9 +17,13 @@ import { AddressSuccess } from '../success';
 import { Country } from '@/@types';
 import { FormInputBox } from '@/components/form/input-box/form-input-box';
 import { SquareButton } from '@/components/button/square-button';
+import { useCreateOrderList } from '@/api/wishlist/repository/create-order-list';
+import { parseError } from '@/helpers/format/parse-error';
 
 export function AddressInput() {
     const { t } = useTranslation();
+
+    const { fetch } = useCreateOrderList();
 
     const [success, setSuccess] = useState<boolean>(false);
 
@@ -27,11 +31,11 @@ export function AddressInput() {
         resolver: zodResolver(schema),
         defaultValues: {
             country: '',
-            address: '',
+            streetAddress: '',
             city: '',
-            extraAddress: '',
-            postcode: '',
-            mobile: '',
+            optionalAddress: '',
+            zipCode: '',
+            phoneNumber: '',
         },
     });
 
@@ -42,7 +46,21 @@ export function AddressInput() {
     } = methods;
 
     const onSubmit = handleSubmit(async data => {
-        setSuccess(true);
+        const { result, error } = await fetch({
+            country: data.country,
+            streetAddress: data.streetAddress,
+            city: data.city,
+            zipCode: data.zipCode,
+            phoneNumber: data.phoneNumber,
+            ...(data.optionalAddress && {
+                optionalAddress: data.optionalAddress,
+            }),
+        });
+        if (result) {
+            setSuccess(true);
+        } else if (error) {
+            alert(parseError(error));
+        }
     });
 
     const handleCountry = useCallback((_: unknown, country: Country) => {
@@ -90,8 +108,8 @@ export function AddressInput() {
                         )}
                     />
                     <FormInputBox
-                        name={'address'}
-                        placeholder={t('addressInputAddressPlaceholder')}
+                        name={'streetAddress'}
+                        placeholder={t('addressInputStreetAddressPlaceholder')}
                         style={{
                             marginTop: sizing.input.gap,
                         }}
@@ -104,15 +122,17 @@ export function AddressInput() {
                         }}
                     />
                     <FormInputBox
-                        name={'extraAddress'}
-                        placeholder={t('addressInputExtraAddressPlaceholder')}
+                        name={'optionalAddress'}
+                        placeholder={t(
+                            'addressInputOptionalAddressPlaceholder',
+                        )}
                         style={{
                             marginTop: sizing.input.gap,
                         }}
                     />
                     <FormInputBox
-                        name={'postcode'}
-                        placeholder={t('addressInputPostcodePlaceholder')}
+                        name={'zipCode'}
+                        placeholder={t('addressInputZipCodePlaceholder')}
                         fullWidth={false}
                         inputMode={'decimal'}
                         regex={regexNumber}
@@ -123,8 +143,8 @@ export function AddressInput() {
                     />
                     <FormInputBox
                         type={'tel'}
-                        name={'mobile'}
-                        placeholder={t('addressInputMobilePlaceholder')}
+                        name={'phoneNumber'}
+                        placeholder={t('addressInputPhoneNumberPlaceholder')}
                         inputMode={'tel'}
                         regex={regexMobile}
                         style={{

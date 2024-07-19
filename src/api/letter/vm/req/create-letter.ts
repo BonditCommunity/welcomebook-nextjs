@@ -1,5 +1,5 @@
 export interface CreateLetterReq {
-    myPageId: number;
+    userInfoId: number;
     imageUrl?: string;
     writer: string;
     content?: string;
