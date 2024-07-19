@@ -23,3 +23,5 @@ export const iconImage = `${basePath}/icon_image.svg`;
 export const iconMinus = `${basePath}/icon_minus.svg`;
 
 export const iconSearch = `${basePath}/icon_search.svg`;
+
+export const iconTriangle = `${basePath}/icon_triangle.svg`;

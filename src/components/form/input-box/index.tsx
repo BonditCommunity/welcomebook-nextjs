@@ -1,15 +1,15 @@
 'use client';
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import MuiTextField from '@mui/material/TextField';
 import { outlinedInputClasses } from '@mui/material/OutlinedInput';
+import { inputBaseClasses } from '@mui/material/InputBase';
+import { CSSObject } from '@mui/material/styles';
 import { Controller, useFormContext } from 'react-hook-form';
 
 import { InputBoxProps } from './@types';
 import { useTheme } from '@/hooks/common/use-theme';
-import { inputBaseClasses } from '@mui/material';
 import { typography } from '@/theme/typography';
-import { Typography } from '@/theme/@enums';
 import { createTransition } from '../@helper';
 
 export const InputBox: React.FC<InputBoxProps> = ({
@@ -26,6 +26,30 @@ export const InputBox: React.FC<InputBoxProps> = ({
 }) => {
     const { theme } = useTheme();
     const { control } = useFormContext();
+
+    const styles = useMemo<{
+        focused: CSSObject;
+        hover: CSSObject;
+    }>(() => {
+        return {
+            focused: {
+                backgroundColor: theme.form.outlined.background.focused[color],
+                borderRadius: '15px',
+                transition: createTransition('background-color'),
+                borderWidth: color === 'black' ? 2 : 1,
+                borderColor: theme.form.outlined.border.focused[color],
+                [`& .${outlinedInputClasses.notchedOutline}`]: {
+                    borderWidth: color === 'black' ? 2 : 1,
+                    borderColor: theme.form.outlined.border.focused[color],
+                },
+            },
+            hover: {
+                [`& .${outlinedInputClasses.notchedOutline}`]: {
+                    borderColor: theme.form.outlined.border.hover[color],
+                },
+            },
+        };
+    }, []);
 
     return (
         <Controller
@@ -61,9 +85,11 @@ export const InputBox: React.FC<InputBoxProps> = ({
                     sx={{
                         backgroundColor: theme.form.outlined.background[color],
                         borderRadius: '15px',
+                        ...(field.value && styles.focused),
                         [`& .${inputBaseClasses.input}`]: {
-                            ...typography.IH3,
+                            ...typography.FH4,
                             color: theme.form.outlined.text,
+                            letterSpacing: '-0.32px',
                             paddingTop: 15,
                             paddingBottom: 15,
                             paddingLeft: props.InputProps?.startAdornment
@@ -73,11 +99,18 @@ export const InputBox: React.FC<InputBoxProps> = ({
                                 ? 10
                                 : 20,
                             '&::placeholder': {
-                                ...typography[
-                                    props.multiline
-                                        ? Typography.IH1
-                                        : Typography.IH3
-                                ],
+                                ...(color === 'inverted'
+                                    ? {
+                                          ...typography.IBody1,
+                                      }
+                                    : {
+                                          ...(props.multiline && {
+                                              ...typography.IH1,
+                                          }),
+                                          ...(!props.multiline && {
+                                              ...typography.IH3,
+                                          }),
+                                      }),
                                 color: theme.form.outlined.placeholder[color],
                             },
                             [`&.${outlinedInputClasses.disabled}`]: {
@@ -91,17 +124,7 @@ export const InputBox: React.FC<InputBoxProps> = ({
                             borderRadius: '15px',
                             transition: createTransition('border-color'),
                         },
-                        [`& .${outlinedInputClasses.focused}`]: {
-                            backgroundColor:
-                                theme.form.outlined.background.focused[color],
-                            borderRadius: '15px',
-                            transition: createTransition('background-color'),
-                            [`& .${outlinedInputClasses.notchedOutline}`]: {
-                                borderWidth: color === 'black' ? 2 : 1,
-                                borderColor:
-                                    theme.form.outlined.border.focused[color],
-                            },
-                        },
+                        [`& .${outlinedInputClasses.focused}`]: styles.focused,
                         [`& .${outlinedInputClasses.error}`]: {
                             [`& .${outlinedInputClasses.notchedOutline}`]: {
                                 borderWidth: color === 'black' ? 2 : 1,
@@ -114,11 +137,14 @@ export const InputBox: React.FC<InputBoxProps> = ({
                                 borderColor: theme.form.outlined.border[color],
                             },
                         },
-                        '&:hover': {
-                            [`& .${outlinedInputClasses.notchedOutline}`]: {
-                                borderColor:
-                                    theme.form.outlined.border.hover[color],
-                            },
+                        '&:hover': styles.hover,
+                        [`& .${outlinedInputClasses.adornedStart}`]: {
+                            paddingLeft: 20,
+                            '&:hover': styles.hover,
+                        },
+                        [`& .${outlinedInputClasses.adornedEnd}`]: {
+                            paddingRight: 20,
+                            '&:hover': styles.hover,
                         },
                         ...sx,
                     }}

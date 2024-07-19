@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -17,31 +17,39 @@ import { schema } from './@constants';
 import { Form } from '@/components/form/form';
 import { RoundButton } from '@/components/button/round-button';
 import { spacing } from '@/theme/spacing';
-import { TextField } from '@/components/form/text-field';
 import { InputBox } from '@/components/form/input-box';
 import { regexMobile } from '@/constants/form/regex';
+import { CountryNumber } from './@components/country-number';
 
 export function FundingSuccess() {
     const { t } = useTranslation();
     const { theme } = useTheme();
+
+    const [focusedMobile, setFocusedMobile] = useState<boolean>(false);
 
     const methods = useForm<Schema>({
         resolver: zodResolver(schema),
         defaultValues: {
             name: '',
             mobile: '',
-            countryNumber: '',
+            countryNumber: '+1',
         },
     });
 
     const {
+        watch,
         setValue,
         handleSubmit,
+        getFieldState,
         formState: { isSubmitting, isValid },
     } = methods;
 
+    const mobile = watch('mobile');
+    const countryNumber = watch('countryNumber');
+
     const onSubmit = handleSubmit(async data => {});
 
+    console.log(focusedMobile);
     return (
         <Sheet type={'white'}>
             <Form
@@ -85,6 +93,17 @@ export function FundingSuccess() {
                         inputMode={'tel'}
                         placeholder={t('fundingSuccessMobilePlaceholder')}
                         regex={regexMobile}
+                        onFocus={() => setFocusedMobile(true)}
+                        onBlur={() => setFocusedMobile(false)}
+                        InputProps={{
+                            startAdornment: (
+                                <CountryNumber
+                                    countryNumber={countryNumber}
+                                    focused={focusedMobile || !!mobile}
+                                    style={{ marginRight: 10 }}
+                                />
+                            ),
+                        }}
                         style={{
                             marginTop: 15,
                         }}
