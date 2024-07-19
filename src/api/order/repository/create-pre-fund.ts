@@ -10,36 +10,22 @@ import { PreOrderPaymentReq, PreOrderRes } from '../dto/pre-order';
 
 export const createPreFund = () => {
     const { fetchAPI } = useFetch();
-
-    const [params, setParams] = useState<PreOrderPaymentReq>();
-
-    const fetch = async ({
-        paymentMethod,
-        currency,
-        currencySymbol,
-        totalPrice,
-    }: PreOrderPaymentReq): Promise<Response<PreOrderRes>> => {
-        setParams({
-            paymentMethod,
-            currency,
-            currencySymbol,
-            totalPrice,
-        });
-        return tryAPI<PreOrderRes>(() => {
+    const [loading, setLoading] = useState<boolean>(false);
+    const fetch = async (
+        params: PreOrderPaymentReq,
+    ): Promise<Response<PreOrderRes>> => {
+        setLoading(true);
+        const result = await tryAPI<PreOrderRes>(() => {
             return fetchAPI(`${domain}/fund/pre`, {
                 method: 'POST',
-                body: JSON.stringify({
-                    paymentMethod,
-                    currency,
-                    currencySymbol,
-                    totalPrice,
-                }),
+                body: JSON.stringify(params),
             });
         });
+        setLoading(false);
+        return result;
     };
-
     return {
-        params,
+        loading,
         fetch,
     };
 };

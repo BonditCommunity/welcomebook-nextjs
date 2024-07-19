@@ -17,6 +17,8 @@ import { regexNumber } from '@/constants/form/regex';
 import { IH1 } from '@/components/typography/IH1';
 import { Col } from '@/components/grid/col';
 import { loadStripe } from '@stripe/stripe-js';
+import { createPreFund } from '@/api/order/repository/create-pre-fund';
+import { PaymentMethodType } from '@/api/order/entity/@enums';
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!);
 
@@ -50,6 +52,18 @@ export function Funding() {
     });
 
     const handleCheckout = async () => {
+        const { result, error } = await createPreFund({
+            paymentMethod: PaymentMethodType.CREDIT,
+            currency: 'string',
+            currencySymbol: 'string',
+            totalPrice: 0,
+        });
+        if (result) {
+            // onSuccess(result);
+        } else if (error) {
+            // alert(parseError(error));
+        }
+
         const stripe = await stripePromise;
         console.log(stripe);
         const response = await fetch('/api/create-checkout-session', {
