@@ -30,6 +30,7 @@ import { useUpdateWishList } from '@/api/wishlist/repository/update-wish-list';
 import { parseError } from '@/helpers/format/parse-error';
 import { useFindAllProductsInWishList } from '@/api/wishlist/repository/find-all-products-in-wish-list';
 import { WishListRes } from '@/api/wishlist/vm/res/wish-list';
+import { Success } from './success';
 
 export function MyWishList() {
     const router = useRouter();
@@ -47,6 +48,7 @@ export function MyWishList() {
         wishList?.products ?? [],
     );
     const [checked, setChecked] = useState<boolean>(false);
+    const [success, setSuccess] = useState<boolean>(false);
 
     const disabled = useMemo<boolean>(() => {
         return creating || editing || !checked;
@@ -103,7 +105,7 @@ export function MyWishList() {
 
     const onSuccess = useCallback((wishList: WishListRes) => {
         setWishList(wishList);
-        router.push(routes.wishlist.success);
+        setSuccess(true);
     }, []);
 
     const renderItem: ListRenderItem<ProductInWishListRes> = useCallback(
@@ -152,6 +154,9 @@ export function MyWishList() {
         initialize();
     }, []);
 
+    if (success) {
+        return <Success />;
+    }
     return (
         <Screen>
             <Header title={t('myWishListTitle')} renderAction={renderAction} />

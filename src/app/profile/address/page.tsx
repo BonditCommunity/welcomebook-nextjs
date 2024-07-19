@@ -1,5 +1,5 @@
-import { AddressInput } from '@/screens/profile/address/input';
+import { ProfileAddress } from '@/screens/profile/address';
 
 export default function Screen() {
-    return <AddressInput />;
+    return <ProfileAddress />;
 }

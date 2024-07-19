@@ -11,9 +11,10 @@ import { imgCongratulation } from '@/assets/images';
 import { spacing } from '@/theme/spacing';
 import { RoundButton } from '@/components/button/round-button';
 
-export function WishListSuccess() {
+export function Success() {
     const { t } = useTranslation();
     const { theme } = useTheme();
+
     return (
         <Sheet
             sx={{
@@ -30,7 +31,7 @@ export function WishListSuccess() {
                         marginLeft: 25,
                         marginRight: 25,
                     }}>
-                    {t('wishListSuccessTitle')}
+                    {t('myWishListSuccessTitle')}
                 </FH2>
                 <img
                     src={imgCongratulation.src}
@@ -43,7 +44,7 @@ export function WishListSuccess() {
             <RoundButton
                 size={'xl'}
                 color={'inverted'}
-                text={t('wishListSuccessSubmitText')}
+                text={t('myWishListSuccessSubmitText')}
                 shadow={true}
                 sx={{
                     marginTop: 10,

@@ -13,14 +13,14 @@ import { Form } from '@/components/form/form';
 import { spacing } from '@/theme/spacing';
 import { countrys } from '@/constants/common/country';
 import { regexMobile, regexNumber } from '@/constants/form/regex';
-import { AddressSuccess } from '../success';
+import { Success } from './success';
 import { Country } from '@/@types';
 import { FormInputBox } from '@/components/form/input-box/form-input-box';
 import { SquareButton } from '@/components/button/square-button';
 import { useCreateOrderList } from '@/api/wishlist/repository/create-order-list';
 import { parseError } from '@/helpers/format/parse-error';
 
-export function AddressInput() {
+export function ProfileAddress() {
     const { t } = useTranslation();
 
     const { fetch } = useCreateOrderList();
@@ -68,7 +68,7 @@ export function AddressInput() {
     }, []);
 
     if (success) {
-        return <AddressSuccess />;
+        return <Success />;
     }
     return (
         <Sheet>
@@ -97,7 +97,7 @@ export function AddressInput() {
                                 {...params}
                                 name={'country'}
                                 placeholder={t(
-                                    'addressInputCountryPlaceholder',
+                                    'profileAddressCountryPlaceholder',
                                 )}
                             />
                         )}
@@ -109,14 +109,16 @@ export function AddressInput() {
                     />
                     <FormInputBox
                         name={'streetAddress'}
-                        placeholder={t('addressInputStreetAddressPlaceholder')}
+                        placeholder={t(
+                            'profileAddressStreetAddressPlaceholder',
+                        )}
                         style={{
                             marginTop: sizing.input.gap,
                         }}
                     />
                     <FormInputBox
                         name={'city'}
-                        placeholder={t('addressInputCityPlaceholder')}
+                        placeholder={t('profileAddressCityPlaceholder')}
                         style={{
                             marginTop: sizing.input.gap,
                         }}
@@ -124,7 +126,7 @@ export function AddressInput() {
                     <FormInputBox
                         name={'optionalAddress'}
                         placeholder={t(
-                            'addressInputOptionalAddressPlaceholder',
+                            'profileAddressOptionalAddressPlaceholder',
                         )}
                         style={{
                             marginTop: sizing.input.gap,
@@ -132,7 +134,7 @@ export function AddressInput() {
                     />
                     <FormInputBox
                         name={'zipCode'}
-                        placeholder={t('addressInputZipCodePlaceholder')}
+                        placeholder={t('profileAddressZipCodePlaceholder')}
                         fullWidth={false}
                         inputMode={'decimal'}
                         regex={regexNumber}
@@ -144,7 +146,7 @@ export function AddressInput() {
                     <FormInputBox
                         type={'tel'}
                         name={'phoneNumber'}
-                        placeholder={t('addressInputPhoneNumberPlaceholder')}
+                        placeholder={t('profileAddressPhoneNumberPlaceholder')}
                         inputMode={'tel'}
                         regex={regexMobile}
                         style={{

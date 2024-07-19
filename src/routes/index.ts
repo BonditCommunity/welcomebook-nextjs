@@ -4,7 +4,6 @@ export const routes = {
     wishlist: {
         root: '/wishlist',
         my: '/wishlist/my',
-        success: '/wishlist/success',
     },
     terms: {
         service: '/terms/service',
@@ -25,6 +24,5 @@ export const routes = {
 export const loginRequiredRoutes: string[] = [
     routes.wishlist.root,
     routes.wishlist.my,
-    routes.wishlist.success,
     routes.profile.address,
 ];
