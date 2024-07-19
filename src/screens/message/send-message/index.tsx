@@ -6,8 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Fab from '@mui/material/Fab';
-import Button from '@mui/material/Button';
-import dayjs, { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 
 import { Screen } from '@/components/layout/screen';
 import { FH2 } from '@/components/typography/FH2';
@@ -18,7 +17,6 @@ import { FH3 } from '@/components/typography/FH3';
 import { Form } from '@/components/form/form';
 import { Schema, SendMessageParams } from './@types';
 import { schema, sizing } from './@constants';
-import { InputBase } from '@/components/form/input-base';
 import { dropShadow } from '@/theme/shadow';
 import { Row } from '@/components/grid/row';
 import { Svg } from '@/components/image/svg';
@@ -32,6 +30,9 @@ import { useCreateLetter } from '@/api/letter/repository/create-letter';
 import { parseError } from '@/helpers/format/parse-error';
 import { color } from '@/theme/theme';
 import { useImageUpload } from '@/api/media/repository/image-upload';
+import { imgProfile } from '@/assets/images';
+import { FormInput } from '@/components/form/input/form-input';
+import { RoundButton } from '@/components/button/round-button';
 
 export function SendMessage() {
     const params = useParams<SendMessageParams>();
@@ -92,6 +93,37 @@ export function SendMessage() {
             alert(parseError(error));
         }
     });
+
+    const renderAvatar = useCallback(() => {
+        if (user?.imageUrl) {
+            return (
+                <Image
+                    src={user.imageUrl}
+                    width={sizing.avatar}
+                    height={sizing.avatar}
+                    style={{
+                        borderWidth: 10,
+                        borderColor: theme.background.default,
+                        borderStyle: 'solid',
+                        borderRadius: 9999,
+                    }}
+                />
+            );
+        }
+        return (
+            <img
+                src={imgProfile.src}
+                width={sizing.avatar}
+                height={sizing.avatar}
+                style={{
+                    borderWidth: 10,
+                    borderColor: theme.background.default,
+                    borderStyle: 'solid',
+                    borderRadius: 9999,
+                }}
+            />
+        );
+    }, [user]);
 
     const renderImage = useCallback(() => {
         if (file) {
@@ -211,20 +243,7 @@ export function SendMessage() {
                         style={{
                             marginTop: 5,
                         }}>
-                        <Image
-                            src={
-                                user?.imageUrl ??
-                                'https://i.namu.wiki/i/R0AhIJhNi8fkU2Al72pglkrT8QenAaCJd1as-d_iY6MC8nub1iI5VzIqzJlLa-1uzZm--TkB-KHFiT-P-t7bEg.webp'
-                            }
-                            width={sizing.avatar}
-                            height={sizing.avatar}
-                            style={{
-                                borderWidth: 10,
-                                borderColor: theme.background.default,
-                                borderStyle: 'solid',
-                                borderRadius: 9999,
-                            }}
-                        />
+                        {renderAvatar()}
                     </Col>
                     <div
                         style={{
@@ -261,7 +280,7 @@ export function SendMessage() {
                                 padding: 10,
                                 position: 'relative',
                             }}>
-                            <InputBase
+                            <FormInput
                                 name={'content'}
                                 placeholder={t('sendMessageContentPlaceholder')}
                                 multiline={true}
@@ -279,7 +298,7 @@ export function SendMessage() {
                                 }}
                             />
                             <Row alignItems={'center'}>
-                                <InputBase
+                                <FormInput
                                     name={'writer'}
                                     placeholder={t(
                                         'sendMessageWriterPlaceholder',
@@ -297,16 +316,16 @@ export function SendMessage() {
                         </div>
                     </div>
                 </div>
-                <Button
+                <RoundButton
                     type={'submit'}
-                    variant={'primary'}
+                    color={'primary'}
+                    text={t('sendMessageSubmitText')}
                     disabled={isSubmitting || !isValid}
-                    style={{
+                    sx={{
                         marginTop: 10,
                         marginBottom: spacing.form.submit.margin.bottom,
-                    }}>
-                    {t('sendMessageSubmitText')}
-                </Button>
+                    }}
+                />
             </Form>
         </Screen>
     );

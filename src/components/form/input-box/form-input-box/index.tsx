@@ -7,7 +7,6 @@ import { InputBoxProps } from '../@types';
 import { InputBox } from '..';
 
 export const FormInputBox: React.FC<InputBoxProps> = ({
-    sx,
     name,
     type = 'text',
     fullWidth = true,

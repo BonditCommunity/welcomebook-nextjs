@@ -31,6 +31,10 @@ export const InputUnderlined = forwardRef<HTMLDivElement, InputProps>(
                 variant={'standard'}
                 fullWidth={fullWidth}
                 hiddenLabel={hiddenLabel}
+                onChange={event => {
+                    if (regex && !regex.test(event.target.value)) return;
+                    props.onChange?.(event);
+                }}
                 error={!hiddenError ? props.error : false}
                 {...props}
                 sx={{

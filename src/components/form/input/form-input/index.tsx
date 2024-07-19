@@ -1,15 +1,17 @@
 'use client';
 
 import React from 'react';
-import MuiInputBase from '@mui/material/InputBase';
 import { Controller, useFormContext } from 'react-hook-form';
 
-import { InputBaseProps } from './@types';
+import { InputProps } from '../@types';
+import { Input } from '..';
 
-export const InputBase: React.FC<InputBaseProps> = ({
+export const FormInput: React.FC<InputProps> = ({
     name,
     type = 'text',
+    fullWidth = true,
     regex,
+    hiddenError = false,
     ...props
 }) => {
     const { control } = useFormContext();
@@ -19,10 +21,9 @@ export const InputBase: React.FC<InputBaseProps> = ({
             name={name}
             control={control}
             render={({ field, fieldState: { error } }) => (
-                <MuiInputBase
+                <Input
                     {...field}
                     type={type}
-                    fullWidth={true}
                     value={
                         type === 'number' && field.value === 0
                             ? ''
@@ -30,14 +31,13 @@ export const InputBase: React.FC<InputBaseProps> = ({
                     }
                     onChange={event => {
                         if (regex && !regex.test(event.target.value)) return;
-                        field.onChange(event.target.value);
                         if (type === 'number') {
                             field.onChange(Number(event.target.value));
                         } else {
                             field.onChange(event.target.value);
                         }
                     }}
-                    error={!!error}
+                    error={!hiddenError ? !!error : false}
                     {...props}
                 />
             )}

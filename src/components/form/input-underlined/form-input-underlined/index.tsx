@@ -7,7 +7,6 @@ import { InputProps } from '../../@types';
 import { InputUnderlined } from '..';
 
 export const FormInputUnderlined: React.FC<InputProps> = ({
-    sx,
     name,
     type = 'text',
     fullWidth = true,
