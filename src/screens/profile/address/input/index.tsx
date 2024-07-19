@@ -12,11 +12,11 @@ import { Schema } from './@types';
 import { schema, sizing } from './@constants';
 import { Form } from '@/components/form/form';
 import { spacing } from '@/theme/spacing';
-import { TextField } from '@/components/form/text-field';
 import { countrys } from '@/constants/common/country';
 import { regexMobile, regexNumber } from '@/constants/form/regex';
 import { AddressSuccess } from '../success';
 import { Country } from '@/@types';
+import { FormInputBox } from '@/components/form/input-box/form-input-box';
 
 export function AddressInput() {
     const { t } = useTranslation();
@@ -75,7 +75,7 @@ export function AddressInput() {
                         handleHomeEndKeys={true}
                         onChange={handleCountry}
                         renderInput={params => (
-                            <TextField
+                            <FormInputBox
                                 {...params}
                                 name={'country'}
                                 placeholder={t(
@@ -89,28 +89,28 @@ export function AddressInput() {
                             </li>
                         )}
                     />
-                    <TextField
+                    <FormInputBox
                         name={'address'}
                         placeholder={t('addressInputAddressPlaceholder')}
                         style={{
                             marginTop: sizing.input.gap,
                         }}
                     />
-                    <TextField
+                    <FormInputBox
                         name={'city'}
                         placeholder={t('addressInputCityPlaceholder')}
                         style={{
                             marginTop: sizing.input.gap,
                         }}
                     />
-                    <TextField
+                    <FormInputBox
                         name={'extraAddress'}
                         placeholder={t('addressInputExtraAddressPlaceholder')}
                         style={{
                             marginTop: sizing.input.gap,
                         }}
                     />
-                    <TextField
+                    <FormInputBox
                         name={'postcode'}
                         placeholder={t('addressInputPostcodePlaceholder')}
                         fullWidth={false}
@@ -121,7 +121,7 @@ export function AddressInput() {
                             marginTop: sizing.input.gap,
                         }}
                     />
-                    <TextField
+                    <FormInputBox
                         type={'tel'}
                         name={'mobile'}
                         placeholder={t('addressInputMobilePlaceholder')}
