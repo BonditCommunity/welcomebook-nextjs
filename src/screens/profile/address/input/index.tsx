@@ -4,7 +4,6 @@ import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Button from '@mui/material/Button';
 import Autocomplete from '@mui/material/Autocomplete';
 
 import { Sheet } from '@/components/layout/sheet';
@@ -17,6 +16,7 @@ import { regexMobile, regexNumber } from '@/constants/form/regex';
 import { AddressSuccess } from '../success';
 import { Country } from '@/@types';
 import { FormInputBox } from '@/components/form/input-box/form-input-box';
+import { SquareButton } from '@/components/button/square-button';
 
 export function AddressInput() {
     const { t } = useTranslation();
@@ -132,15 +132,17 @@ export function AddressInput() {
                         }}
                     />
                 </div>
-                <Button
+                <SquareButton
                     type={'submit'}
+                    size={'sm'}
+                    text={t('buttonSubmit')}
                     disabled={isSubmitting || !isValid}
-                    style={{
+                    shadow={true}
+                    sx={{
                         marginTop: 10,
                         marginBottom: spacing.form.submit.margin.bottom,
-                    }}>
-                    {t('buttonSubmit')}
-                </Button>
+                    }}
+                />
             </Form>
         </Sheet>
     );

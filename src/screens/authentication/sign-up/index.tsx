@@ -33,6 +33,7 @@ import { parseError } from '@/helpers/format/parse-error';
 import { useUpdateUserInfo } from '@/api/user-info/repository/update-user-info';
 import { FormInputBox } from '@/components/form/input-box/form-input-box';
 import { InputBox } from '@/components/form/input-box';
+import { SquareButton } from '@/components/button/square-button';
 
 const filter = createFilterOptions<CollegeRes>();
 
@@ -289,15 +290,17 @@ export function SignUp() {
                             </IBody2>
                         </IBody2>
                     </Row>
-                    <Button
+                    <SquareButton
                         type={'submit'}
+                        size={'sm'}
+                        text={t(isValid ? 'buttonComplete' : 'buttonNext')}
                         disabled={isSubmitting || !isValid}
-                        style={{
+                        shadow={true}
+                        sx={{
                             marginTop: 55,
                             marginBottom: spacing.form.submit.margin.bottom,
-                        }}>
-                        {t(isValid ? 'buttonComplete' : 'buttonNext')}
-                    </Button>
+                        }}
+                    />
                 </div>
             </Form>
         </Sheet>

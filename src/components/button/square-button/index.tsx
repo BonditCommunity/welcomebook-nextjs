@@ -3,14 +3,16 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 
-import { ButtonProps } from '../@types';
+import { SquareButtonProps } from './@types';
 import { FH3 } from '@/components/typography/FH3';
 import { useTheme } from '@/hooks/common/use-theme';
 import { colorWithAlpha } from '@/helpers/common/color-with-alpha';
 import { dropShadow } from '@/theme/shadow';
+import { FH4 } from '@/components/typography/FH4';
 
-export const SquareButton: React.FC<ButtonProps> = ({
+export const SquareButton: React.FC<SquareButtonProps> = ({
     sx,
+    size = 'lg',
     color = 'default',
     text,
     disabled,
@@ -18,6 +20,8 @@ export const SquareButton: React.FC<ButtonProps> = ({
     ...props
 }) => {
     const { theme } = useTheme();
+
+    const Text = size === 'lg' ? FH3 : FH4;
 
     return (
         <Button
@@ -27,7 +31,7 @@ export const SquareButton: React.FC<ButtonProps> = ({
                 width: '100%',
                 backgroundColor:
                     theme.button[disabled ? 'disabled' : color].background,
-                padding: '20px 0px',
+                padding: size === 'lg' ? '20px 0px' : '15px 0px',
                 borderRadius: '20px',
                 '&:hover': {
                     backgroundColor: colorWithAlpha(
@@ -41,11 +45,11 @@ export const SquareButton: React.FC<ButtonProps> = ({
                 }),
                 ...sx,
             }}>
-            <FH3
+            <Text
                 color={theme.button[disabled ? 'disabled' : color].text}
                 textAlign={'center'}>
                 {text}
-            </FH3>
+            </Text>
         </Button>
     );
 };

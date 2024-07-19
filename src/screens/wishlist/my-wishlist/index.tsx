@@ -189,6 +189,7 @@ export function MyWishList() {
                         </IBody2>
                     </Row>
                     <SquareButton
+                        size={'sm'}
                         text={t('buttonDone')}
                         disabled={disabled}
                         shadow={true}
