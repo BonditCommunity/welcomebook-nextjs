@@ -1,11 +1,10 @@
 'use client';
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState } from 'recoil';
 import Checkbox from '@mui/material/Checkbox';
-import Button from '@mui/material/Button';
 
 import { Screen } from '@/components/layout/screen';
 import { Header } from '@/components/layout/header';
@@ -25,6 +24,12 @@ import { Product } from './@components/product';
 import { Row } from '@/components/grid/row';
 import { IBody2 } from '@/components/typography/IBody2';
 import { spacing } from '@/theme/spacing';
+import { SquareButton } from '@/components/button/square-button';
+import { useCreateWishList } from '@/api/wishlist/repository/create-wish-list';
+import { useUpdateWishList } from '@/api/wishlist/repository/update-wish-list';
+import { parseError } from '@/helpers/format/parse-error';
+import { useFindAllProductsInWishList } from '@/api/wishlist/repository/find-all-products-in-wish-list';
+import { WishListRes } from '@/api/wishlist/vm/res/wish-list';
 
 export function MyWishList() {
     const router = useRouter();
@@ -34,11 +39,68 @@ export function MyWishList() {
 
     const [wishList, setWishList] = useRecoilState(wishListState);
 
+    const { fetch } = useFindAllProductsInWishList();
+    const { loading: creating, fetch: createWishList } = useCreateWishList();
+    const { loading: editing, fetch: updateWishList } = useUpdateWishList();
+
+    const [products, setProducts] = useState<ProductInWishListRes[]>(
+        wishList?.products ?? [],
+    );
     const [checked, setChecked] = useState<boolean>(false);
+
+    const disabled = useMemo<boolean>(() => {
+        return creating || editing || !checked;
+    }, [creating, editing, checked]);
+
+    const submit = async () => {
+        let addProductIds: number[] = [];
+        let deleteProductIds: number[] = [];
+        for (const { id, totalCount } of products) {
+            const index = products.findIndex(item => item.id === id);
+            if (index < 0) {
+                continue;
+            }
+            const item = products[index];
+            if (totalCount > item.totalCount) {
+                for (var i = 0; i < totalCount - item.totalCount; i++) {
+                    addProductIds.push(id);
+                }
+            } else if (totalCount < item.totalCount) {
+                for (var i = 0; i < item.totalCount - totalCount; i++) {
+                    deleteProductIds.push(id);
+                }
+            }
+        }
+        if (wishList) {
+            const { result, error } = await updateWishList({
+                addProductIds,
+                deleteProductIds,
+            });
+            if (result) {
+                onSuccess(result);
+            } else if (error) {
+                alert(parseError(error));
+            }
+        } else {
+            const { result, error } = await createWishList({
+                productIds: addProductIds,
+            });
+            if (result) {
+                onSuccess(result);
+            } else if (error) {
+                alert(parseError(error));
+            }
+        }
+    };
+
+    const onSuccess = useCallback((wishList: WishListRes) => {
+        setWishList(wishList);
+        router.push(routes.wishlist.success);
+    }, []);
 
     const renderItem: ListRenderItem<ProductInWishListRes> = useCallback(
         ({ item }) => {
-            return <Product product={item} />;
+            return <Product product={item} setProducts={setProducts} />;
         },
         [],
     );
@@ -59,8 +121,27 @@ export function MyWishList() {
                 src={iconAdd}
                 color={theme.icon.action}
                 onClick={() => router.push(routes.wishlist.root)}
+                style={{
+                    cursor: 'pointer',
+                }}
             />
         );
+    }, []);
+
+    useEffect(() => {
+        if (wishList) {
+            setProducts(wishList.products);
+        }
+    }, [wishList]);
+
+    useEffect(() => {
+        const initialize = async () => {
+            const { result } = await fetch();
+            if (result) {
+                setWishList(result);
+            }
+        };
+        initialize();
     }, []);
 
     return (
@@ -74,7 +155,7 @@ export function MyWishList() {
                     minHeight: '100vh',
                 }}>
                 <FlatList
-                    data={wishList.products}
+                    data={products}
                     renderItem={renderItem}
                     keyExtractor={item => `${item.id}`}
                     getItemContainerStyle={getItemContainerStyle}
@@ -99,14 +180,15 @@ export function MyWishList() {
                             {`${t('myWishListConfirmText')} `}
                         </IBody2>
                     </Row>
-                    <Button
-                        disabled={!checked}
-                        style={{
+                    <SquareButton
+                        text={t('buttonDone')}
+                        disabled={disabled}
+                        onClick={submit}
+                        sx={{
                             marginTop: 30,
                             marginBottom: spacing.form.submit.margin.bottom,
-                        }}>
-                        {t('buttonDone')}
-                    </Button>
+                        }}
+                    />
                 </div>
             </SafeArea>
         </Screen>

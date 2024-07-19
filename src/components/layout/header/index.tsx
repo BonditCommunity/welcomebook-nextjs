@@ -57,6 +57,9 @@ export const Header: React.FC<HeaderProps> = ({
                     src={iconBack}
                     color={theme.icon.action}
                     onClick={router.back}
+                    style={{
+                        cursor: 'pointer',
+                    }}
                 />
                 {renderAction?.()}
             </Row>

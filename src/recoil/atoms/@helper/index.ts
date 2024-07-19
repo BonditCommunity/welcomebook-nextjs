@@ -6,14 +6,12 @@ export const persistentAtom = <T>({
     onChange,
 }: {
     key: string;
-    defaultValue?: T;
+    defaultValue: T;
     onChange?: (value: T) => void;
 }) => {
     return atom<T>({
         key,
-        ...(defaultValue && {
-            default: defaultValue,
-        }),
+        default: defaultValue,
         effects_UNSTABLE: [
             ({ setSelf, onSet }) => {
                 setSelf(() => {

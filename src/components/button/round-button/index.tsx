@@ -16,6 +16,7 @@ export const RoundButton: React.FC<RoundButtonProps> = ({
     size = 'lg',
     color = 'primary',
     text,
+    disabled,
     renderPrefix,
     ...props
 }) => {
@@ -25,16 +26,18 @@ export const RoundButton: React.FC<RoundButtonProps> = ({
 
     return (
         <Button
+            disabled={disabled}
             {...props}
             sx={{
                 textTransform: 'none',
-                backgroundColor: theme.button[color].background,
+                backgroundColor:
+                    theme.button[disabled ? 'disabled' : color].background,
                 padding: size === 'lg' ? '20px 0px' : '10px 15px',
                 borderRadius: 9999,
                 boxShadow: dropShadow,
                 '&:hover': {
                     backgroundColor: colorWithAlpha(
-                        theme.button[color].background,
+                        theme.button[disabled ? 'disabled' : color].background,
                         0.9,
                     ),
                 },
@@ -42,7 +45,9 @@ export const RoundButton: React.FC<RoundButtonProps> = ({
             }}>
             <Row alignItems={'center'}>
                 {renderPrefix?.()}
-                <Text color={theme.button[color].text} textAlign={'center'}>
+                <Text
+                    color={theme.button[disabled ? 'disabled' : color].text}
+                    textAlign={'center'}>
                     {text}
                 </Text>
             </Row>

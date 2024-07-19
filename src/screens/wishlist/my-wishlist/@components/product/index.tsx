@@ -16,18 +16,40 @@ import { iconAdd, iconMinus } from '@/assets/icons';
 import { Image } from '@/components/image/image/image';
 import { typography } from '@/theme/typography';
 
-export const Product: React.FC<ProductProps> = ({ style, product }) => {
+export const Product: React.FC<ProductProps> = ({
+    style,
+    product,
+    setProducts,
+}) => {
     const { theme } = useTheme();
 
-    const [count, setCount] = useState<number>(product.totalCount);
-
     const minus = () => {
-        if (count < 1) return;
-        setCount(count - 1);
+        if (product.totalCount < 1) return;
+        setProducts(products =>
+            products.map(item => {
+                if (item.id === product.id) {
+                    return {
+                        ...item,
+                        totalCount: product.totalCount - 1,
+                    };
+                }
+                return item;
+            }),
+        );
     };
 
     const plus = () => {
-        setCount(count + 1);
+        setProducts(products =>
+            products.map(item => {
+                if (item.id === product.id) {
+                    return {
+                        ...item,
+                        totalCount: product.totalCount + 1,
+                    };
+                }
+                return item;
+            }),
+        );
     };
 
     return (
@@ -35,7 +57,7 @@ export const Product: React.FC<ProductProps> = ({ style, product }) => {
             style={{
                 backgroundColor: theme.background.primary,
                 padding: '15px 20px',
-                borderRadius: 30,
+                borderRadius: 40,
                 ...style,
             }}>
             <div
@@ -97,7 +119,7 @@ export const Product: React.FC<ProductProps> = ({ style, product }) => {
                     />
                 </Center>
                 <ISubtitle2 color={theme.text.white} textAlign={'center'}>
-                    {count}
+                    {product.totalCount}
                 </ISubtitle2>
                 <Center
                     onClick={plus}

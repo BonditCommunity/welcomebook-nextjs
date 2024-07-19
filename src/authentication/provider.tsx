@@ -7,8 +7,7 @@ import { onAuthStateChanged, signInAnonymously, User } from 'firebase/auth';
 import { ChildrenProps } from '@/@types';
 import { AuthContext } from './context';
 import { firebase } from '@/firebase';
-import { routes } from '@/routes';
-import { loginRequiredPath } from './@constants';
+import { loginRequiredRoutes, routes } from '@/routes';
 
 export const AuthProvider: React.FC<ChildrenProps> = ({ children }) => {
     const router = useRouter();
@@ -18,7 +17,7 @@ export const AuthProvider: React.FC<ChildrenProps> = ({ children }) => {
     const [loading, setLoading] = useState<boolean>(true);
 
     const guard = (user: User) => {
-        if (loginRequiredPath.includes(pathname)) {
+        if (loginRequiredRoutes.includes(pathname)) {
             if (user.isAnonymous) {
                 router.replace(routes.home);
             }
