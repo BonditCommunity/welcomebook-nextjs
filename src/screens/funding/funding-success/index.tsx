@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -25,14 +25,21 @@ import { useFindAllFundsByUserInfoId } from '@/api/fund/repository/find-all-fund
 import { countrys } from '@/constants/common/country';
 import { Country } from '@/@types';
 import { FundInMyPageRes } from '@/api/fund/vm/res/fund-in-my-page';
+import { useCreateOrderHistoryByInStripe } from '@/api/order/repository/create-order-history-by-in-stripe';
+import { parseError } from '@/helpers/format/parse-error';
+import { errors } from '@/messages/error';
+import { useCompleteFund } from '@/api/fund/repository/complete-fund';
 
 export function FundingSuccess() {
     const params = useParams<FundingSuccessParams>();
+    const searchParams = useSearchParams();
 
     const { t } = useTranslation();
     const { theme } = useTheme();
 
     const { fetch } = useFindAllFundsByUserInfoId();
+    const { fetch: validate } = useCreateOrderHistoryByInStripe();
+    const { fetch: completeFund } = useCompleteFund();
 
     const [fund, setFund] = useState<FundInMyPageRes>();
 
@@ -61,7 +68,41 @@ export function FundingSuccess() {
     }, []);
 
     const onSubmit = handleSubmit(async data => {
-        alert(JSON.stringify(data));
+        if (!fund) return;
+        const orderUid = searchParams.get('orderUid');
+        const totalPrice = searchParams.get('totalPrice');
+        const sessionId = searchParams.get('sessionId');
+        if (!(orderUid && totalPrice && sessionId)) return;
+        const validation = await validate(
+            {
+                orderUid,
+                totalPrice: Number(totalPrice),
+                sessionId,
+                transactionDate: `${new Date().getTime()}`,
+            },
+            fund.userInfo.id,
+        );
+        if (validation.error) {
+            alert(parseError(validation.error));
+            return;
+        }
+        if (!validation.result) {
+            alert(t(errors.common));
+            return;
+        }
+        const { result, error } = await completeFund({
+            orderUid,
+            recipientId: fund.userInfo.id,
+            amount: Number(totalPrice),
+            name: data.name,
+            countryNumber: data.countryNumber,
+            mobile: data.mobile,
+        });
+        if (result) {
+            alert(JSON.stringify(result));
+        } else if (error) {
+            alert(parseError(error));
+        }
     });
 
     useEffect(() => {

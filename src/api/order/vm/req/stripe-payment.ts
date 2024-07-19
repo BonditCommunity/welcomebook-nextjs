@@ -1,8 +1,6 @@
 export interface StripePaymentReq {
     orderUid: string;
-    currencyCode: string;
-    currencySymbol: string;
+    sessionId?: string;
     totalPrice: number;
-    purchaseId?: string;
     transactionDate?: string;
 }

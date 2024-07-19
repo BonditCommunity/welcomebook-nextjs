@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
                 },
             ],
             mode: 'payment',
-            success_url: `${req.nextUrl.origin}/funding/success/${userInfoId}?orderUid=${orderUid}&session_id={CHECKOUT_SESSION_ID}`,
+            success_url: `${req.nextUrl.origin}/funding/success/${userInfoId}?orderUid=${orderUid}&totalPrice=${amount}&sessionId={CHECKOUT_SESSION_ID}`,
             cancel_url: `${req.nextUrl.origin}/funding/user/${userInfoId}`,
         });
         return NextResponse.json({ id: session.id });

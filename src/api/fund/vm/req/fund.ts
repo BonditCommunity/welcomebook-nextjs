@@ -1,4 +1,5 @@
 export interface FundReq {
+    orderUid: string;
     recipientId: number;
     amount: number;
     name?: string;
