@@ -180,9 +180,7 @@ export function SendMessage() {
 
     useEffect(() => {
         const initialize = async () => {
-            const { result } = await fetch({
-                id: params.id,
-            });
+            const { result } = await fetch(Number(params.id));
             if (result) {
                 setUser(result);
                 if (result.firstDay) {

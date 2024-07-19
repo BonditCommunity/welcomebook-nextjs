@@ -3,7 +3,6 @@
 import { useState } from 'react';
 
 import { useFetch } from '@/hooks/common/use-fetch';
-import { FindProfileByIdReq } from '../vm/req/find-profile-by-id';
 import { Response } from '@/api/common/vm/res/response';
 import { UserInfoRes } from '../vm/res/user-info';
 import { tryAPI } from '@/api/@helpers';
@@ -14,12 +13,12 @@ export const useFindProfileById = () => {
 
     const [loading, setLoading] = useState<boolean>(false);
 
-    const fetch = async ({
-        id,
-    }: FindProfileByIdReq): Promise<Response<UserInfoRes>> => {
+    const fetch = async (
+        userInfoId: number,
+    ): Promise<Response<UserInfoRes>> => {
         setLoading(true);
         const result = await tryAPI<UserInfoRes>(() => {
-            return fetchAPI(`${domain}/${id}`);
+            return fetchAPI(`${domain}/${userInfoId}`);
         });
         setLoading(false);
         return result;

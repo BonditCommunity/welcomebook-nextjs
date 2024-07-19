@@ -77,17 +77,15 @@ export function UserWishList() {
 
     useEffect(() => {
         const getProfile = async () => {
-            const { result } = await fetch({
-                id: params.id,
-            });
+            const { result } = await fetch(Number(params.id));
             if (result) {
                 setUser(result);
             }
         };
         const getProducts = async () => {
-            const { result } = await findAllProductsByUserInfoId({
-                userInfoId: Number(params.id),
-            });
+            const { result } = await findAllProductsByUserInfoId(
+                Number(params.id),
+            );
             if (result) {
                 let products: ProductInWishListRes[][] = [];
                 let row: ProductInWishListRes[] = [];
