@@ -18,6 +18,7 @@ export const RoundButton: React.FC<RoundButtonProps> = ({
     color = 'primary',
     text,
     disabled,
+    shadow,
     renderPrefix,
     ...props
 }) => {
@@ -34,7 +35,9 @@ export const RoundButton: React.FC<RoundButtonProps> = ({
                 backgroundColor:
                     theme.button[disabled ? 'disabled' : color].background,
                 borderRadius: 9999,
-                boxShadow: dropShadow,
+                ...(shadow && {
+                    boxShadow: dropShadow,
+                }),
                 '&:hover': {
                     backgroundColor: colorWithAlpha(
                         theme.button[disabled ? 'disabled' : color].background,

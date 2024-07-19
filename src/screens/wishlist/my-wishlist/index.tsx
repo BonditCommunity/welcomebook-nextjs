@@ -191,6 +191,7 @@ export function MyWishList() {
                     <SquareButton
                         text={t('buttonDone')}
                         disabled={disabled}
+                        shadow={true}
                         onClick={submit}
                         sx={{
                             marginTop: 30,

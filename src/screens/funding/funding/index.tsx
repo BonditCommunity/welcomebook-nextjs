@@ -180,6 +180,7 @@ export function Funding() {
                     type={'submit'}
                     text={t('buttonNext')}
                     disabled={isSubmitting || !isValid}
+                    shadow={true}
                     sx={{
                         marginTop: 10,
                         marginBottom: spacing.form.submit.margin.bottom,

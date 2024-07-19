@@ -114,6 +114,7 @@ export function FundingSuccess() {
                     text={t('buttonComplete')}
                     color={'default'}
                     disabled={isSubmitting || !isValid}
+                    shadow={true}
                     sx={{
                         marginTop: 30,
                         marginBottom: spacing.form.submit.margin.bottom,

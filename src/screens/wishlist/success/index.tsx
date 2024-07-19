@@ -44,6 +44,7 @@ export function WishListSuccess() {
                 size={'xl'}
                 color={'inverted'}
                 text={t('wishListSuccessSubmitText')}
+                shadow={true}
                 sx={{
                     marginTop: 10,
                     marginLeft: 25,

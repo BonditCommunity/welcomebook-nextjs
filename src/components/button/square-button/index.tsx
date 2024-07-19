@@ -7,12 +7,14 @@ import { ButtonProps } from '../@types';
 import { FH3 } from '@/components/typography/FH3';
 import { useTheme } from '@/hooks/common/use-theme';
 import { colorWithAlpha } from '@/helpers/common/color-with-alpha';
+import { dropShadow } from '@/theme/shadow';
 
 export const SquareButton: React.FC<ButtonProps> = ({
     sx,
     color = 'default',
     text,
     disabled,
+    shadow,
     ...props
 }) => {
     const { theme } = useTheme();
@@ -34,6 +36,9 @@ export const SquareButton: React.FC<ButtonProps> = ({
                     ),
                 },
                 textTransform: 'none',
+                ...(shadow && {
+                    boxShadow: dropShadow,
+                }),
                 ...sx,
             }}>
             <FH3

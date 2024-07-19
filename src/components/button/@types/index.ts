@@ -6,4 +6,5 @@ export type ButtonProps = Pick<
 > & {
     color?: 'default' | 'primary' | 'inverted';
     text: string;
+    shadow?: boolean;
 };

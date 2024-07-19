@@ -62,6 +62,7 @@ export const Container: React.FC<ContainerProps> = ({ error }) => {
             <RoundButton
                 color={'inverted'}
                 text={t('errorGoHomeText')}
+                shadow={true}
                 onClick={goHome}
                 sx={{
                     marginTop: 10,
