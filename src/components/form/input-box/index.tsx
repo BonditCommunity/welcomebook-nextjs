@@ -131,3 +131,4 @@ export const InputBox = forwardRef<HTMLDivElement, InputBoxProps>(
         );
     },
 );
+InputBox.displayName = 'InputBox';

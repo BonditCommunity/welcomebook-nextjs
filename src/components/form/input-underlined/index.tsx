@@ -63,3 +63,4 @@ export const InputUnderlined = forwardRef<HTMLDivElement, InputProps>(
         );
     },
 );
+InputUnderlined.displayName = 'InputUnderlined';
