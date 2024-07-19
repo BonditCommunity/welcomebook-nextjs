@@ -1,6 +1,6 @@
 import { ComponentProps } from '@/@types';
-import { ProductRes } from '@/api/product/vm/res/product';
+import { ProductInWishListRes } from '@/api/wishlist/vm/res/product-in-wish-list';
 
 export interface ProductProps extends ComponentProps {
-    product: ProductRes;
+    product: ProductInWishListRes;
 }

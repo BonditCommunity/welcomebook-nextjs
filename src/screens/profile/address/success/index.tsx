@@ -40,7 +40,7 @@ export function AddressSuccess() {
                 />
             </Col>
             <Button
-                variant={'rounded'}
+                variant={'primary'}
                 color={'inverted'}
                 href={routes.home}
                 style={{

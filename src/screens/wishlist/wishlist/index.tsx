@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import Box from '@mui/material/Box';
 import Dialog from '@mui/material/Dialog';
-import Button from '@mui/material/Button';
 import { DndContext, DragEndEvent } from '@dnd-kit/core';
 
 import { Sheet } from '@/components/layout/sheet';
@@ -38,6 +37,7 @@ import { useUpdateWishList } from '@/api/wishlist/repository/update-wish-list';
 import { FH4 } from '@/components/typography/FH4';
 import { routes } from '@/routes';
 import { InputBox } from '@/components/form/input-box';
+import { SquareButton } from '@/components/button/square-button';
 
 export function Wishlist() {
     const router = useRouter();
@@ -276,13 +276,14 @@ export function Wishlist() {
                         paddingBottom: 25,
                     }}>
                     <FH4 textAlign={'center'}>{t('wishListConfirmText')}</FH4>
-                    <Button
+                    <SquareButton
+                        text={t('wishListConfirmSubmitText')}
+                        color={'primary'}
                         onClick={onConfirm}
-                        style={{
+                        sx={{
                             marginTop: 40,
-                        }}>
-                        {t('wishListConfirmSubmitText')}
-                    </Button>
+                        }}
+                    />
                 </div>
             </Dialog>
         </DndContext>

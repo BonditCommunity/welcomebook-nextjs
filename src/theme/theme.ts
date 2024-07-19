@@ -98,12 +98,16 @@ export const light: PaletteOptions = {
             background: color.black.default,
             text: color.white.default,
         },
-        disabled: {
-            background: color.gray.AA,
+        primary: {
+            background: color.primary.default,
             text: color.white.default,
         },
-        rounded: {
-            background: color.primary.default,
+        inverted: {
+            background: color.white.default,
+            text: color.primary.default,
+        },
+        disabled: {
+            background: color.gray.AA,
             text: color.white.default,
         },
     },
@@ -222,12 +226,16 @@ export const dark: PaletteOptions = {
             background: color.black.default,
             text: color.white.default,
         },
-        disabled: {
-            background: color.gray.AA,
+        primary: {
+            background: color.primary.default,
             text: color.white.default,
         },
-        rounded: {
-            background: color.primary.default,
+        inverted: {
+            background: color.white.default,
+            text: color.primary.default,
+        },
+        disabled: {
+            background: color.gray.AA,
             text: color.white.default,
         },
     },

@@ -28,6 +28,7 @@ export const Header: React.FC<HeaderProps> = ({
                 top: 0,
                 left: 0,
                 right: 0,
+                zIndex: 10000,
                 ...style,
             }}>
             <Row

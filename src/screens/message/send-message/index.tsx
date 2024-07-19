@@ -299,7 +299,7 @@ export function SendMessage() {
                 </div>
                 <Button
                     type={'submit'}
-                    variant={'rounded'}
+                    variant={'primary'}
                     disabled={isSubmitting || !isValid}
                     style={{
                         marginTop: 10,

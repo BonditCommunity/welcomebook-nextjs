@@ -20,7 +20,7 @@ import {
     GetItemContainerStyle,
     ListRenderItem,
 } from '@/components/layout/flat-list/@types';
-import { ProductRes } from '@/api/product/vm/res/product';
+import { ProductInWishListRes } from '@/api/wishlist/vm/res/product-in-wish-list';
 import { Product } from './@components/product';
 import { Row } from '@/components/grid/row';
 import { IBody2 } from '@/components/typography/IBody2';
@@ -36,9 +36,12 @@ export function MyWishList() {
 
     const [checked, setChecked] = useState<boolean>(false);
 
-    const renderItem: ListRenderItem<ProductRes> = useCallback(({ item }) => {
-        return <Product product={item} />;
-    }, []);
+    const renderItem: ListRenderItem<ProductInWishListRes> = useCallback(
+        ({ item }) => {
+            return <Product product={item} />;
+        },
+        [],
+    );
 
     const getItemContainerStyle: GetItemContainerStyle = useCallback(index => {
         return {

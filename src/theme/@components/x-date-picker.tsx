@@ -39,8 +39,8 @@ export const MuiPickersLayout: Components<Theme>['MuiPickersLayout'] = {
                 ...typography.FBody2,
                 borderRadius: 5,
                 [`&.${pickersYearClasses.selected}`]: {
-                    backgroundColor: theme.palette.button.rounded.background,
-                    color: theme.palette.button.rounded.text,
+                    backgroundColor: theme.palette.button.primary.background,
+                    color: theme.palette.button.primary.text,
                 },
                 [`&.${pickersYearClasses.disabled}`]: {
                     color: theme.palette.text.caption,
@@ -58,17 +58,17 @@ export const MuiPickersLayout: Components<Theme>['MuiPickersLayout'] = {
                 },
             },
             [`& .${buttonBaseClasses.root}[aria-selected="true"]`]: {
-                backgroundColor: theme.palette.button.rounded.background,
-                color: theme.palette.button.rounded.text,
+                backgroundColor: theme.palette.button.primary.background,
+                color: theme.palette.button.primary.text,
             },
             [`& .${dialogActionsClasses.root}`]: {
                 [`& .${buttonClasses.root}`]: {
                     padding: 10,
                     color: theme.palette.button.default.text,
                     [`&:last-of-type`]: {
-                        color: theme.palette.button.rounded.text,
+                        color: theme.palette.button.primary.text,
                         backgroundColor:
-                            theme.palette.button.rounded.background,
+                            theme.palette.button.primary.background,
                     },
                 },
             },

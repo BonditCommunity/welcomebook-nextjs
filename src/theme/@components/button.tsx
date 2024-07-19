@@ -9,11 +9,11 @@ import { colorWithAlpha } from '@/helpers/common/color-with-alpha';
 declare module '@mui/material/Button' {
     interface ButtonPropsVariantOverrides {
         default: true;
-        rounded: true;
+        primary: true;
     }
     interface ButtonClasses {
         default: true;
-        rounded: true;
+        primary: true;
     }
     interface ButtonPropsColorOverrides {
         inverted: true;
@@ -37,34 +37,6 @@ export const MuiButton: Components<Theme>['MuiButton'] = {
             '&:hover': {
                 backgroundColor: colorWithAlpha(
                     theme.palette.button.default.background,
-                    0.9,
-                ),
-            },
-            [`&.${buttonClasses.disabled}`]: {
-                backgroundColor: theme.palette.button.disabled.background,
-                color: theme.palette.button.disabled.text,
-            },
-        }),
-        rounded: ({ ownerState, theme }) => ({
-            width: '100%',
-            textTransform: 'none',
-            backgroundColor:
-                ownerState.color === 'inverted'
-                    ? theme.palette.button.rounded.text
-                    : theme.palette.button.rounded.background,
-            borderRadius: 9999,
-            paddingTop: 15,
-            paddingBottom: 15,
-            paddingLeft: 0,
-            paddingRight: 0,
-            color:
-                ownerState.color === 'inverted'
-                    ? theme.palette.button.rounded.background
-                    : theme.palette.button.rounded.text,
-            ...typography.FH3,
-            '&:hover': {
-                backgroundColor: colorWithAlpha(
-                    theme.palette.button.rounded.background,
                     0.9,
                 ),
             },

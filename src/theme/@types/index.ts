@@ -9,11 +9,15 @@ export interface TypeButton {
         background: string;
         text: string;
     };
-    disabled: {
+    primary: {
         background: string;
         text: string;
     };
-    rounded: {
+    inverted: {
+        background: string;
+        text: string;
+    };
+    disabled: {
         background: string;
         text: string;
     };

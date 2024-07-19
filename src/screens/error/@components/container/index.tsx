@@ -1,8 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
-import Button from '@mui/material/Button';
 
 import { ContainerProps } from './@types';
 import { Sheet } from '@/components/layout/sheet';
@@ -14,10 +14,17 @@ import { Col } from '@/components/grid/col';
 import { ISubtitle2 } from '@/components/typography/ISubtitle2';
 import { routes } from '@/routes';
 import { spacing } from '@/theme/spacing';
+import { RoundButton } from '@/components/button/round-button';
 
 export const Container: React.FC<ContainerProps> = ({ error }) => {
+    const router = useRouter();
+
     const { t } = useTranslation();
     const { theme } = useTheme();
+
+    const goHome = useCallback(() => {
+        router.push(routes.home);
+    }, []);
 
     return (
         <Sheet
@@ -31,12 +38,6 @@ export const Container: React.FC<ContainerProps> = ({ error }) => {
                 <FTitle textAlign={'center'} color={theme.text.white}>
                     {t('errorTitle')}
                 </FTitle>
-                <FH3
-                    textAlign={'center'}
-                    color={theme.text.title}
-                    style={{ marginTop: 20 }}>
-                    {t(`error${error}Title`)}
-                </FH3>
                 <img
                     src={imgError.src}
                     width={245}
@@ -45,23 +46,28 @@ export const Container: React.FC<ContainerProps> = ({ error }) => {
                         marginTop: 20,
                     }}
                 />
+                <FH3
+                    textAlign={'center'}
+                    color={theme.text.title}
+                    style={{ marginTop: 20 }}>
+                    {t(`error${error}Title`)}
+                </FH3>
                 <ISubtitle2
                     textAlign={'center'}
                     color={theme.text.white}
-                    style={{ marginTop: 10 }}>
+                    style={{ marginTop: 35 }}>
                     {t(`error${error}Description`)}
                 </ISubtitle2>
             </Col>
-            <Button
-                variant={'rounded'}
+            <RoundButton
                 color={'inverted'}
-                href={routes.home}
-                style={{
+                text={t('errorGoHomeText')}
+                onClick={goHome}
+                sx={{
                     marginTop: 10,
                     marginBottom: spacing.form.submit.margin.bottom,
-                }}>
-                {t('errorGoHomeText')}
-            </Button>
+                }}
+            />
         </Sheet>
     );
 };
