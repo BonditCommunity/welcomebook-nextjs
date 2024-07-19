@@ -44,6 +44,8 @@
     "fundingTitle": "How much would you like to fund?",
     "fundingAmountCaution": "Funding is only available in five units",
     "fundingSuccessTitle": "Successfully Funded !",
+    "fundingSuccessGuide": "We send letters if {{user}} gets {{amount}} funded",
+    "fundingSuccessFormTitle": "Your Name / Phone Number",
     "dDay": "D-{{dDay}}",
     "buttonNext": "Next",
     "buttonComplete": "Complete",
