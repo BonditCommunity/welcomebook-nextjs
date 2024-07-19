@@ -22,6 +22,8 @@ import { RoundButton } from '@/components/button/round-button';
 import { spacing } from '@/theme/spacing';
 import { IH2 } from '@/components/typography/IH2';
 import { imgHand } from '@/assets/images';
+import { useFindAllProductsByUserInfoId } from '@/api/wishlist/repository/find-all-products-by-user-info-id';
+import { ProductInWishListRes } from '@/api/wishlist/vm/res/product-in-wish-list';
 
 export function UserWishList() {
     const params = useParams<UserWishListParams>();
@@ -30,11 +32,14 @@ export function UserWishList() {
     const { theme } = useTheme();
 
     const { fetch } = useFindProfileById();
+    const { fetch: findAllProductsByUserInfoId } =
+        useFindAllProductsByUserInfoId();
 
     const [user, setUser] = useState<UserInfoRes>();
+    const [products, setProducts] = useState<ProductInWishListRes[]>([]);
 
     useEffect(() => {
-        const initialize = async () => {
+        const getProfile = async () => {
             const { result } = await fetch({
                 id: params.id,
             });
@@ -42,7 +47,16 @@ export function UserWishList() {
                 setUser(result);
             }
         };
-        initialize();
+        const getProducts = async () => {
+            const { result } = await findAllProductsByUserInfoId({
+                userInfoId: Number(params.id),
+            });
+            if (result) {
+                setProducts(result.products);
+            }
+        };
+        getProfile();
+        getProducts();
     }, []);
 
     return (
