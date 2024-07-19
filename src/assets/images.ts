@@ -14,6 +14,12 @@ export const imgError: Asset = {
     height: 900,
 };
 
+export const imgHand: Asset = {
+    src: `${basePath}/img_hand.png`,
+    width: 75,
+    height: 75,
+};
+
 export const imgProfile: Asset = {
     src: `${basePath}/img_profile.png`,
     width: 201,

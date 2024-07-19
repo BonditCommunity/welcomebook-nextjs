@@ -68,9 +68,12 @@ export interface TypeForm {
     checkbox: {
         icon: string;
     };
-    upload: {
+    action: {
         background: string;
-        icon: string;
+        icon: {
+            black: string;
+            gray: string;
+        };
     };
     autocomplete: {
         background: string;

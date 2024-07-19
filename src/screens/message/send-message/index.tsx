@@ -12,7 +12,6 @@ import dayjs from 'dayjs';
 import { Screen } from '@/components/layout/screen';
 import { FH2 } from '@/components/typography/FH2';
 import { useTheme } from '@/hooks/common/use-theme';
-import { Image } from '@/components/image/image/image';
 import { Col } from '@/components/grid/col';
 import { FH3 } from '@/components/typography/FH3';
 import { Form } from '@/components/form/form';
@@ -31,9 +30,10 @@ import { useCreateLetter } from '@/api/letter/repository/create-letter';
 import { parseError } from '@/helpers/format/parse-error';
 import { color } from '@/theme/theme';
 import { useImageUpload } from '@/api/media/repository/image-upload';
-import { imgProfile } from '@/assets/images';
 import { FormInput } from '@/components/form/input/form-input';
 import { RoundButton } from '@/components/button/round-button';
+import { routes } from '@/routes';
+import { Avatar } from '@/components/userinfo/avatar';
 
 export function SendMessage() {
     const router = useRouter();
@@ -69,7 +69,9 @@ export function SendMessage() {
         setFile(event.target.files?.item(0) ?? undefined);
     }, []);
 
-    const onCloseSuccess = useCallback(() => {}, []);
+    const onCloseSuccess = useCallback(() => {
+        router.push(routes.wishlist.user(params.id));
+    }, []);
 
     const onSubmit = handleSubmit(async data => {
         if (!user) return;
@@ -98,37 +100,6 @@ export function SendMessage() {
             alert(parseError(error));
         }
     });
-
-    const renderAvatar = useCallback(() => {
-        if (user?.imageUrl) {
-            return (
-                <Image
-                    src={user.imageUrl}
-                    width={sizing.avatar}
-                    height={sizing.avatar}
-                    style={{
-                        borderWidth: 10,
-                        borderColor: theme.background.default,
-                        borderStyle: 'solid',
-                        borderRadius: 9999,
-                    }}
-                />
-            );
-        }
-        return (
-            <img
-                src={imgProfile.src}
-                width={sizing.avatar}
-                height={sizing.avatar}
-                style={{
-                    borderWidth: 10,
-                    borderColor: theme.background.default,
-                    borderStyle: 'solid',
-                    borderRadius: 9999,
-                }}
-            />
-        );
-    }, [user]);
 
     const renderImage = useCallback(() => {
         if (file) {
@@ -196,7 +167,7 @@ export function SendMessage() {
                     borderRadius: 9999,
                     padding: 0,
                 }}>
-                <Svg src={iconImage} color={theme.form.upload.icon} />
+                <Svg src={iconImage} color={theme.form.action.icon.gray} />
                 <input
                     type={'file'}
                     accept={'image/*'}
@@ -248,7 +219,7 @@ export function SendMessage() {
                         style={{
                             marginTop: 5,
                         }}>
-                        {renderAvatar()}
+                        <Avatar user={user} size={sizing.avatar} />
                     </Col>
                     <div
                         style={{

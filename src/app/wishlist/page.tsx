@@ -1,5 +1,5 @@
-import { Wishlist } from '@/screens/wishlist/wishlist';
+import { WishList } from '@/screens/wishlist/wishlist';
 
 export default function Screen() {
-    return <Wishlist />;
+    return <WishList />;
 }

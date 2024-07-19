@@ -156,9 +156,12 @@ export const light: PaletteOptions = {
         checkbox: {
             icon: color.white.default,
         },
-        upload: {
+        action: {
             background: color.gray.E7,
-            icon: color.gray.AA,
+            icon: {
+                black: color.black.default,
+                gray: color.gray.AA,
+            },
         },
         autocomplete: {
             background: color.white.default,
@@ -284,9 +287,12 @@ export const dark: PaletteOptions = {
         checkbox: {
             icon: color.white.default,
         },
-        upload: {
+        action: {
             background: color.gray.E7,
-            icon: color.gray.AA,
+            icon: {
+                black: color.black.default,
+                gray: color.gray.AA,
+            },
         },
         autocomplete: {
             background: color.white.default,

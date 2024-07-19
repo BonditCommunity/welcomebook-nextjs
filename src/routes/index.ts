@@ -4,6 +4,7 @@ export const routes = {
     wishlist: {
         root: '/wishlist',
         my: '/wishlist/my',
+        user: (id: string) => `/wishlist/user/${id}`,
     },
     terms: {
         service: '/terms/service',
@@ -14,7 +15,7 @@ export const routes = {
         success: '/funding/success',
     },
     message: {
-        send: '/message/send',
+        send: (id: string) => `/message/send/${id}`,
     },
     profile: {
         address: '/profile/address',

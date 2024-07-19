@@ -6,8 +6,8 @@ export const MuiFab: Components<Theme>['MuiFab'] = {
             width: 60,
             height: 60,
             borderRadius: 9999,
-            color: theme.palette.form.upload.background,
-            backgroundColor: theme.palette.form.upload.background,
+            color: theme.palette.form.action.background,
+            backgroundColor: theme.palette.form.action.background,
             boxShadow: 'none',
             '&:active': {
                 boxShadow: 'none',

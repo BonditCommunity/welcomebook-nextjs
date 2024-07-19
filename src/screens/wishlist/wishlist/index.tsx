@@ -39,7 +39,7 @@ import { routes } from '@/routes';
 import { InputBox } from '@/components/form/input-box';
 import { SquareButton } from '@/components/button/square-button';
 
-export function Wishlist() {
+export function WishList() {
     const router = useRouter();
 
     const { t } = useTranslation();
