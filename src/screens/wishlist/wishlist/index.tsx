@@ -4,7 +4,6 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState, useSetRecoilState } from 'recoil';
-import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Dialog from '@mui/material/Dialog';
 import Button from '@mui/material/Button';
@@ -38,6 +37,7 @@ import { WishListRes } from '@/api/wishlist/vm/res/wish-list';
 import { useUpdateWishList } from '@/api/wishlist/repository/update-wish-list';
 import { FH4 } from '@/components/typography/FH4';
 import { routes } from '@/routes';
+import { InputBox } from '@/components/form/input-box';
 
 export function Wishlist() {
     const router = useRouter();
@@ -201,13 +201,10 @@ export function Wishlist() {
                 <FH2 color={theme.text.primary} style={{ paddingTop: 30 }}>
                     {t('wishListTitle')}
                 </FH2>
-                <TextField
-                    color={'secondary'}
-                    type={'text'}
+                <InputBox
                     name={'search'}
+                    color={'black'}
                     placeholder={t('wishListSearchPlaceholder')}
-                    fullWidth={true}
-                    hiddenLabel={true}
                     value={q.value}
                     onChange={q.onChange}
                     inputMode={'search'}

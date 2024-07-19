@@ -15,7 +15,6 @@ import { Sheet } from '@/components/layout/sheet';
 import { Form } from '@/components/form/form';
 import { Schema } from './@types';
 import { schema, sizing } from './@constants';
-import { TextField } from '@/components/form/text-field';
 import { Svg } from '@/components/image/svg';
 import { iconAlert, iconSearch } from '@/assets/icons';
 import { useTheme } from '@/hooks/common/use-theme';
@@ -32,6 +31,7 @@ import { useSearch } from '@/hooks/form/use-search';
 import { CollegeRes } from '@/api/college/vm/res/college';
 import { parseError } from '@/helpers/format/parse-error';
 import { useUpdateUserInfo } from '@/api/user-info/repository/update-user-info';
+import { FormInputBox } from '@/components/form/input-box/form-input-box';
 import { InputBox } from '@/components/form/input-box';
 
 const filter = createFilterOptions<CollegeRes>();
@@ -138,7 +138,7 @@ export function SignUp() {
                     paddingTop: 55,
                 }}>
                 <div>
-                    <InputBox
+                    <FormInputBox
                         name={'name'}
                         placeholder={t('signUpNamePlaceholder')}
                     />
@@ -180,7 +180,7 @@ export function SignUp() {
                         }}
                         onChange={handleCollege}
                         renderInput={params => (
-                            <InputBox
+                            <FormInputBox
                                 {...params}
                                 name={'college'}
                                 placeholder={t('signUpCollegePlaceholder')}
@@ -220,17 +220,19 @@ export function SignUp() {
                             !college || !!college.firstDay || college.id > 0
                         }
                         slots={{
-                            textField: props => (
-                                <InputBox
-                                    {...props}
-                                    placeholder={t(
-                                        'signUpCollegeStartDatePlaceholder',
-                                    )}
-                                    style={{
-                                        marginTop: sizing.input.gap,
-                                    }}
-                                />
-                            ),
+                            textField: props => {
+                                return (
+                                    <InputBox
+                                        {...props}
+                                        placeholder={t(
+                                            'signUpCollegeStartDatePlaceholder',
+                                        )}
+                                        style={{
+                                            marginTop: sizing.input.gap,
+                                        }}
+                                    />
+                                );
+                            },
                         }}
                     />
                 </div>
