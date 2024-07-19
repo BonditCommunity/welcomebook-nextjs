@@ -23,7 +23,10 @@ export const sizing = {
         },
     },
     success: {
-        icon: 55,
+        icon: {
+            container: 55,
+            icon: 24,
+        },
     },
 };
 

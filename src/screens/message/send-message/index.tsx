@@ -20,7 +20,7 @@ import { schema, sizing } from './@constants';
 import { dropShadow } from '@/theme/shadow';
 import { Row } from '@/components/grid/row';
 import { Svg } from '@/components/image/svg';
-import { iconCheckCircle, iconClose, iconImage } from '@/assets/icons';
+import { iconCheck, iconClose, iconImage } from '@/assets/icons';
 import { spacing } from '@/theme/spacing';
 import { useFindProfileById } from '@/api/user-info/repository/find-profile-by-id';
 import { UserInfoRes } from '@/api/user-info/vm/res/user-info';
@@ -95,7 +95,7 @@ export function SendMessage() {
             }),
         });
         if (result) {
-            alert(JSON.stringify(result));
+            setShowSuccess(true);
         } else if (error) {
             alert(parseError(error));
         }
@@ -302,22 +302,32 @@ export function SendMessage() {
                 />
             </Form>
             <Dialog open={showSuccess} onClose={onCloseSuccess}>
-                <div
+                <Col
+                    alignItems={'center'}
                     style={{
                         paddingTop: 35,
                         paddingLeft: 30,
                         paddingRight: 30,
                         paddingBottom: 65,
                     }}>
-                    <Svg
-                        src={iconCheckCircle}
-                        width={sizing.success.icon}
-                        height={sizing.success.icon}
-                    />
+                    <Center
+                        style={{
+                            width: sizing.success.icon.container,
+                            height: sizing.success.icon.container,
+                            borderRadius: 9999,
+                            backgroundColor: theme.button.primary.background,
+                        }}>
+                        <Svg
+                            src={iconCheck}
+                            color={theme.icon.white}
+                            width={sizing.success.icon.icon}
+                            height={sizing.success.icon.icon}
+                        />
+                    </Center>
                     <FH3 textAlign={'center'} style={{ marginTop: 20 }}>
                         {t('sendMessageSuccessText')}
                     </FH3>
-                </div>
+                </Col>
             </Dialog>
         </Screen>
     );

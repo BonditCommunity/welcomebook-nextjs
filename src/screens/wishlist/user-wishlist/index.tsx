@@ -121,7 +121,7 @@ export function UserWishList() {
                         })}
                     </FH3>
                     <Fab
-                        component={'label'}
+                        onClick={router.back}
                         sx={{
                             width: 35,
                             height: 35,
@@ -136,7 +136,6 @@ export function UserWishList() {
                         />
                     </Fab>
                 </Row>
-
                 <Col
                     alignItems={'center'}
                     style={{
