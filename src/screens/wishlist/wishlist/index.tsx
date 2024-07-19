@@ -202,7 +202,6 @@ export function Wishlist() {
                     {t('wishListTitle')}
                 </FH2>
                 <TextField
-                    variant={'outlined'}
                     color={'secondary'}
                     type={'text'}
                     name={'search'}

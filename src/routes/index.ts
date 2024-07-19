@@ -13,6 +13,7 @@ export const routes = {
     },
     funding: {
         root: '/funding',
+        success: '/funding/success',
     },
     message: {
         send: '/message/send',

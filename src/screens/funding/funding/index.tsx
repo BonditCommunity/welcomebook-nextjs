@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 
@@ -22,8 +23,11 @@ import { hideScrollBarX } from '@/theme/styles';
 import { Svg } from '@/components/image/svg';
 import { iconAdd } from '@/assets/icons';
 import { spacing } from '@/theme/spacing';
+import { routes } from '@/routes';
 
 export function Funding() {
+    const router = useRouter();
+
     const adornmentRef = useRef<HTMLParagraphElement>(null);
     const textRef = useRef<HTMLParagraphElement>(null);
 
@@ -54,7 +58,9 @@ export function Funding() {
         });
     };
 
-    const onSubmit = handleSubmit(async data => {});
+    const onSubmit = handleSubmit(async data => {
+        router.push(routes.funding.success);
+    });
 
     const renderPrefix = useCallback(() => {
         return (
