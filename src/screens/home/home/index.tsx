@@ -103,8 +103,7 @@ export function Home() {
                             authOptions={{
                                 clientId: process.env.APPLE_CLIENT_ID!,
                                 scope: 'email name',
-                                redirectURI: 'http://localhost:3000',
-                                // redirectURI: 'https://uscollege.live',
+                                redirectURI: 'https://uscollege.live',
                                 state: 'origin:web',
                                 nonce: 'nonce',
                                 usePopup: true,

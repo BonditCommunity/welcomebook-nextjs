@@ -32,6 +32,7 @@ import { useSearch } from '@/hooks/form/use-search';
 import { CollegeRes } from '@/api/college/vm/res/college';
 import { parseError } from '@/helpers/format/parse-error';
 import { useUpdateUserInfo } from '@/api/user-info/repository/update-user-info';
+import { InputBox } from '@/components/form/input-box';
 
 const filter = createFilterOptions<CollegeRes>();
 
@@ -137,7 +138,7 @@ export function SignUp() {
                     paddingTop: 55,
                 }}>
                 <div>
-                    <TextField
+                    <InputBox
                         name={'name'}
                         placeholder={t('signUpNamePlaceholder')}
                     />
@@ -179,7 +180,7 @@ export function SignUp() {
                         }}
                         onChange={handleCollege}
                         renderInput={params => (
-                            <TextField
+                            <InputBox
                                 {...params}
                                 name={'college'}
                                 placeholder={t('signUpCollegePlaceholder')}
@@ -218,18 +219,18 @@ export function SignUp() {
                         disabled={
                             !college || !!college.firstDay || college.id > 0
                         }
-                        slotProps={{
-                            textField: {
-                                fullWidth: true,
-                                variant: 'outlined',
-                                hiddenLabel: true,
-                                placeholder: t(
-                                    'signUpCollegeStartDatePlaceholder',
-                                ),
-                                style: {
-                                    marginTop: sizing.input.gap,
-                                },
-                            },
+                        slots={{
+                            textField: props => (
+                                <InputBox
+                                    {...props}
+                                    placeholder={t(
+                                        'signUpCollegeStartDatePlaceholder',
+                                    )}
+                                    style={{
+                                        marginTop: sizing.input.gap,
+                                    }}
+                                />
+                            ),
                         }}
                     />
                 </div>

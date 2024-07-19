@@ -49,7 +49,7 @@ export const InputBox: React.FC<InputBoxProps> = ({
                 },
             },
         };
-    }, []);
+    }, [color, theme]);
 
     return (
         <Controller
@@ -90,27 +90,17 @@ export const InputBox: React.FC<InputBoxProps> = ({
                             ...typography.FH4,
                             color: theme.form.outlined.text,
                             letterSpacing: '-0.32px',
-                            paddingTop: 15,
-                            paddingBottom: 15,
+                            borderRadius: '15px',
+                            paddingTop: '15px !important',
+                            paddingBottom: '15px !important',
                             paddingLeft: props.InputProps?.startAdornment
-                                ? 10
-                                : 20,
+                                ? '10px !important'
+                                : '20px !important',
                             paddingRight: props.InputProps?.endAdornment
-                                ? 10
-                                : 20,
+                                ? '10px !important'
+                                : '20px !important',
                             '&::placeholder': {
-                                ...(color === 'inverted'
-                                    ? {
-                                          ...typography.IBody1,
-                                      }
-                                    : {
-                                          ...(props.multiline && {
-                                              ...typography.IH1,
-                                          }),
-                                          ...(!props.multiline && {
-                                              ...typography.IH3,
-                                          }),
-                                      }),
+                                ...typography.IBody1,
                                 color: theme.form.outlined.placeholder[color],
                             },
                             [`&.${outlinedInputClasses.disabled}`]: {
