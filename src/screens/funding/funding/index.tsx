@@ -30,6 +30,7 @@ export function Funding() {
     const { theme } = useTheme();
 
     const [width, setWidth] = useState<number>(0);
+    const { loading: editing, fetch: createPreFundAPI } = createPreFund();
 
     const methods = useForm<Schema>({
         resolver: zodResolver(schema),
@@ -52,7 +53,7 @@ export function Funding() {
     });
 
     const handleCheckout = async () => {
-        const { result, error } = await createPreFund({
+        const { result, error } = await createPreFundAPI({
             paymentMethod: PaymentMethodType.CREDIT,
             currency: 'string',
             currencySymbol: 'string',
