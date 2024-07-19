@@ -24,6 +24,10 @@ export const iconImage = `${basePath}/icon_image.svg`;
 
 export const iconMinus = `${basePath}/icon_minus.svg`;
 
+export const iconNext = `${basePath}/icon_next.svg`;
+
+export const iconPrev = `${basePath}/icon_prev.svg`;
+
 export const iconSearch = `${basePath}/icon_search.svg`;
 
 export const iconTriangle = `${basePath}/icon_triangle.svg`;
