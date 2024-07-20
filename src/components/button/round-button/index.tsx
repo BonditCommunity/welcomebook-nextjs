@@ -14,6 +14,7 @@ import { FH2 } from '@/components/typography/FH2';
 
 export const RoundButton: React.FC<RoundButtonProps> = ({
     sx,
+    textSx,
     size = 'lg',
     color = 'primary',
     text,
@@ -56,7 +57,8 @@ export const RoundButton: React.FC<RoundButtonProps> = ({
                 {renderPrefix?.()}
                 <Text
                     color={theme.button[disabled ? 'disabled' : color].text}
-                    textAlign={'center'}>
+                    textAlign={'center'}
+                    sx={textSx}>
                     {text}
                 </Text>
             </Row>

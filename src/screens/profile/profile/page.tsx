@@ -7,9 +7,12 @@ import React, {
     useRef,
     useState,
 } from 'react';
+import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { useRecoilState } from 'recoil';
 import Switch from '@mui/material/Switch';
+import Dialog from '@mui/material/Dialog';
+import { signOut } from 'firebase/auth';
 
 import { Screen } from '@/components/layout/screen';
 import { userInfoState } from '@/recoil/atoms/user-info/user-info';
@@ -30,8 +33,13 @@ import { spacing } from '@/theme/spacing';
 import { useImageUpload } from '@/api/media/repository/image-upload';
 import { parseError } from '@/helpers/format/parse-error';
 import { useUpdateUserInfo } from '@/api/user-info/repository/update-user-info';
+import { FH3 } from '@/components/typography/FH3';
+import { firebase } from '@/firebase';
+import { routes } from '@/routes';
 
 export function Profile() {
+    const router = useRouter();
+
     const [userInfo, setUserInfo] = useRecoilState(userInfoState);
 
     const inputRef = useRef<HTMLInputElement>(null);
@@ -45,6 +53,7 @@ export function Profile() {
 
     const [user, setUser] = useState<UserInfoRes | undefined>(userInfo);
     const [file, setFile] = useState<File>();
+    const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
     const openImagePicker = useCallback(() => {
         inputRef.current?.click();
@@ -64,6 +73,19 @@ export function Profile() {
         },
         [user],
     );
+
+    const confirmLogout = useCallback(() => {
+        setShowConfirm(true);
+    }, []);
+
+    const onCloseConfirm = useCallback(() => {
+        setShowConfirm(false);
+    }, []);
+
+    const logout = async () => {
+        await signOut(firebase);
+        router.replace(routes.home);
+    };
 
     const submit = async () => {
         if (!user) return;
@@ -198,6 +220,7 @@ export function Profile() {
                         </Row>
                         <Row
                             alignItems={'center'}
+                            onClick={confirmLogout}
                             style={{
                                 cursor: 'pointer',
                                 marginTop: sizing.menu.gap,
@@ -228,6 +251,51 @@ export function Profile() {
                     marginBlock: spacing.form.submit.margin.bottom,
                 }}
             />
+            <Dialog open={showConfirm} onClose={onCloseConfirm}>
+                <div
+                    style={{
+                        paddingTop: 60,
+                        paddingLeft: 35,
+                        paddingRight: 35,
+                        paddingBottom: 35,
+                    }}>
+                    <FH3
+                        textAlign={'center'}
+                        style={{
+                            marginLeft: 25,
+                            marginRight: 25,
+                        }}>
+                        {t('profileConfirmLogoutText')}
+                    </FH3>
+                    <Row alignItems={'center'} style={{ marginTop: 35 }}>
+                        <RoundButton
+                            color={'inverted'}
+                            text={t('buttonYes')}
+                            onClick={logout}
+                            textSx={{
+                                color: theme.text.default,
+                            }}
+                            sx={{
+                                flex: 1,
+                                borderColor: theme.button.primary.background,
+                                borderWidth: 4,
+                                borderStyle: 'solid',
+                            }}
+                        />
+                        <RoundButton
+                            text={t('buttonNo')}
+                            onClick={onCloseConfirm}
+                            sx={{
+                                flex: 1,
+                                borderColor: theme.button.primary.background,
+                                borderWidth: 4,
+                                borderStyle: 'solid',
+                                marginLeft: 10,
+                            }}
+                        />
+                    </Row>
+                </div>
+            </Dialog>
         </Screen>
     );
 }
