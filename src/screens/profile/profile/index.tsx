@@ -84,6 +84,10 @@ export function Profile() {
         setShowConfirm(false);
     }, []);
 
+    const goMyLetter = useCallback(() => {
+        router.push(routes.letter.my);
+    }, []);
+
     const logout = async () => {
         await signOut(firebase);
         router.replace(routes.home);
@@ -204,6 +208,7 @@ export function Profile() {
                         </Row>
                         <Row
                             alignItems={'center'}
+                            onClick={goMyLetter}
                             style={{
                                 cursor: 'pointer',
                                 marginTop: sizing.menu.gap,

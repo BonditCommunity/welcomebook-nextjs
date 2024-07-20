@@ -34,6 +34,10 @@ export function Success() {
         router.push(routes.profile.root);
     }, []);
 
+    const goProfile = useCallback(() => {
+        router.push(routes.profile.root);
+    }, []);
+
     return (
         <Sheet
             sx={{
@@ -64,7 +68,7 @@ export function Success() {
                 size={'xl'}
                 color={'inverted'}
                 text={t('myWishListSuccessSubmitText')}
-                onClick={openImagePicker}
+                onClick={goProfile}
                 shadow={true}
                 sx={{
                     marginTop: 10,
