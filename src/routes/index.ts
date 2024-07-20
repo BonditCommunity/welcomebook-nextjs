@@ -29,5 +29,6 @@ export const routes = {
 export const loginRequiredRoutes: string[] = [
     routes.wishlist.root,
     routes.wishlist.my,
+    routes.profile.root,
     routes.profile.address,
 ];

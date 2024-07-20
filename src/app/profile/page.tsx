@@ -1,6 +1,4 @@
-'use client';
-
-import { Profile } from '@/screens/profile/profile/page';
+import { Profile } from '@/screens/profile/profile';
 
 export default function Screen() {
     return <Profile />;
