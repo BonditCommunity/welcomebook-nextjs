@@ -21,6 +21,9 @@ export const routes = {
         root: '/profile',
         address: '/profile/address',
     },
+    letter: {
+        my: '/letter/my',
+    },
     api: {
         createCheckoutSession: '/api/create-checkout-session',
     },
@@ -31,4 +34,5 @@ export const loginRequiredRoutes: string[] = [
     routes.wishlist.my,
     routes.profile.root,
     routes.profile.address,
+    routes.letter.my,
 ];
