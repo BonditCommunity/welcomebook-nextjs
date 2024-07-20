@@ -50,7 +50,7 @@ export function MyLetter() {
 
     const share = () => {
         if (!myPage) return;
-        const text = `${routes.origin}${routes.message.send(
+        const text = `${routes.origin}${routes.letter.send(
             `${myPage.userInfo.id}`,
         )}`;
         if (!!navigator.canShare) {
@@ -68,7 +68,7 @@ export function MyLetter() {
         if (navigator.clipboard) {
             navigator.clipboard
                 .writeText(text)
-                .then(() => alert(t('letterMyCopiedText')));
+                .then(() => alert(t('myLetterCopiedText')));
         }
     };
 
@@ -132,7 +132,7 @@ export function MyLetter() {
                 <FH3
                     textAlign={'center'}
                     style={{ marginTop: 50, marginLeft: 50, marginRight: 50 }}>
-                    {t('letterMyCountText', {
+                    {t('myLetterCountText', {
                         people: myPage?.letters.length ?? 0,
                     })}
                 </FH3>
@@ -179,7 +179,7 @@ export function MyLetter() {
                             height={sizing.guide.icon}
                         />
                         <IH2 textAlign={'center'}>
-                            {t('letterMyShareGuide')}
+                            {t('myLetterShareGuide')}
                         </IH2>
                         <img
                             src={imgHand.src}
@@ -188,7 +188,7 @@ export function MyLetter() {
                         />
                     </Row>
                     <RoundButton
-                        text={t('letterMyShareText')}
+                        text={t('myLetterShareText')}
                         shadow={true}
                         onClick={share}
                         renderPrefix={renderShareIcon}
@@ -200,7 +200,7 @@ export function MyLetter() {
                     <RoundButton
                         size={'sm'}
                         color={'inverted'}
-                        text={t('letterMyGoMyWishListText')}
+                        text={t('myLetterGoMyWishListText')}
                         border={true}
                         onClick={goMyWishList}
                         sx={{

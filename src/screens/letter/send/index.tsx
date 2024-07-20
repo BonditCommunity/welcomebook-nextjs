@@ -21,7 +21,7 @@ import { useTheme } from '@/hooks/common/use-theme';
 import { Col } from '@/components/grid/col';
 import { FH3 } from '@/components/typography/FH3';
 import { Form } from '@/components/form/form';
-import { Schema, SendMessageParams } from './@types';
+import { Schema, SendLetterParams } from './@types';
 import { schema, sizing } from './@constants';
 import { dropShadow } from '@/theme/shadow';
 import { Row } from '@/components/grid/row';
@@ -41,9 +41,9 @@ import { RoundButton } from '@/components/button/round-button';
 import { routes } from '@/routes';
 import { Avatar } from '@/components/userinfo/avatar';
 
-export function SendMessage() {
+export function SendLetter() {
     const router = useRouter();
-    const params = useParams<SendMessageParams>();
+    const params = useParams<SendLetterParams>();
 
     const { t } = useTranslation();
     const { theme } = useTheme();
@@ -246,7 +246,7 @@ export function SendMessage() {
                                 sx={{
                                     textTransform: 'uppercase',
                                 }}>
-                                {t('sendMessageTitle')}
+                                {t('sendLetterTitle')}
                             </FH3>
                         </div>
                         <div
@@ -261,7 +261,7 @@ export function SendMessage() {
                             }}>
                             <FormInput
                                 name={'content'}
-                                placeholder={t('sendMessageContentPlaceholder')}
+                                placeholder={t('sendLetterContentPlaceholder')}
                                 multiline={true}
                                 inputProps={{
                                     style: {
@@ -280,7 +280,7 @@ export function SendMessage() {
                                 <FormInput
                                     name={'writer'}
                                     placeholder={t(
-                                        'sendMessageWriterPlaceholder',
+                                        'sendLetterWriterPlaceholder',
                                     )}
                                     sx={{
                                         flex: 1,
@@ -298,7 +298,7 @@ export function SendMessage() {
                 <RoundButton
                     type={'submit'}
                     color={'primary'}
-                    text={t('sendMessageSubmitText')}
+                    text={t('sendLetterSubmitText')}
                     disabled={isSubmitting || !isValid}
                     sx={{
                         marginTop: 10,
@@ -330,7 +330,7 @@ export function SendMessage() {
                         />
                     </Center>
                     <FH3 textAlign={'center'} style={{ marginTop: 20 }}>
-                        {t('sendMessageSuccessText')}
+                        {t('sendLetterSuccessText')}
                     </FH3>
                 </Col>
             </Dialog>

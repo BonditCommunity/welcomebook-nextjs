@@ -15,15 +15,13 @@ export const routes = {
         user: (id: string) => `/funding/user/${id}`,
         success: (id: string) => `/funding/success/${id}`,
     },
-    message: {
-        send: (id: string) => `/message/send/${id}`,
-    },
     profile: {
         root: '/profile',
         address: '/profile/address',
     },
     letter: {
         my: '/letter/my',
+        send: (id: string) => `/message/send/${id}`,
     },
     api: {
         createCheckoutSession: '/api/create-checkout-session',

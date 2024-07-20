@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { schema } from '../@constants';
 
-export type SendMessageParams = {
+export type SendLetterParams = {
     id: string;
 };
 

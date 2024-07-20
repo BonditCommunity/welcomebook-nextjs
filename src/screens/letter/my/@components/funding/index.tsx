@@ -92,7 +92,7 @@ export const Funding: React.FC<FundingProps> = ({ style, percent }) => {
                     left: `${percent}%`,
                     transform: `translateX(-${width / 2}px)`,
                 }}>
-                {t('letterMyFundingThumbText')}
+                {t('myLetterFundingThumbText')}
             </FBody3>
         </div>
     );
