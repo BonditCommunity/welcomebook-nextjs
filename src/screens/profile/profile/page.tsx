@@ -36,13 +36,15 @@ import { useUpdateUserInfo } from '@/api/user-info/repository/update-user-info';
 import { FH3 } from '@/components/typography/FH3';
 import { firebase } from '@/firebase';
 import { routes } from '@/routes';
+import { fileState } from '@/recoil/atoms/common/file';
 
 export function Profile() {
     const router = useRouter();
 
-    const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-
     const inputRef = useRef<HTMLInputElement>(null);
+
+    const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+    const [initialFile, setInitialFile] = useRecoilState(fileState);
 
     const { t } = useTranslation();
     const { theme } = useTheme();
@@ -52,7 +54,7 @@ export function Profile() {
     const { loading: editing, fetch: updateUserInfo } = useUpdateUserInfo();
 
     const [user, setUser] = useState<UserInfoRes | undefined>(userInfo);
-    const [file, setFile] = useState<File>();
+    const [file, setFile] = useState<File | undefined>(initialFile);
     const [showConfirm, setShowConfirm] = useState<boolean>(false);
 
     const openImagePicker = useCallback(() => {
@@ -120,6 +122,7 @@ export function Profile() {
 
     useEffect(() => {
         const initialize = async () => {
+            setInitialFile(undefined);
             const { result } = await fetch();
             if (result) {
                 setUserInfo(result);

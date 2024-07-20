@@ -18,6 +18,7 @@ export const routes = {
         send: (id: string) => `/message/send/${id}`,
     },
     profile: {
+        root: '/profile',
         address: '/profile/address',
     },
     api: {
