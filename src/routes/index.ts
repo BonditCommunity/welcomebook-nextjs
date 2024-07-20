@@ -21,7 +21,7 @@ export const routes = {
     },
     letter: {
         my: '/letter/my',
-        send: (id: string) => `/message/send/${id}`,
+        send: (id: string) => `/letter/send/${id}`,
     },
     api: {
         createCheckoutSession: '/api/create-checkout-session',
