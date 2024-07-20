@@ -74,6 +74,12 @@ export const imgLetter9: Asset = {
     height: 547,
 };
 
+export const imgLoading: Asset = {
+    src: `${basePath}/img_loading.png`,
+    width: 504,
+    height: 504,
+};
+
 export const imgProfile: Asset = {
     src: `${basePath}/img_profile.png`,
     width: 201,
