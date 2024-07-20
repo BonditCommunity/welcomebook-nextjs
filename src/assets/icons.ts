@@ -24,6 +24,8 @@ export const iconHeart = `${basePath}/icon_heart.svg`;
 
 export const iconImage = `${basePath}/icon_image.svg`;
 
+export const iconLogout = `${basePath}/icon_logout.svg`;
+
 export const iconMinus = `${basePath}/icon_minus.svg`;
 
 export const iconNext = `${basePath}/icon_next.svg`;

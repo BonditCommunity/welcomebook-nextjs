@@ -156,6 +156,14 @@ export const light: PaletteOptions = {
         checkbox: {
             icon: color.white.default,
         },
+        switch: {
+            track: {
+                active: color.primary.default,
+                inactive: color.primary['3'],
+            },
+            thumb: color.white.default,
+            border: color.primary['0'],
+        },
         action: {
             background: color.gray.E7,
             icon: {
@@ -286,6 +294,14 @@ export const dark: PaletteOptions = {
         },
         checkbox: {
             icon: color.white.default,
+        },
+        switch: {
+            track: {
+                active: color.primary.default,
+                inactive: color.primary['3'],
+            },
+            thumb: color.white.default,
+            border: color.primary['0'],
         },
         action: {
             background: color.gray.E7,

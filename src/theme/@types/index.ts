@@ -68,6 +68,14 @@ export interface TypeForm {
     checkbox: {
         icon: string;
     };
+    switch: {
+        track: {
+            active: string;
+            inactive: string;
+        };
+        thumb: string;
+        border: string;
+    };
     action: {
         background: string;
         icon: {

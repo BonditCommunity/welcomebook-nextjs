@@ -18,6 +18,7 @@ import { MuiFab } from './@components/fab';
 import { MuiAutocomplete } from './@components/autocomplete';
 import { MuiPickersLayout } from './@components/x-date-picker';
 import { MuiDialog } from './@components/dialog';
+import { MuiSwitch } from './@components/switch';
 
 export const ThemeProvider: React.FC<ChildrenProps> = ({ children }) => {
     const locale = useRecoilValue(localeState);
@@ -29,6 +30,7 @@ export const ThemeProvider: React.FC<ChildrenProps> = ({ children }) => {
             MuiAutocomplete,
             MuiPickersLayout,
             MuiDialog,
+            MuiSwitch,
             ...locale.system.components,
         },
         spacing: (value: number) => `${value}px`,

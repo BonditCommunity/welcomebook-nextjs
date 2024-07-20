@@ -31,13 +31,13 @@ import { useCreateWishList } from '@/api/wishlist/repository/create-wish-list';
 import { wishListState } from '@/recoil/atoms/wishlist/wish-list';
 import { productsState } from '@/recoil/atoms/product/products';
 import { useFindProfileByFirebaseUid } from '@/api/user-info/repository/find-profile-by-firebase-uid';
-import { UserInfoRes } from '@/api/user-info/vm/res/user-info';
 import { WishListRes } from '@/api/wishlist/vm/res/wish-list';
 import { useUpdateWishList } from '@/api/wishlist/repository/update-wish-list';
 import { FH4 } from '@/components/typography/FH4';
 import { routes } from '@/routes';
 import { InputBox } from '@/components/form/input-box';
 import { SquareButton } from '@/components/button/square-button';
+import { userInfoState } from '@/recoil/atoms/user-info/user-info';
 
 export function WishList() {
     const router = useRouter();
@@ -45,6 +45,7 @@ export function WishList() {
     const { t } = useTranslation();
     const { theme } = useTheme();
 
+    const [userInfo, setUserInfo] = useRecoilState(userInfoState);
     const [products, setProducts] = useRecoilState(productsState);
     const setWishList = useSetRecoilState(wishListState);
 
@@ -56,7 +57,6 @@ export function WishList() {
     const { loading: creating, fetch: createWishList } = useCreateWishList();
     const { loading: editing, fetch: updateWishList } = useUpdateWishList();
 
-    const [userInfo, setUserInfo] = useState<UserInfoRes>();
     const [list, setList] = useState<ProductRes[]>(products);
     const [productIds, setProductIds] = useState<number[]>([]);
     const [showConfirm, setShowConfirm] = useState<boolean>(false);

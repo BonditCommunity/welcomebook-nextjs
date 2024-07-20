@@ -7,8 +7,30 @@ import { Image } from '@/components/image/image/image';
 import { useTheme } from '@/hooks/common/use-theme';
 import { imgProfile } from '@/assets/images';
 
-export const Avatar: React.FC<AvatarProps> = ({ style, user, size = 95 }) => {
+export const Avatar: React.FC<AvatarProps> = ({
+    style,
+    user,
+    size = 95,
+    file,
+}) => {
     const { theme } = useTheme();
+
+    if (file) {
+        return (
+            <img
+                src={URL.createObjectURL(file)}
+                width={size}
+                height={size}
+                style={{
+                    borderWidth: 10,
+                    borderColor: theme.background.default,
+                    borderStyle: 'solid',
+                    borderRadius: 9999,
+                    ...style,
+                }}
+            />
+        );
+    }
     if (user?.imageUrl) {
         return (
             <Image
@@ -35,6 +57,7 @@ export const Avatar: React.FC<AvatarProps> = ({ style, user, size = 95 }) => {
                 borderColor: theme.background.default,
                 borderStyle: 'solid',
                 borderRadius: 9999,
+                ...style,
             }}
         />
     );
