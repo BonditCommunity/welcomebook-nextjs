@@ -96,9 +96,7 @@ export function ProfileAddress() {
                             <FormInputBox
                                 {...params}
                                 name={'country'}
-                                placeholder={t(
-                                    'profileAddressCountryPlaceholder',
-                                )}
+                                title={t('profileAddressCountryTitle')}
                             />
                         )}
                         renderOption={(props, option) => (
@@ -109,32 +107,28 @@ export function ProfileAddress() {
                     />
                     <FormInputBox
                         name={'streetAddress'}
-                        placeholder={t(
-                            'profileAddressStreetAddressPlaceholder',
-                        )}
+                        title={t('profileAddressStreetAddressTitle')}
                         style={{
                             marginTop: sizing.input.gap,
                         }}
                     />
                     <FormInputBox
                         name={'city'}
-                        placeholder={t('profileAddressCityPlaceholder')}
+                        title={t('profileAddressCityTitle')}
                         style={{
                             marginTop: sizing.input.gap,
                         }}
                     />
                     <FormInputBox
                         name={'optionalAddress'}
-                        placeholder={t(
-                            'profileAddressOptionalAddressPlaceholder',
-                        )}
+                        title={t('profileAddressOptionalAddressTitle')}
                         style={{
                             marginTop: sizing.input.gap,
                         }}
                     />
                     <FormInputBox
                         name={'zipCode'}
-                        placeholder={t('profileAddressZipCodePlaceholder')}
+                        title={t('profileAddressZipCodeTitle')}
                         fullWidth={false}
                         inputMode={'decimal'}
                         regex={regexNumber}
@@ -146,7 +140,7 @@ export function ProfileAddress() {
                     <FormInputBox
                         type={'tel'}
                         name={'phoneNumber'}
-                        placeholder={t('profileAddressPhoneNumberPlaceholder')}
+                        title={t('profileAddressPhoneNumberTitle')}
                         inputMode={'tel'}
                         regex={regexMobile}
                         style={{

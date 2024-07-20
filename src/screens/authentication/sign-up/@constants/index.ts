@@ -7,7 +7,7 @@ import { errors } from '@/messages/error';
 
 export const sizing = {
     input: {
-        gap: 15,
+        gap: 20,
     },
 };
 

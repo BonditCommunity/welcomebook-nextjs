@@ -139,10 +139,7 @@ export function SignUp() {
                     paddingTop: 55,
                 }}>
                 <div>
-                    <FormInputBox
-                        name={'name'}
-                        placeholder={t('signUpNamePlaceholder')}
-                    />
+                    <FormInputBox name={'name'} title={t('signUpNameTitle')} />
                     <Autocomplete
                         fullWidth={true}
                         options={colleges}
@@ -184,7 +181,7 @@ export function SignUp() {
                             <FormInputBox
                                 {...params}
                                 name={'college'}
-                                placeholder={t('signUpCollegePlaceholder')}
+                                title={t('signUpCollegeTitle')}
                                 onChange={undefined}
                             />
                         )}
@@ -211,9 +208,7 @@ export function SignUp() {
                         disablePast={true}
                         format={'YYYY.MM.DD'}
                         localeText={{
-                            toolbarTitle: t(
-                                'signUpCollegeStartDatePlaceholder',
-                            ),
+                            toolbarTitle: t('signUpCollegeStartDateTitle'),
                             okButtonLabel: t('buttonSelect'),
                             cancelButtonLabel: t('buttonCancel'),
                         }}
@@ -225,9 +220,8 @@ export function SignUp() {
                                 return (
                                     <InputBox
                                         {...props}
-                                        placeholder={t(
-                                            'signUpCollegeStartDatePlaceholder',
-                                        )}
+                                        title={t('signUpCollegeStartDateTitle')}
+                                        placeholder={''}
                                         style={{
                                             marginTop: sizing.input.gap,
                                         }}

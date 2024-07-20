@@ -32,7 +32,7 @@ export interface TypeForm {
     underlined: {
         border: string;
     };
-    outlined: {
+    box: {
         text: string;
         background: {
             default: string;
@@ -43,6 +43,11 @@ export interface TypeForm {
                 inverted: string;
                 black: string;
             };
+        };
+        title: {
+            default: string;
+            inverted: string;
+            black: string;
         };
         placeholder: {
             default: string;

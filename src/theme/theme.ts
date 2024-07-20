@@ -120,7 +120,7 @@ export const light: PaletteOptions = {
         underlined: {
             border: color.black.default,
         },
-        outlined: {
+        box: {
             text: color.white.default,
             background: {
                 default: color.primary['0'],
@@ -131,6 +131,11 @@ export const light: PaletteOptions = {
                     inverted: color.primary.default,
                     black: 'transparent',
                 },
+            },
+            title: {
+                default: color.primary['2'],
+                inverted: color.gray.AA,
+                black: color.white.default,
             },
             placeholder: {
                 default: color.primary['2'],
@@ -259,7 +264,7 @@ export const dark: PaletteOptions = {
         underlined: {
             border: color.black.default,
         },
-        outlined: {
+        box: {
             text: color.white.default,
             background: {
                 default: color.primary['0'],
@@ -270,6 +275,11 @@ export const dark: PaletteOptions = {
                     inverted: color.primary.default,
                     black: 'transparent',
                 },
+            },
+            title: {
+                default: color.primary['2'],
+                inverted: color.gray.AA,
+                black: color.white.default,
             },
             placeholder: {
                 default: color.primary['2'],
