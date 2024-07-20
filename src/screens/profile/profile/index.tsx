@@ -274,25 +274,21 @@ export function Profile() {
                         <RoundButton
                             color={'inverted'}
                             text={t('buttonYes')}
+                            border={true}
                             onClick={logout}
                             textSx={{
                                 color: theme.text.default,
                             }}
                             sx={{
                                 flex: 1,
-                                borderColor: theme.button.primary.background,
-                                borderWidth: 4,
-                                borderStyle: 'solid',
                             }}
                         />
                         <RoundButton
                             text={t('buttonNo')}
+                            border={true}
                             onClick={onCloseConfirm}
                             sx={{
                                 flex: 1,
-                                borderColor: theme.button.primary.background,
-                                borderWidth: 4,
-                                borderStyle: 'solid',
                                 marginLeft: 10,
                             }}
                         />

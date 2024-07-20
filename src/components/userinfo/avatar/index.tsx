@@ -10,6 +10,7 @@ import { imgProfile } from '@/assets/images';
 export const Avatar: React.FC<AvatarProps> = ({
     style,
     user,
+    college,
     size = 95,
     file,
 }) => {
@@ -31,7 +32,22 @@ export const Avatar: React.FC<AvatarProps> = ({
             />
         );
     }
-    if (user?.imageUrl) {
+    if (user && !user.isCollegeHide && college) {
+        return (
+            <Image
+                src={college.imageUrl}
+                width={size}
+                height={size}
+                style={{
+                    borderWidth: 10,
+                    borderColor: theme.background.default,
+                    borderStyle: 'solid',
+                    borderRadius: 9999,
+                    ...style,
+                }}
+            />
+        );
+    } else if (user?.imageUrl) {
         return (
             <Image
                 src={user.imageUrl}

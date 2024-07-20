@@ -19,6 +19,7 @@ export const RoundButton: React.FC<RoundButtonProps> = ({
     color = 'primary',
     text,
     disabled,
+    border,
     shadow,
     renderPrefix,
     ...props
@@ -50,6 +51,11 @@ export const RoundButton: React.FC<RoundButtonProps> = ({
                 }),
                 ...(size === 'xl' && {
                     height: 100,
+                }),
+                ...(border && {
+                    borderColor: theme.button.primary.background,
+                    borderWidth: 4,
+                    borderStyle: 'solid',
                 }),
                 ...sx,
             }}>

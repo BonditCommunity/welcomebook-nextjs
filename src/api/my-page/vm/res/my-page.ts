@@ -9,6 +9,7 @@ export interface MyPageRes {
     funds: FundRes;
     totalFund: number;
     userInfo: UserInfoRes;
+    url?: string;
     college: CollegeRes;
     createdAt: Date;
     updatedAt: Date;

@@ -1,4 +1,5 @@
 export const routes = {
+    origin: 'https://uscollege.live',
     home: '/',
     signUp: '/sign-up',
     wishlist: {

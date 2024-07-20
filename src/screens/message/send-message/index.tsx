@@ -1,6 +1,12 @@
 'use client';
 
-import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import React, {
+    ChangeEvent,
+    useCallback,
+    useEffect,
+    useMemo,
+    useState,
+} from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
@@ -47,7 +53,6 @@ export function SendMessage() {
     const { fetch: createLetter } = useCreateLetter();
 
     const [user, setUser] = useState<UserInfoRes>();
-    const [dDay, setDDay] = useState<number>(0);
     const [showSuccess, setShowSuccess] = useState<boolean>(false);
 
     const methods = useForm<Schema>({
@@ -64,6 +69,11 @@ export function SendMessage() {
     } = methods;
 
     const [file, setFile] = useState<File>();
+
+    const dDay = useMemo<number>(() => {
+        if (!user?.firstDay) return 0;
+        return dayjs(user.firstDay).diff(dayjs(new Date()), 'd');
+    }, [user]);
 
     const handleFile = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         setFile(event.target.files?.item(0) ?? undefined);
@@ -183,11 +193,6 @@ export function SendMessage() {
             const { result } = await fetch(Number(params.id));
             if (result) {
                 setUser(result);
-                if (result.firstDay) {
-                    setDDay(
-                        dayjs(result.firstDay).diff(dayjs(new Date()), 'd'),
-                    );
-                }
             }
         };
         initialize();

@@ -12,6 +12,28 @@ import {
 import { Sticker } from '../@types';
 import { calculateAssetHeight } from '@/helpers/common/calculate-asset-size';
 
+export const sizing = {
+    funding: {
+        rail: {
+            height: 15,
+        },
+        thumb: {
+            size: 30,
+            border: 3,
+        },
+    },
+    avatar: 75,
+    sheet: {
+        borderRadius: 20,
+    },
+    guide: {
+        icon: 25,
+    },
+    share: {
+        icon: 25,
+    },
+};
+
 export const stickers: Sticker[] = [
     {
         img: imgLetter1,

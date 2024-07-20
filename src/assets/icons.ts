@@ -34,4 +34,6 @@ export const iconPrev = `${basePath}/icon_prev.svg`;
 
 export const iconSearch = `${basePath}/icon_search.svg`;
 
+export const iconShare = `${basePath}/icon_share.svg`;
+
 export const iconTriangle = `${basePath}/icon_triangle.svg`;
