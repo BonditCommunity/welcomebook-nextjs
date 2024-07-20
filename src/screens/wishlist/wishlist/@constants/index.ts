@@ -23,6 +23,6 @@ export const sizing = {
         container: 80,
         border: 1.5,
         icon: 40,
-        counter: 20,
+        counter: 30,
     },
 };

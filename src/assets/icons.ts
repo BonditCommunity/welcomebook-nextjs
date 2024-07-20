@@ -20,6 +20,8 @@ export const iconCheckbox = `${basePath}/icon_checkbox.svg`;
 
 export const iconClose = `${basePath}/icon_close.svg`;
 
+export const iconHeartFilled = `${basePath}/icon_heart_filled.svg`;
+
 export const iconHeart = `${basePath}/icon_heart.svg`;
 
 export const iconImage = `${basePath}/icon_image.svg`;

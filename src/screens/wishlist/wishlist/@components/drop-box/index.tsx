@@ -7,7 +7,7 @@ import { DropBoxProps } from './@types';
 import { Center } from '@/components/grid/center';
 import { useTheme } from '@/hooks/common/use-theme';
 import { Svg } from '@/components/image/svg';
-import { iconHeart } from '@/assets/icons';
+import { iconHeart, iconHeartFilled } from '@/assets/icons';
 import { dropShadow } from '@/theme/shadow';
 import { sizing } from '../../@constants';
 import { colorWithAlpha } from '@/helpers/common/color-with-alpha';
@@ -31,7 +31,7 @@ export const DropBox: React.FC<DropBoxProps> = ({ products, onSubmit }) => {
                 height: sizing.dropBox.container,
                 borderRadius: 9999,
                 backgroundColor: colorWithAlpha(theme.background.black, 0.8),
-                borderWidth: sizing.dropBox.border,
+                borderWidth: sizing.dropBox.border * (products > 0 ? 2 : 1),
                 borderColor: theme.border.default,
                 borderStyle: 'solid',
                 boxShadow: dropShadow,
@@ -57,26 +57,42 @@ export const DropBox: React.FC<DropBoxProps> = ({ products, onSubmit }) => {
                     color={theme.icon.white}
                     width={sizing.dropBox.icon}
                     height={sizing.dropBox.icon}
+                    style={{
+                        position: 'absolute',
+                        ...(products > 0 && {
+                            opacity: 0,
+                        }),
+                    }}
                 />
-                {products > 0 && (
-                    <Center
-                        sx={{
-                            width: sizing.dropBox.counter,
-                            height: sizing.dropBox.counter,
-                            borderRadius: 9999,
-                            backgroundColor: color.blue.default,
-                            position: 'absolute',
-                            right: -5,
-                            bottom: -3,
-                        }}>
-                        <ISubtitle2
-                            textAlign={'center'}
-                            color={theme.text.white}>
-                            {products}
-                        </ISubtitle2>
-                    </Center>
-                )}
+                <Svg
+                    src={iconHeartFilled}
+                    color={color.red.default}
+                    width={sizing.dropBox.icon}
+                    height={sizing.dropBox.icon}
+                    style={{
+                        position: 'absolute',
+                        ...(products === 0 && {
+                            opacity: 0,
+                        }),
+                    }}
+                />
             </div>
+            {products > 0 && (
+                <Center
+                    sx={{
+                        width: sizing.dropBox.counter,
+                        height: sizing.dropBox.counter,
+                        borderRadius: 9999,
+                        backgroundColor: color.primary.default,
+                        position: 'absolute',
+                        right: 0,
+                        bottom: -5,
+                    }}>
+                    <ISubtitle2 textAlign={'center'} color={theme.text.white}>
+                        {products}
+                    </ISubtitle2>
+                </Center>
+            )}
         </Center>
     );
 };
