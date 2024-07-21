@@ -24,6 +24,7 @@
     "wishListItemCaution": "The displayed image may differ from the actual product image.",
     "wishListItemSufficient": "A lot of Stock",
     "wishListItemInsufficient": "Almost out of stock (Can be replaced with a different product)",
+    "wishListDropBoxText": "Click me !",
     "wishListConfirmText": "When the item inventory runs out, we will send a different product of the same price.",
     "wishListConfirmSubmitText": "Accept",
     "myWishListTitle": "Wish List",

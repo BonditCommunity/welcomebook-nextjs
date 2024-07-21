@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDroppable } from '@dnd-kit/core';
 
 import { DropBoxProps } from './@types';
@@ -13,8 +14,10 @@ import { sizing } from '../../@constants';
 import { colorWithAlpha } from '@/helpers/common/color-with-alpha';
 import { color } from '@/theme/theme';
 import { ISubtitle2 } from '@/components/typography/ISubtitle2';
+import { FBody3 } from '@/components/typography/FBody3';
 
 export const DropBox: React.FC<DropBoxProps> = ({ products, onSubmit }) => {
+    const { t } = useTranslation();
     const { theme } = useTheme();
 
     const { isOver, setNodeRef } = useDroppable({
@@ -46,7 +49,7 @@ export const DropBox: React.FC<DropBoxProps> = ({ products, onSubmit }) => {
                     }px) scale(1.2)`,
                 }),
             }}>
-            <div
+            <Center
                 style={{
                     position: 'relative',
                     width: sizing.dropBox.icon,
@@ -76,7 +79,19 @@ export const DropBox: React.FC<DropBoxProps> = ({ products, onSubmit }) => {
                         }),
                     }}
                 />
-            </div>
+                {products > 0 && (
+                    <FBody3
+                        color={theme.text.white}
+                        textAlign={'center'}
+                        style={{
+                            fontSize: 8.5,
+                            position: 'absolute',
+                            top: -12,
+                        }}>
+                        {t('wishListDropBoxText')}
+                    </FBody3>
+                )}
+            </Center>
             {products > 0 && (
                 <Center
                     sx={{
