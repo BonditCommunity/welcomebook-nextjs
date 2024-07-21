@@ -16,9 +16,9 @@ import { regexMobile, regexNumber } from '@/constants/form/regex';
 import { Success } from './success';
 import { Country } from '@/@types';
 import { FormInputBox } from '@/components/form/input-box/form-input-box';
-import { SquareButton } from '@/components/button/square-button';
 import { useCreateOrderList } from '@/api/wishlist/repository/create-order-list';
 import { parseError } from '@/helpers/format/parse-error';
+import { RoundButton } from '@/components/button/round-button';
 
 export function ProfileAddress() {
     const { t } = useTranslation();
@@ -148,13 +148,15 @@ export function ProfileAddress() {
                         }}
                     />
                 </div>
-                <SquareButton
+                <RoundButton
                     type={'submit'}
-                    size={'sm'}
+                    size={'lg'}
+                    color={'default'}
                     text={t('buttonSubmit')}
                     disabled={isSubmitting || !isValid}
                     shadow={true}
                     sx={{
+                        width: '100%',
                         marginTop: 10,
                         marginBottom: spacing.form.submit.margin.bottom,
                     }}

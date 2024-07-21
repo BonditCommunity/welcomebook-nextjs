@@ -24,13 +24,13 @@ import { Product } from './@components/product';
 import { Row } from '@/components/grid/row';
 import { IBody2 } from '@/components/typography/IBody2';
 import { spacing } from '@/theme/spacing';
-import { SquareButton } from '@/components/button/square-button';
 import { useCreateWishList } from '@/api/wishlist/repository/create-wish-list';
 import { useUpdateWishList } from '@/api/wishlist/repository/update-wish-list';
 import { parseError } from '@/helpers/format/parse-error';
 import { useFindAllProductsInWishList } from '@/api/wishlist/repository/find-all-products-in-wish-list';
 import { WishListRes } from '@/api/wishlist/vm/res/wish-list';
 import { Success } from './success';
+import { RoundButton } from '@/components/button/round-button';
 
 export function MyWishList() {
     const router = useRouter();
@@ -193,13 +193,15 @@ export function MyWishList() {
                             {`${t('myWishListConfirmText')} `}
                         </IBody2>
                     </Row>
-                    <SquareButton
-                        size={'sm'}
+                    <RoundButton
+                        size={'lg'}
+                        color={'default'}
                         text={t('buttonDone')}
                         disabled={disabled}
                         shadow={true}
                         onClick={submit}
                         sx={{
+                            width: '100%',
                             marginTop: 30,
                             marginBottom: spacing.form.submit.margin.bottom,
                         }}

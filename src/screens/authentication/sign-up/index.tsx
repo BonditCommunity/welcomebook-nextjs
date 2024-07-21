@@ -32,7 +32,7 @@ import { parseError } from '@/helpers/format/parse-error';
 import { useUpdateUserInfo } from '@/api/user-info/repository/update-user-info';
 import { FormInputBox } from '@/components/form/input-box/form-input-box';
 import { InputBox } from '@/components/form/input-box';
-import { SquareButton } from '@/components/button/square-button';
+import { RoundButton } from '@/components/button/round-button';
 
 const filter = createFilterOptions<CollegeRes>();
 
@@ -283,13 +283,15 @@ export function SignUp() {
                             </IBody2>
                         </IBody2>
                     </Row>
-                    <SquareButton
+                    <RoundButton
                         type={'submit'}
-                        size={'sm'}
+                        size={'lg'}
+                        color={'default'}
                         text={t(isValid ? 'buttonComplete' : 'buttonNext')}
                         disabled={isSubmitting || !isValid}
                         shadow={true}
                         sx={{
+                            width: '100%',
                             marginTop: 55,
                             marginBottom: spacing.form.submit.margin.bottom,
                         }}
