@@ -66,11 +66,11 @@ export function Profile() {
     }, []);
 
     const handleIsCollegeHide = useCallback(
-        (_: unknown, isCollegeHide: boolean) => {
+        (_: unknown, value: boolean) => {
             if (!user) return;
             setUser({
                 ...user,
-                isCollegeHide,
+                isCollegeHide: !value,
             });
         },
         [user],
@@ -202,7 +202,7 @@ export function Profile() {
                             </FH4>
                             <Switch
                                 disableRipple={true}
-                                checked={user?.isCollegeHide}
+                                checked={user ? !user.isCollegeHide : false}
                                 onChange={handleIsCollegeHide}
                             />
                         </Row>

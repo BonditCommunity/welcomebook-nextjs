@@ -8,7 +8,6 @@ import {
     GoogleLogin,
     GoogleOAuthProvider,
 } from '@react-oauth/google';
-import AppleSignIn from 'react-apple-signin-auth';
 import { signInWithCustomToken } from 'firebase/auth';
 
 import { FTitle } from '@/components/typography/FTitle';
@@ -16,12 +15,13 @@ import { useTheme } from '@/hooks/common/use-theme';
 import { FH2 } from '@/components/typography/FH2';
 import { Screen } from '@/components/layout/screen';
 import { firebase } from '@/firebase';
-import { AppleSignInResponse } from '@/@types';
 import { useSignIn } from '@/api/authentication/repository/sign-in';
 import { routes } from '@/routes';
 import { parseError } from '@/helpers/format/parse-error';
 import { SignInStatus } from '@/api/authentication/vm/enum/sign-in-status';
 import { SnsType } from '@/api/user-info/vm/enum/sns-type';
+import { spacing } from '@/theme/spacing';
+import { Center } from '@/components/grid/center';
 
 export function Home() {
     const router = useRouter();
@@ -44,20 +44,6 @@ export function Home() {
         const { result, error } = await fetch({
             snsType: SnsType.GOOGLE,
             snsToken: credential.credential,
-        });
-
-        if (result?.customToken) {
-            await signInWithCustomToken(firebase, result.customToken);
-            onSuccess(result.status);
-        } else if (error) {
-            alert(parseError(error));
-        }
-    };
-
-    const signInApple = async (credential: AppleSignInResponse) => {
-        const { result, error } = await fetch({
-            snsType: SnsType.APPLE,
-            snsToken: credential.authorization.id_token,
         });
 
         if (result?.customToken) {
@@ -94,26 +80,17 @@ export function Home() {
                         {t('homeSubtitle')}
                     </FH2>
                 </div>
-                <div>
-                    <div style={{ marginTop: 15 }}>
-                        <GoogleLogin onSuccess={signInGoogle} />
-                    </div>
-                    <div style={{ marginTop: 15 }}>
-                        <AppleSignIn
-                            authOptions={{
-                                clientId: process.env.APPLE_CLIENT_ID!,
-                                scope: 'email name',
-                                redirectURI: 'https://uscollege.live',
-                                state: 'origin:web',
-                                nonce: 'nonce',
-                                usePopup: true,
-                            }}
-                            uiType={type}
-                            onSuccess={signInApple}
-                            onError={() => {}}
-                        />
-                    </div>
-                </div>
+                <Center
+                    style={{
+                        marginTop: 15,
+                        marginBottom: spacing.form.submit.margin.bottom,
+                    }}>
+                    <GoogleLogin
+                        type={'standard'}
+                        onSuccess={signInGoogle}
+                        size={'large'}
+                    />
+                </Center>
             </Screen>
         </GoogleOAuthProvider>
     );
