@@ -1,9 +1,10 @@
 'use client';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import Fab from '@mui/material/Fab';
+import Dialog from '@mui/material/Dialog';
 import useEmblaCarousel from 'embla-carousel-react';
 import { EmblaCarouselType } from 'embla-carousel';
 
@@ -29,6 +30,7 @@ import { ProductInWishListRes } from '@/api/wishlist/vm/res/product-in-wish-list
 import { Slide } from './@components/slide';
 import { Indicator } from './@components/indicator';
 import { routes } from '@/routes';
+import { numberWithCommas } from '@/helpers/format/number-with-commas';
 
 export function UserWishList() {
     const router = useRouter();
@@ -46,6 +48,13 @@ export function UserWishList() {
     const [user, setUser] = useState<UserInfoRes>();
     const [products, setProducts] = useState<ProductInWishListRes[][]>([]);
     const [index, setIndex] = useState<number>(0);
+    const [showDialog, setShowDialog] = useState<boolean>(false);
+
+    const people = useMemo<string>(() => {
+        const from = new Date(2024, 6, 21, 8).getTime();
+        const now = new Date().getTime();
+        return numberWithCommas(Math.floor((now - from) / (1000 * 60 * 5)));
+    }, []);
 
     const prev = useCallback(() => {
         if (!emblaApi) return;
@@ -63,6 +72,10 @@ export function UserWishList() {
 
     const goFunding = useCallback(() => {
         router.push(routes.funding.user(params.id));
+    }, []);
+
+    const goHome = useCallback(() => {
+        router.push(routes.home);
     }, []);
 
     useEffect(() => {
@@ -121,7 +134,7 @@ export function UserWishList() {
                         })}
                     </FH3>
                     <Fab
-                        onClick={router.back}
+                        onClick={() => setShowDialog(true)}
                         sx={{
                             width: 35,
                             height: 35,
@@ -266,6 +279,48 @@ export function UserWishList() {
                     }}
                 />
             </div>
+            <Dialog open={showDialog} onClose={() => setShowDialog(false)}>
+                <div
+                    style={{
+                        paddingTop: 45,
+                        paddingLeft: 50,
+                        paddingRight: 50,
+                        paddingBottom: 20,
+                    }}>
+                    <Row
+                        alignItems={'center'}
+                        justifyContent={'space-between'}
+                        style={{
+                            marginLeft: 15,
+                            marginRight: 15,
+                        }}>
+                        <img
+                            src={imgHand.src}
+                            width={sizing.guide.icon}
+                            height={sizing.guide.icon}
+                        />
+                        <IH2 textAlign={'center'}>
+                            {t('userWishListDialogText', {
+                                people,
+                            })}
+                        </IH2>
+                        <img
+                            src={imgHand.src}
+                            width={sizing.guide.icon}
+                            height={sizing.guide.icon}
+                        />
+                    </Row>
+                    <RoundButton
+                        text={t('userWishListDialogSubmitText')}
+                        color={'primary'}
+                        onClick={goHome}
+                        sx={{
+                            width: '100%',
+                            marginTop: 30,
+                        }}
+                    />
+                </div>
+            </Dialog>
         </Sheet>
     );
 }

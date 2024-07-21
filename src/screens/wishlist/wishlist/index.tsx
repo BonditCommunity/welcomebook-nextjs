@@ -119,10 +119,6 @@ export function WishList() {
         [disabled],
     );
 
-    const onCloseConfirm = useCallback(() => {
-        setShowConfirm(false);
-    }, []);
-
     const onConfirm = async () => {
         if (!userInfo) return;
         if (userInfo.wishListId) {
@@ -267,7 +263,7 @@ export function WishList() {
                 />
                 <DropBox products={productIds.length} onSubmit={submit} />
             </Sheet>
-            <Dialog open={showConfirm} onClose={onCloseConfirm}>
+            <Dialog open={showConfirm} onClose={() => setShowConfirm(false)}>
                 <div
                     style={{
                         paddingTop: 60,

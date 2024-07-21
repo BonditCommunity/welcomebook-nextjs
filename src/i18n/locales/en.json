@@ -34,6 +34,8 @@
     "userWishListListTitle": "Wish List",
     "userWishListFundingGuide": "Let’s chip in!",
     "userWishListFundingText": "Funding",
+    "userWishListDialogText": "{{people}} people joined it",
+    "userWishListDialogSubmitText": "Let’s create yours !",
     "sendLetterTitle": "Write a word for your friend heading to college!",
     "sendLetterContentPlaceholder": "Please write here...",
     "sendLetterWriterPlaceholder": "From.",
