@@ -4,5 +4,6 @@ import { Asset } from '@/@types';
 
 export interface Sticker {
     img: Asset;
-    style?: CSSProperties;
+    containerStyle?: CSSProperties;
+    textStyle?: CSSProperties;
 }

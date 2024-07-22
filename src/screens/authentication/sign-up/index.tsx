@@ -104,6 +104,7 @@ export function SignUp() {
         const { result, error } = await updateUserInfo({
             name: data.name,
             collegeId: college.id,
+            collegeName: college.name,
             collegeFirstDay: data.date,
         });
         if (result) {

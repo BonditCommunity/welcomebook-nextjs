@@ -11,6 +11,7 @@ import {
 } from '@/assets/images';
 import { Sticker } from '../@types';
 import { calculateAssetHeight } from '@/helpers/common/calculate-asset-size';
+import { color } from '@/theme/theme';
 
 export const sizing = {
     funding: {
@@ -37,20 +38,25 @@ export const sizing = {
 export const stickers: Sticker[] = [
     {
         img: imgLetter1,
-        style: {
+        containerStyle: {
             width: 135,
             height: calculateAssetHeight(imgLetter1, 135),
+            padding: 20,
             position: 'absolute',
             top: 100,
             left: -5,
             transform: 'rotate(13.01deg)',
         },
+        textStyle: {
+            color: color.white.default,
+        },
     },
     {
         img: imgLetter2,
-        style: {
+        containerStyle: {
             width: 125,
             height: calculateAssetHeight(imgLetter2, 125),
+            padding: 20,
             position: 'absolute',
             top: 120,
             left: '50%',
@@ -59,9 +65,10 @@ export const stickers: Sticker[] = [
     },
     {
         img: imgLetter3,
-        style: {
+        containerStyle: {
             width: 135,
             height: calculateAssetHeight(imgLetter3, 135),
+            padding: 20,
             position: 'absolute',
             top: 100,
             right: -5,
@@ -70,9 +77,10 @@ export const stickers: Sticker[] = [
     },
     {
         img: imgLetter4,
-        style: {
+        containerStyle: {
             width: 180,
             height: calculateAssetHeight(imgLetter4, 180),
+            padding: '20px 30px',
             position: 'absolute',
             top: 310,
             left: -30,
@@ -81,9 +89,10 @@ export const stickers: Sticker[] = [
     },
     {
         img: imgLetter5,
-        style: {
+        containerStyle: {
             width: 190,
             height: calculateAssetHeight(imgLetter5, 190),
+            padding: 20,
             position: 'absolute',
             top: 290,
             left: '50%',
@@ -93,9 +102,10 @@ export const stickers: Sticker[] = [
     },
     {
         img: imgLetter6,
-        style: {
+        containerStyle: {
             width: 200,
             height: calculateAssetHeight(imgLetter6, 200),
+            padding: 20,
             position: 'absolute',
             top: 300,
             right: -50,
@@ -103,9 +113,10 @@ export const stickers: Sticker[] = [
     },
     {
         img: imgLetter7,
-        style: {
+        containerStyle: {
             width: 190,
             height: calculateAssetHeight(imgLetter7, 190),
+            padding: '30px 20px',
             position: 'absolute',
             top: 455,
             left: -20,
@@ -114,9 +125,10 @@ export const stickers: Sticker[] = [
     },
     {
         img: imgLetter8,
-        style: {
+        containerStyle: {
             width: 145,
             height: calculateAssetHeight(imgLetter8, 145),
+            padding: '30px 20px',
             position: 'absolute',
             top: 480,
             left: '50%',
@@ -125,9 +137,10 @@ export const stickers: Sticker[] = [
     },
     {
         img: imgLetter9,
-        style: {
+        containerStyle: {
             width: 135,
             height: calculateAssetHeight(imgLetter9, 135),
+            padding: 20,
             position: 'absolute',
             top: 480,
             right: -10,

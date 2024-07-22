@@ -121,7 +121,7 @@ export function MyLetter() {
                     right: 0,
                     bottom: 0,
                     zIndex: 3,
-                    backdropFilter: 'blur(10px)',
+                    backdropFilter: 'blur(6px)',
                 }}>
                 <Funding
                     percent={percent}
