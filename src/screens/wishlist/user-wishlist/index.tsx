@@ -283,8 +283,8 @@ export function UserWishList() {
                 <div
                     style={{
                         paddingTop: 45,
-                        paddingLeft: 50,
-                        paddingRight: 50,
+                        paddingLeft: 20,
+                        paddingRight: 20,
                         paddingBottom: 20,
                     }}>
                     <Row
