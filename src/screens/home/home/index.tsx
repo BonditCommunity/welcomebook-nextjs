@@ -27,7 +27,7 @@ export function Home() {
     const router = useRouter();
 
     const { t } = useTranslation();
-    const { theme, type } = useTheme();
+    const { theme } = useTheme();
 
     const { fetch } = useSignIn();
 
