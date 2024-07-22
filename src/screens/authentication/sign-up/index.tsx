@@ -5,10 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import Autocomplete, {
-    autocompleteClasses,
-    createFilterOptions,
-} from '@mui/material/Autocomplete';
+import Autocomplete, { autocompleteClasses } from '@mui/material/Autocomplete';
 
 import { Sheet } from '@/components/layout/sheet';
 import { Form } from '@/components/form/form';
@@ -33,8 +30,7 @@ import { useUpdateUserInfo } from '@/api/user-info/repository/update-user-info';
 import { FormInputBox } from '@/components/form/input-box/form-input-box';
 import { InputBox } from '@/components/form/input-box';
 import { RoundButton } from '@/components/button/round-button';
-
-const filter = createFilterOptions<CollegeRes>();
+import { filterCollegeRes } from './@helpers';
 
 export function SignUp() {
     const router = useRouter();
@@ -154,8 +150,10 @@ export function SignUp() {
                         selectOnFocus={true}
                         handleHomeEndKeys={true}
                         filterOptions={(options, params) => {
-                            let filtered = filter(options, params);
                             const { inputValue } = params;
+                            let filtered = options.filter(item =>
+                                filterCollegeRes(item, inputValue),
+                            );
                             const isExisting = options.some(
                                 option => inputValue === option.name,
                             );
