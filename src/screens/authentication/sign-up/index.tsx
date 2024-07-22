@@ -103,9 +103,13 @@ export function SignUp() {
         if (!college) return;
         const { result, error } = await updateUserInfo({
             name: data.name,
-            collegeId: college.id,
-            collegeName: college.name,
             collegeFirstDay: data.date,
+            ...(college.id > 0 && {
+                collegeId: college.id,
+            }),
+            ...(college.id < 0 && {
+                collegeName: college.name,
+            }),
         });
         if (result) {
             router.replace(routes.wishlist.root);
