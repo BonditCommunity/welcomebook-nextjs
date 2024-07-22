@@ -122,6 +122,7 @@ export function MyLetter() {
                     bottom: 0,
                     zIndex: 3,
                     backdropFilter: 'blur(6px)',
+                    WebkitBackdropFilter: 'blur(6px)',
                 }}>
                 <Funding
                     percent={percent}
@@ -137,7 +138,7 @@ export function MyLetter() {
                 <Col
                     alignItems={'center'}
                     style={{
-                        marginTop: 50,
+                        marginTop: 35,
                     }}>
                     <Avatar
                         user={myPage?.userInfo}
