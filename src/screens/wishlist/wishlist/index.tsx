@@ -153,7 +153,6 @@ export function WishList() {
     const submit = async () => {
         if (!userInfo) return;
         if (disabled) return;
-        if (productIds.length === 0) return;
         setShowConfirm(true);
     };
 

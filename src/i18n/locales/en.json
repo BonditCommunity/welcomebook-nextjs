@@ -67,7 +67,7 @@
     "fundingSuccessSuccessTitle": "Thank you !",
     "fundingSuccessSuccessText": "Do you want to open your page as well?",
     "myLetterFundingThumbText": "Funding",
-    "myLetterCountText": "{{people}} people wrote a letter for you",
+    "myLetterCountText": "{{people}} people wrote a letter for you\n\nYou can read it after D-day!",
     "myLetterShareGuide": "Ask friends to write",
     "myLetterShareText": "Share Link",
     "myLetterGoMyWishListText": "My Wish List",

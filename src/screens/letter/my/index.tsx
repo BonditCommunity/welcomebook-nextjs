@@ -129,9 +129,7 @@ export function MyLetter() {
                         marginTop: 30,
                     }}
                 />
-                <FH3
-                    textAlign={'center'}
-                    style={{ marginTop: 50, marginLeft: 50, marginRight: 50 }}>
+                <FH3 textAlign={'center'} style={{ marginTop: 50 }}>
                     {t('myLetterCountText', {
                         people: myPage?.letters.length ?? 0,
                     })}
