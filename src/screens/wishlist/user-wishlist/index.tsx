@@ -30,7 +30,7 @@ import { ProductInWishListRes } from '@/api/wishlist/vm/res/product-in-wish-list
 import { Slide } from './@components/slide';
 import { Indicator } from './@components/indicator';
 import { routes } from '@/routes';
-import { numberWithCommas } from '@/helpers/format/number-with-commas';
+import { getCurrentPeople } from '@/helpers/common/get-current-people';
 
 export function UserWishList() {
     const router = useRouter();
@@ -51,9 +51,7 @@ export function UserWishList() {
     const [showDialog, setShowDialog] = useState<boolean>(false);
 
     const people = useMemo<string>(() => {
-        const from = new Date(2024, 6, 21, 8).getTime();
-        const now = new Date().getTime();
-        return numberWithCommas(Math.floor((now - from) / (1000 * 60 * 5)));
+        return getCurrentPeople();
     }, []);
 
     const prev = useCallback(() => {

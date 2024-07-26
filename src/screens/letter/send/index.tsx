@@ -7,12 +7,11 @@ import React, {
     useMemo,
     useState,
 } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import Fab from '@mui/material/Fab';
-import Dialog from '@mui/material/Dialog';
 import dayjs from 'dayjs';
 
 import { Screen } from '@/components/layout/screen';
@@ -26,7 +25,7 @@ import { schema, sizing } from './@constants';
 import { dropShadow } from '@/theme/shadow';
 import { Row } from '@/components/grid/row';
 import { Svg } from '@/components/image/svg';
-import { iconCheck, iconClose, iconImage } from '@/assets/icons';
+import { iconClose, iconImage } from '@/assets/icons';
 import { spacing } from '@/theme/spacing';
 import { useFindProfileById } from '@/api/user-info/repository/find-profile-by-id';
 import { UserInfoRes } from '@/api/user-info/vm/res/user-info';
@@ -38,11 +37,10 @@ import { color } from '@/theme/theme';
 import { useImageUpload } from '@/api/media/repository/image-upload';
 import { FormInput } from '@/components/form/input/form-input';
 import { RoundButton } from '@/components/button/round-button';
-import { routes } from '@/routes';
 import { Avatar } from '@/components/userinfo/avatar';
+import { Success } from './success';
 
 export function SendLetter() {
-    const router = useRouter();
     const params = useParams<SendLetterParams>();
 
     const { t } = useTranslation();
@@ -53,7 +51,7 @@ export function SendLetter() {
     const { fetch: createLetter } = useCreateLetter();
 
     const [user, setUser] = useState<UserInfoRes>();
-    const [showSuccess, setShowSuccess] = useState<boolean>(false);
+    const [success, setSuccess] = useState<boolean>(false);
 
     const methods = useForm<Schema>({
         resolver: zodResolver(schema),
@@ -79,10 +77,6 @@ export function SendLetter() {
         setFile(event.target.files?.item(0) ?? undefined);
     }, []);
 
-    const onCloseSuccess = useCallback(() => {
-        router.push(routes.wishlist.user(params.id));
-    }, []);
-
     const onSubmit = handleSubmit(async data => {
         if (!user) return;
         let imageUrl: string = '';
@@ -105,7 +99,7 @@ export function SendLetter() {
             }),
         });
         if (result) {
-            setShowSuccess(true);
+            setSuccess(true);
         } else if (error) {
             alert(parseError(error));
         }
@@ -198,6 +192,9 @@ export function SendLetter() {
         initialize();
     }, []);
 
+    if (success) {
+        return <Success />;
+    }
     return (
         <Screen>
             <Form
@@ -306,34 +303,6 @@ export function SendLetter() {
                     }}
                 />
             </Form>
-            <Dialog open={showSuccess} onClose={onCloseSuccess}>
-                <Col
-                    alignItems={'center'}
-                    style={{
-                        paddingTop: 35,
-                        paddingLeft: 30,
-                        paddingRight: 30,
-                        paddingBottom: 65,
-                    }}>
-                    <Center
-                        style={{
-                            width: sizing.success.icon.container,
-                            height: sizing.success.icon.container,
-                            borderRadius: 9999,
-                            backgroundColor: theme.button.primary.background,
-                        }}>
-                        <Svg
-                            src={iconCheck}
-                            color={theme.icon.white}
-                            width={sizing.success.icon.icon}
-                            height={sizing.success.icon.icon}
-                        />
-                    </Center>
-                    <FH3 textAlign={'center'} style={{ marginTop: 20 }}>
-                        {t('sendLetterSuccessText')}
-                    </FH3>
-                </Col>
-            </Dialog>
         </Screen>
     );
 }
